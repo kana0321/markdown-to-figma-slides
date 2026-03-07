@@ -33,18 +33,24 @@ paths:
 ## badge / page_number / accent_bar セクション
 
 - `badge.enabled`: バッジ全体の有効/無効。`badge.text`: 表示テキスト（デフォルト: `Confidential`）。
-- `badge.defaults`: スライドタイプごとのデフォルト（`cover`, `section`, `agenda`, `body`）。
+- `badge.defaults`: スライドタイプごとのデフォルト（`cover`, `section`, `agenda`, `body`, `end`）。`end` のデフォルトは `false`。
 - `page_number.enabled`: ページ番号全体の有効/無効。`page_number.start`: 開始番号（デフォルト: 1）。
-- `page_number.defaults`: デフォルトで `cover: false`, `section: false`。
+- `page_number.defaults`: デフォルトで `cover: false`, `section: false`, `end: false`。
 - `accent_bar.defaults`: スライドタイプごとの位置指定。選択肢: `top`, `left`, `none`。
-  - デフォルト: `cover: left`, `section: none`, `agenda: top`, `body: top`。
+  - デフォルト: `cover: left`, `section: none`, `agenda: top`, `body: top`, `end: left`。
 
 ## agenda セクション
 
 - `agenda.enabled`: Agenda スライドの自動挿入（デフォルト: `true`）。
 - `agenda.title`: Agenda 本文のタイトル（デフォルト: `Agenda`）。
 - `agenda.eyebrow`: Agenda のアイブロウテキスト（デフォルト: `Agenda`）。
-- `agenda.show_pages`: セクション横のページ番号表示（デフォルト: `true`）。
+- `agenda.show_pages`: セクション横のページ番号表示（デフォルト: `false`）。
+
+## end セクション
+
+- `end.enabled`: End スライドの自動挿入（デフォルト: `true`）。
+- `end.title`: End スライドのタイトル（デフォルト: `Thank you`）。
+- `end.subtitle`: End スライドのサブタイトル（デフォルト: 空）。
 
 ## slides[] オーバーライド
 

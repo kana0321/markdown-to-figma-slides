@@ -43,6 +43,12 @@ paths:
 - Agenda にはセクション一覧とそのページ番号が表示される。
 - `agenda.title`, `agenda.eyebrow`, `agenda.show_pages` で表示をカスタマイズ可能。
 
+## End スライド自動生成
+
+- `design.config.yaml` で `end.enabled: true` の場合、全セクション・ボディスライドの末尾に End スライドを自動挿入する。
+- `end.title`（デフォルト: `Thank you`）と `end.subtitle` で表示をカスタマイズ可能。
+- End スライドは Markdown には記述せず、config からのみ制御する。
+
 ## カラム分割
 
 - `body-2col`: `#### Left` / `#### Right` で左右に分割。`ratio` で幅比率を指定（`4060`, `6040`, 空=equal）。
