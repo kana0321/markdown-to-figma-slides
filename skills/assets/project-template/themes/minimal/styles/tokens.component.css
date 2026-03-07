@@ -148,8 +148,8 @@
   --component-inline-code-line-height:  var(--primitives-line-height-100);
 
   /* --- Table --- */
-  --component-table-header-bg:        var(--semantic-color-bg-subtle);
-  --component-table-header-text:      var(--semantic-color-text-primary);
+  --component-table-header-bg:        var(--primitives-color-neutral-900);
+  --component-table-header-text:      var(--semantic-color-text-inverse);
   --component-table-row-bg:           var(--semantic-color-bg-default);
   --component-table-row-alt-bg:       var(--semantic-color-bg-subtle);
   --component-table-border-color:     var(--semantic-color-border-subtle);
@@ -182,10 +182,10 @@
   --component-agenda-page-color:     var(--semantic-color-text-tertiary);
 
   /* --- Section inverse --- */
-  --component-section-bg:   var(--semantic-color-bg-subtle);
-  --component-section-text: var(--semantic-color-text-primary);
+  --component-section-bg:   var(--semantic-color-accent-primary);
+  --component-section-text: var(--semantic-color-text-inverse);
   --component-section-title-color: var(--component-section-text);
-  --component-section-eyebrow-color: var(--semantic-color-accent-primary);
+  --component-section-eyebrow-color: var(--semantic-color-accent-primary-subtle);
   --component-section-subtitle-color: var(--component-section-text);
 
   /* --- Full Image / Hero --- */
