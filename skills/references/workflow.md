@@ -80,6 +80,27 @@ python3 scripts/sync_tokens.py --project-root . --version vN
 
 This syncs token overrides and also copies both theme `slide.css` and `shared/styles/slide.css` to the version output if changed.
 
+## 4.5 Create or Customize a Theme
+
+When you need a new built-in theme, copy an existing one first:
+
+```bash
+cd /path/to/my-slides
+cp -R themes/classic themes/my-theme
+```
+
+Then update `themes/my-theme/theme.yaml` so `name` matches the directory name, adjust CSS and templates, and inspect it with:
+
+```bash
+python3 scripts/theme.py --project-root . show my-theme
+python3 scripts/theme.py --project-root . apply my-theme
+./scripts/run_pipeline.sh --project-root . --input input/raw/source.md
+```
+
+Use `docs/theme-authoring.md` in the repo root for the full authoring rules and file responsibilities.
+
+When a theme or shared styling change needs visual verification across themes, use `docs/multi-theme-visual-qa.md` in the repo root.
+
 ## 5. Preview
 
 ```bash

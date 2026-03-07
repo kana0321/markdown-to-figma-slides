@@ -144,6 +144,7 @@ Markdown <!-- slide: ... --> > design.config.yaml slides[] > theme defaults > en
 - Read `references/workflow.md` when you need exact commands, manual step execution, or output locations.
 - Read `references/markdown-mapping.md` when the user asks how markdown maps to layouts, templates, or special comments.
 - Read `references/figma-capture.md` when the user wants Figma import, capture, or polling instructions.
+- Read `../docs/theme-authoring.md` when the user wants to add or customize a built-in theme in the project scaffold.
 
 ## Troubleshooting
 

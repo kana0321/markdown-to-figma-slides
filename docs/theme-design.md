@@ -20,6 +20,10 @@ theme system の V1 は実装済みです。
 - `design.config.yaml` は最小構成にし、theme defaults が baseline になるようにした
 - `scripts/theme.py` は `list`, `current`, `show`, `apply` を提供する
 - `config.py` の回帰テストと multi-theme render smoke test は追加済み
+- theme authoring guide は `docs/theme-authoring.md` に整理済み
+- multi-theme visual QA 手順は `docs/multi-theme-visual-qa.md` に整理済み
+- semi-automated visual QA runner は `skills/scripts/run_visual_qa.py` に追加済み
+- maintainer 向けの変更判断メモは `docs/maintainer-change-guide.md` に整理済み
 
 現在存在する theme:
 
@@ -288,18 +292,15 @@ component は原則として color を semantic から取る。
 
 現時点で次に考える候補:
 
-1. theme authoring guide を別文書として切り出すか
-2. 4 theme を同一入力で比較する visual QA 手順をどこまで運用化するか
-3. `space/radius` も semantic 経由に寄せるべきか
-4. 追加 theme の authoring examples をどこまで持つか
+1. visual QA 手順をどこまで routine 化するか
+2. `space/radius` も semantic 経由に寄せるべきか
+3. 追加 theme の authoring examples をどこまで持つか
 
 ## 次に着手するなら
 
 現時点では次の順が妥当:
 
-1. theme authoring guide の追加
-2. multi-theme visual QA の手順整理
-3. 必要なら 5 つ目以降の検証用 theme 追加
+1. visual QA を回しながら必要なら 5 つ目以降の検証用 theme を追加
 
 現時点では、`minimal` をさらに作り込むこと自体は本筋ではない。
 優先すべきは theme system の安定化と documentation の整理。
