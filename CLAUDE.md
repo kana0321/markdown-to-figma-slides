@@ -15,7 +15,9 @@
 - `skills/assets/project-template/` の変更は、新規に初期化されるプロジェクトの標準挙動に影響します。
 - テーマ機能の設計方針は `docs/theme-design.md` を参照してください。
 - theme system の現在の正本は `docs/theme-design.md` です。
+- theme まわりの実装状況、採用済みの判断、次の優先候補も `docs/theme-design.md` を参照してください。
 - 現在の theme は `classic`、`minimal`、`editorial-serif`、`dark-editorial` です。
+- `/clear` 後に再開するときの短いメモは `/Users/kanaaoyama/.codex/memories/markdown-to-figma-slides-next-session.md` を参照してください。
 
 ## 変更時の確認
 
@@ -23,4 +25,4 @@
 - 承認があるまでは、`apply_patch` などによるファイル変更を実行しないでください。
 - 読み取り、調査、設計提案、実装方針の整理までは承認なしで進めて構いません。
 - 機能追加や仕様変更時は、必要に応じて `skills/SKILL.md` と `skills/references/` も更新してください。
-- project template の運用ルールは `skills/assets/project-template/CLAUDE.md` で管理します。
+- project template の運用ルールは `skills/assets/project-template/AGENTS.md` で管理します。

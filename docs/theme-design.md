@@ -15,8 +15,11 @@ theme system の V1 は実装済みです。
 - 検証用の 2 つ目の theme として `minimal` を追加済み
 - serif 主体の 3 つ目の theme として `editorial-serif` を追加済み
 - dark palette の検証用として `dark-editorial` を追加済み
+- shared のレイアウト / component CSS は `shared/styles/slide.css` に共通化済み
+- 各 theme の `styles/slide.css` は theme 固有 override に寄せた
 - `design.config.yaml` は最小構成にし、theme defaults が baseline になるようにした
 - `scripts/theme.py` は `list`, `current`, `show`, `apply` を提供する
+- `config.py` の回帰テストと multi-theme render smoke test は追加済み
 
 現在存在する theme:
 
@@ -285,10 +288,18 @@ component は原則として color を semantic から取る。
 
 現時点で次に考える候補:
 
-1. docs の仕上げ
-2. theme authoring guide を別文書として切り出すか
+1. theme authoring guide を別文書として切り出すか
+2. 4 theme を同一入力で比較する visual QA 手順をどこまで運用化するか
 3. `space/radius` も semantic 経由に寄せるべきか
 4. 追加 theme の authoring examples をどこまで持つか
+
+## 次に着手するなら
+
+現時点では次の順が妥当:
+
+1. theme authoring guide の追加
+2. multi-theme visual QA の手順整理
+3. 必要なら 5 つ目以降の検証用 theme 追加
 
 現時点では、`minimal` をさらに作り込むこと自体は本筋ではない。
 優先すべきは theme system の安定化と documentation の整理。
