@@ -286,6 +286,17 @@ component は原則として color を semantic から取る。
 - `styles/` または `templates/` がない場合はエラー
 - `defaults` が dict でない場合は空として扱う
 
+## Known Limitations
+
+現時点の制約として、次は仕様として明示して扱う。
+
+- `<!-- slide: ... -->` で実効なのは主に `template`, `confidential`, `show_source`, `compact`, `ratio` と、body slide の `eyebrow`、cover / section の `subtitle`
+- `show_pages`, `caption`, `status` は slide comment key としては受理しない
+- body slide で `subtitle` を comment に書いても、その値は parse 時に破棄する
+- `sync_tokens.py` は output snapshot だけでなく、active theme の `themes/<name>/styles/` 配下の token CSS も更新する
+- theme font 読み込みは V1 では Google Fonts 前提
+- Figma capture は local HTTP server と capture script 読み込みに依存し、offline 完結ではない
+
 ## 採用しない方針
 
 - `design.config.yaml` を baseline 設定の中心にしない

@@ -75,9 +75,6 @@ _VALID_KEYS = {
     "template",
     "confidential",
     "show_source",
-    "show_pages",
-    "caption",
-    "status",
     "eyebrow",
     "subtitle",
     "ratio",
@@ -717,6 +714,7 @@ def parse_markdown(text: str) -> Deck:
                 current_section = Slide(type="section", title="")
 
             eyebrow = comment.pop("eyebrow", "") or current_section.title
+            comment.pop("subtitle", None)
             blocks = parse_blocks(remaining_lines)
             blocks, source = _extract_source(blocks)
 

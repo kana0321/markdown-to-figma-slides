@@ -90,7 +90,28 @@ Explicit comment format:
 <!-- slide: template=body-2col; ratio=6040; compact=true -->
 ```
 
-Supported keys: `template`, `confidential`, `show_source`, `show_pages`, `caption`, `status`, `eyebrow`, `subtitle`, `ratio`, `compact`
+Accepted keys during parsing / normalization:
+`template`, `confidential`, `show_source`, `eyebrow`, `subtitle`, `ratio`, `compact`
+
+Keys that currently affect output:
+
+- `template`
+- `confidential`
+- `show_source`
+- `compact`
+- `ratio`
+- `eyebrow` on body slides
+- `subtitle` on cover / section slides
+
+Rejected as unknown slide comment keys:
+
+- `show_pages`
+- `caption`
+- `status`
+
+Body slide note:
+
+- `subtitle` on a body slide comment is dropped during parsing and is not preserved in the slide comment payload
 
 ## `####` Layout Rules
 

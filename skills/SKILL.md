@@ -95,7 +95,7 @@ Markdown -> normalize_md.py -> parser.py (AST) -> renderer.py (HTML)
 
 ### Design Tuning
 
-Three ways to adjust design:
+Four ways to adjust design:
 
 1. **`design.config.yaml`** - Keep project-specific overrides such as active theme, token overrides, and slide overrides
 2. **`design.config.yaml.theme.name`** - Switch the whole design theme
@@ -103,6 +103,8 @@ Three ways to adjust design:
 4. **`scripts/theme.py`** - Inspect or switch the active built-in theme
 
 Run `sync_tokens.py` to apply config changes to CSS files.
+Today this updates the active theme's token CSS files in place, and with `--version`
+it also syncs the generated version snapshot CSS.
 HTML re-generation is only needed when markdown content changes.
 
 By default, the scaffold's `design.config.yaml` should stay minimal.
@@ -143,6 +145,32 @@ steps (`<!-- steps -->...<!-- /steps -->`).
 ```
 Markdown <!-- slide: ... --> > design.config.yaml slides[] > theme defaults > engine defaults
 ```
+
+### Slide Comment Notes
+
+`<!-- slide: ... -->` comments accept these keys at parse time:
+`template`, `confidential`, `show_source`, `eyebrow`, `subtitle`, `ratio`, `compact`.
+
+Keys that currently affect rendered output:
+
+- `template`
+- `confidential`
+- `show_source`
+- `compact`
+- `ratio`
+- `eyebrow` for body slides
+- `subtitle` for cover / section slides
+
+Keys currently rejected as unknown:
+
+- `show_pages`
+- `caption`
+- `status`
+
+Body slide note:
+
+- `subtitle` is only applied for cover / section slides
+- if `subtitle` appears on a body slide comment, it is dropped during parsing
 
 ## References
 

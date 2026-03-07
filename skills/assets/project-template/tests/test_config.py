@@ -253,6 +253,27 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(resolved.tokens["type-only"], "yes")
         self.assertEqual(resolved.tokens["title-only"], "yes")
 
+    def test_resolve_slide_ignores_unknown_comment_keys(self) -> None:
+        config = load_config(self.project_root / "design.config.yaml")
+
+        resolved = resolve_slide(
+            "body",
+            "Body Title",
+            {
+                "template": "body-2col",
+                "show_pages": "true",
+                "caption": "true",
+                "status": "warning",
+                "unknown": "value",
+            },
+            config,
+        )
+
+        self.assertEqual(resolved.template, "body-2col")
+        self.assertFalse(resolved.show_source)
+        self.assertFalse(resolved.compact)
+        self.assertEqual(resolved.ratio, "")
+
 
 if __name__ == "__main__":
     unittest.main()

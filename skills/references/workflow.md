@@ -11,7 +11,7 @@ Create a project from bundled scaffold:
 Install dependencies if needed:
 
 ```bash
-pip3 install jinja2 pyyaml
+pip3 install jinja2 pyyaml pygments
 ```
 
 Confirm available themes if needed:
@@ -78,7 +78,18 @@ Edit `design.config.yaml`, theme CSS token files, theme `slide.css`, or `shared/
 python3 scripts/sync_tokens.py --project-root . --version vN
 ```
 
-This syncs token overrides and also copies both theme `slide.css` and `shared/styles/slide.css` to the version output if changed.
+Current behavior:
+
+- `sync_tokens.py --project-root .` updates the active theme's token CSS files in `themes/<active-theme>/styles/`
+- `sync_tokens.py --project-root . --version vN` also syncs token CSS into `output/vN/styles/`
+- with `--version`, it also copies theme `slide.css` and `shared/styles/slide.css` into the version output if changed
+
+Known limitations:
+
+- `show_pages`, `caption`, and `status` are not supported as `<!-- slide: ... -->` keys
+- `subtitle` in a body slide comment is dropped during parsing
+- Figma capture requires a local HTTP server and external capture script access
+- detailed limitations are tracked in `docs/theme-design.md`
 
 ## 4.5 Create or Customize a Theme
 

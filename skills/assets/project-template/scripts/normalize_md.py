@@ -9,10 +9,9 @@ import sys
 from pathlib import Path
 
 _VALID_SLIDE_KEYS = {
-    "template", "confidential", "show_source", "show_pages",
-    "caption", "status", "eyebrow", "subtitle", "ratio", "compact",
+    "template", "confidential", "show_source",
+    "eyebrow", "subtitle", "ratio", "compact",
 }
-_VALID_STATUSES = {"success", "warning", "danger", "info"}
 _VALID_CALLOUT_TYPES = {"NOTE", "TIP", "WARNING", "CAUTION"}
 
 
@@ -76,15 +75,8 @@ def _normalize_slide_comment(line: str) -> str:
             continue
 
         # Normalize boolean values
-        if key in ("confidential", "show_source", "show_pages", "caption", "compact"):
+        if key in ("confidential", "show_source", "compact"):
             val = "true" if val.lower() in ("true", "1", "yes") else "false"
-
-        # Normalize status
-        if key == "status":
-            val = val.lower()
-            if val not in _VALID_STATUSES:
-                print(f"warning: unknown status '{val}', falling back to 'info'", file=sys.stderr)
-                val = "info"
 
         pairs.append((key, val))
 
