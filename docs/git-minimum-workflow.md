@@ -93,6 +93,49 @@ git push -u origin feature/theme
 
 `-u` を付けると、次回からは `git push` だけで済みます。
 
+## ブランチ名の目安
+
+theme まわりの変更は、次の形に揃えると分かりやすいです。
+
+```text
+theme/<scope>-<change>
+```
+
+`scope` の例:
+
+- `minimal`
+- `gradient-blue`
+- `classic`
+- `shared`
+- `parser`
+- `config`
+- `renderer`
+- `docs`
+- `qa`
+
+例:
+
+- `theme/minimal-section-spacing`
+- `theme/gradient-blue-table-colors`
+- `theme/shared-agenda-layout`
+- `theme/parser-new-callout-block`
+- `theme/docs-theme-authoring-fixes`
+
+避けた方がよい名前:
+
+- `theme/fixes`
+- `theme/update`
+- `theme/work`
+- `theme/misc`
+
+ポイント:
+
+- 1 テーマだけ触るなら theme 名を入れる
+- 複数 theme 横断なら `shared`
+- 挙動変更なら `parser` / `config` / `renderer`
+- 文書だけなら `docs`
+- 検証基盤だけなら `qa`
+
 ## 1 回の作業の流れ
 
 ```bash
