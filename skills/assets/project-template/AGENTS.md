@@ -1,34 +1,54 @@
 # Markdown to Figma Slides
 
-このプロジェクトでは、以下の順に作業する:
+Markdown を HTML スライドに変換し、Figma に取り込むためのプロジェクト。
 
-1. `input/raw` のMarkdownを `input/normalized` へ整形
-2. `input/current.md` を唯一の生成対象としてHTMLスライドを生成
-3. `output/v*` にスナップショット保存
-4. デザイン調整は `design.config.yaml` または CSS Token ファイルを編集し、`sync_tokens.py` で反映
-5. Figmaキャプチャ時は `output/` でローカルサーバーを起動し、`output/slides.html` を入口に使う
+## 前提条件
 
-## ファイル構成
+- Python 3.9+
+- `pip3 install jinja2 pyyaml`
 
-- `design.config.yaml` — デザイン設定（色、フォント、バッジ、テンプレート指定等）
-- `styles/` — CSS Token ファイル（primitives → semantic → component の3層）
-- `templates/` — Jinja2テンプレート（`base.html.j2` を全テンプレートが継承）
-- `scripts/` — Python スクリプト群（parser, renderer, config, etc.）
-- `input/` — Markdown入力（raw → normalized → current.md）
-- `output/` — バージョン付きHTML出力
+## 作業フロー
 
-## ルール
+1. `input/raw/` に Markdown を配置
+2. 正規化して `input/current.md` を作成
+3. HTML スライドを生成し `output/vN/` にスナップショット保存
+4. 必要に応じてデザイン調整
+5. Figma キャプチャ
 
-- `input/current.md` を唯一の生成ソースとして扱う
-- `output/v*` は読み取り専用スナップショット。既存バージョンを直接改変しない
-- デザインの微調整は `design.config.yaml` の `tokens` セクションか CSS ファイルを直接編集。HTML再生成が必要なのは Markdown の内容が変わったときだけ
-- テンプレート（`.html.j2`）を編集した場合はHTML再生成が必要
-- 生成HTMLには `<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>` を必ず保持する
+## 変更内容に応じた再実行の判断
+
+| 変更した対象 | 必要なアクション |
+|---|---|
+| Markdown の内容 | `/slides-generate` で再生成 |
+| テンプレート（`.html.j2`） | `/slides-generate` で再生成 |
+| `design.config.yaml` の色・フォント・トークン | `/design-tune` で CSS のみ反映（HTML 再生成不要） |
+| `design.config.yaml` の `slides[]` テンプレート指定 | `/slides-generate` で再生成 |
+| CSS ファイル直接編集 | `/design-tune` で出力先にも反映（`slide.css` 含む） |
 
 ## カスタムスラッシュコマンド
 
-- `/slides-generate` → `input/current.md` から生成のみ実行（captureしない）
-- `/figma-capture-run` → 生成済み `output/slides.html` をFigmaへcaptureして完了まで追跡
-- `/design-tune` → `design.config.yaml` の変更をCSS Tokenに反映
+### `/slides-generate`
+
+`input/current.md` から HTML スライドを生成する。Figma キャプチャは行わない。
+Markdown の内容変更やテンプレート変更後に使う。
+
+### `/design-tune`
+
+`design.config.yaml` のトークン変更を CSS に反映する。`slide.css` の変更も出力先にコピーする。HTML の再生成は行わない。
+配色・フォント・余白・レイアウトなどの見た目調整に使う。
+
+### `/figma-capture-run`
+
+生成済みの `output/slides.html` を Figma にキャプチャし、完了まで追跡する。
+スライド生成とデザイン調整が終わった後の最終ステップ。
+
+## ファイル構成
+
+- `design.config.yaml` — デザイン設定の唯一のソース
+- `styles/` — CSS トークン（primitives → semantic → component の3層）+ レイアウト
+- `templates/` — Jinja2 テンプレート（`base.html.j2` を全テンプレートが継承）
+- `scripts/` — Python スクリプト群
+- `input/` — Markdown 入力（`raw/` → `normalized/` → `current.md`）
+- `output/` — バージョン付き HTML 出力（`output/slides.html` が最新版への入口）
 
 詳細ルールは `.claude/rules/*.md` を参照。
