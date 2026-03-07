@@ -29,7 +29,7 @@ CAPTURE_SCRIPT = "https://mcp.figma.com/mcp/html-to-design/capture.js"
 # Syntax highlighting
 # ---------------------------------------------------------------------------
 
-_PYGMENTS_FORMATTER = _HtmlFormatter(nowrap=True, noclasses=True, style="gruvbox-light") if _HAS_PYGMENTS else None
+_PYGMENTS_FORMATTER = _HtmlFormatter(nowrap=True, noclasses=True, style="monokai") if _HAS_PYGMENTS else None
 
 
 def _highlight_code(code: str, lang: str) -> str:
