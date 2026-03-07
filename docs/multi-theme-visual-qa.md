@@ -115,8 +115,8 @@ python3 -m http.server 8080
 
 例:
 
-- `http://localhost:8080/v3/slides/slides.html`
-- `http://localhost:8080/v4/slides/slides.html`
+- `http://localhost:8080/v1/slides/slides.html`
+- `http://localhost:8080/v2/slides/slides.html`
 
 ## 確認順序
 
