@@ -53,6 +53,9 @@ cd /path/to/my-slides/output && python3 -m http.server 8080
 ```
 project-root/
   design.config.yaml         # Project settings + active theme selection
+  shared/
+    styles/
+      slide.css              # Shared layout/component CSS across themes
   themes/
     classic/
       theme.yaml             # Theme metadata and defaults
@@ -64,6 +67,7 @@ project-root/
     renderer.py              # AST -> HTML via Jinja2
     models.py                # AST data structures
     config.py                # Config loader + resolver
+    theme.py                 # Theme list/current/show/apply helper
     normalize_md.py          # Markdown pre-processing
     create_version.py        # Version number management
     sync_tokens.py           # Config -> CSS token sync
@@ -96,6 +100,7 @@ Three ways to adjust design:
 1. **`design.config.yaml`** - Keep project-specific overrides such as active theme, token overrides, and slide overrides
 2. **`design.config.yaml.theme.name`** - Switch the whole design theme
 3. **Theme CSS files** - Direct CSS variable edits inside `themes/<name>/styles/`
+4. **`scripts/theme.py`** - Inspect or switch the active built-in theme
 
 Run `sync_tokens.py` to apply config changes to CSS files.
 HTML re-generation is only needed when markdown content changes.
@@ -145,6 +150,8 @@ Markdown <!-- slide: ... --> > design.config.yaml slides[] > theme defaults > en
 - Read `references/markdown-mapping.md` when the user asks how markdown maps to layouts, templates, or special comments.
 - Read `references/figma-capture.md` when the user wants Figma import, capture, or polling instructions.
 - Read `../docs/theme-authoring.md` when the user wants to add or customize a built-in theme in the project scaffold.
+- Read `../docs/multi-theme-visual-qa.md` when the user wants to compare theme output visually or verify theme-related changes across built-in themes.
+- Read `../docs/maintainer-change-guide.md` when the user wants to extend templates/components and you need to identify which layers and files should change.
 
 ## Troubleshooting
 
