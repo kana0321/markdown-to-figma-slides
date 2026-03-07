@@ -1,40 +1,71 @@
 # Theme システム設計
 
+## この文書の位置づけ
+
+この文書は、`markdown-to-figma-slides` における theme system の現在の正本です。
+過去の検討経緯ではなく、現時点の仕様、採用した判断、次の論点を整理します。
+
+## 現在の状態
+
+theme system の V1 は実装済みです。
+
+- project template は `themes/<name>/` 配下の assets を使って描画する
+- active theme は `design.config.yaml.theme.name` で決まる
+- 標準 theme は `classic`
+- 検証用の 2 つ目の theme として `minimal` を追加済み
+- `design.config.yaml` は最小構成にし、theme defaults が baseline になるようにした
+- `scripts/theme.py` は `list`, `current`, `show`, `apply` を提供する
+
+現在存在する theme:
+
+- `classic`
+- `minimal`
+
 ## 目的
 
-`theme` 機能を追加し、スライドのデザインを「数色の上書き」ではなく、まとまりのあるデザインパッケージとして切り替えられるようにする。
+スライドの見た目を、数色の上書きではなく、まとまりのある design package として切り替えられるようにする。
 
-テーマが担う対象は次の通り。
+theme が担う対象:
 
 - 配色
 - フォント
 - 装飾ルール
-- CSS トークン値
-- テンプレート
+- CSS tokens
+- templates
 - フォント読み込み
 
 ## 基本方針
 
-レンダリングエンジンは共通化し、見た目に関わる資産をテーマ側へ寄せる。
+レンダリングエンジンは共通化し、見た目に関わる資産は theme に寄せる。
 
 共通エンジンとして残すもの:
 
 - Markdown の正規化とパース
 - AST モデル
-- スライド種別: `cover`, `section`, `agenda`, `body`, `end`
-- ブロック種別: `card`, `callout`, `table`, `codeblock`, `steps`, `arrow`, `image`
-- テンプレート変数の契約
-- renderer が前提にする semantic/component token 名
+- スライド種別
+  - `cover`
+  - `section`
+  - `agenda`
+  - `body`
+  - `end`
+- ブロック種別
+  - `card`
+  - `callout`
+  - `table`
+  - `codeblock`
+  - `steps`
+  - `arrow`
+  - `image`
+- template variable contract
+- semantic / component token 層
 
-テーマが持つもの:
+theme が持つもの:
 
-- `styles/` 一式
-- `templates/` 一式
-- テーマ既定値
+- `styles/`
+- `templates/`
+- `theme.yaml`
+- theme defaults
 - フォント読み込み定義
-- テーマのメタ情報
-
-`primitives` を過度に共通化しない。primitive token の具体値はテーマ実装の詳細として扱う。
 
 ## ディレクトリ構成
 
@@ -63,90 +94,56 @@ project-root/
         end.html.j2
 ```
 
-## プロジェクト設定
+補足:
 
-`design.config.yaml` には最小限のテーマ指定だけを追加する。
+- project template 直下の旧 `styles/` と `templates/` は廃止済み
+- theme assets の正本は `themes/<name>/` のみ
+
+## 設定の考え方
+
+`design.config.yaml` は project 固有 override の置き場であり、baseline を定義する場所ではない。
+
+初期 scaffold の `design.config.yaml` は次の最小構成を基本とする。
 
 ```yaml
 theme:
-  name: classic
+  name: "classic"
+
+tokens: {}
+
+slides: []
 ```
 
-初期 scaffold の `design.config.yaml` は薄く保ち、theme defaults を上書きしすぎないようにする。
-原則として、project 固有 override が必要になったときだけ項目を追加する。
+原則:
 
-既存のプロジェクト単位の上書き設定は引き続き持つ。
+- baseline の見た目は theme defaults で決まる
+- `design.config.yaml` には project 固有の override だけを追加する
+- theme を切り替えたときに baseline が変わることを優先する
 
-- `global`
-- `badge`
-- `page_number`
-- `accent_bar`
-- `agenda`
-- `end`
-- `tokens`
-- `slides`
+## 設定の解決順序
 
-## theme.yaml の仕様
-
-各テーマは `theme.yaml` を持つ。
-
-```yaml
-name: classic
-label: Classic
-description: Warm editorial theme with accent bars and rounded cards
-
-fonts:
-  google:
-    - family: Outfit
-      weights: [400, 500, 600, 700]
-    - family: Noto Sans JP
-      weights: [400, 500, 600, 700]
-    - family: JetBrains Mono
-      weights: [400, 500, 600]
-
-defaults:
-  global:
-    lang: ja
-    fonts:
-      sans: "Outfit, Noto Sans JP, sans-serif"
-      mono: "JetBrains Mono, monospace"
-  badge:
-    enabled: true
-    text: Confidential
-  page_number:
-    enabled: true
-    start: 1
-  accent_bar:
-    defaults:
-      cover: left
-      section: none
-      agenda: top
-      body: top
-      end: left
-  agenda:
-    enabled: true
-  end:
-    enabled: true
-    title: Thank you
-    subtitle: ""
-  tokens: {}
-  slides: []
+```text
+engine defaults
+-> theme defaults
+-> design.config.yaml
+-> slide override
+-> markdown comment
 ```
 
-### V1 schema
+## theme.yaml の V1 schema
 
-必須項目:
+### 必須項目
 
 - `name`
 - `defaults`
 
-任意項目:
+### 任意項目
 
 - `label`
 - `description`
 - `fonts.google`
 
-必須ディレクトリ:
+### 必須ディレクトリ
 
 - `themes/<name>/theme.yaml`
 - `themes/<name>/styles/`
@@ -155,12 +152,8 @@ defaults:
 ### `name` の扱い
 
 - `name` は必須
-- `name` はディレクトリ名と一致している必要がある
-- 不一致の場合はエラーにする
-
-例:
-
-- `themes/classic/theme.yaml` の `name` は `classic`
+- `name` は directory 名と一致している必要がある
+- 不一致はエラー
 
 ### `fonts.google`
 
@@ -169,16 +162,16 @@ V1 では Google Fonts のみ対応する。
 ```yaml
 fonts:
   google:
-    - family: Outfit
-      weights: [400, 500, 600, 700]
+    - family: Noto Sans JP
+      weights: [400, 500, 700]
 ```
 
 ルール:
 
 - `family` は必須
 - `weights` は任意
-- 不正な `weights` 値はその値だけ無視する
-- `fonts.google` がなければフォントリンクは出力しない
+- 不正な `weights` はその値だけ無視
+- `fonts.google` がなければ font link は出さない
 
 ### `defaults` に含めてよい項目
 
@@ -191,97 +184,98 @@ fonts:
 - `tokens`
 - `slides`
 
-### V1 で非対応の項目
+## Theme CLI
 
-- `extends`
-- `inherits`
-- フォントプロバイダの複数対応
-- theme ごとの custom script
-- partial theme composition
-- renderer が読む theme 独自 key
+`scripts/theme.py` が次を提供する。
 
-### エラー方針
+- `list`
+- `current`
+- `show <name>`
+- `apply <name>`
+
+想定コマンド:
+
+```bash
+python3 scripts/theme.py --project-root . list
+python3 scripts/theme.py --project-root . current
+python3 scripts/theme.py --project-root . show minimal
+python3 scripts/theme.py --project-root . apply minimal
+```
+
+## Token 層の方針
+
+依存関係は次を基本とする。
+
+```text
+primitives -> semantic -> component -> slide.css
+```
+
+### primitives
+
+primitives は theme 実装の詳細であり、完全な theme 横断共通化は目指さない。
+
+ただし、色の主要語彙は次で揃える。
+
+- `brand-*`
+  - その theme の主役色
+- `neutral-*`
+  - 無彩色パレット
+
+現時点の判断:
+
+- 旧 `orange-*` は `brand-*` に整理済み
+- 旧 `gray-*` は `neutral-*` に整理済み
+- `beige-100` は今回は据え置き
+
+### semantic
+
+semantic は renderer / component が参照する意味レイヤーとする。
+
+theme ごとの差は、基本的にこの層で吸収する。
+
+### component
+
+component は原則として color を semantic から取る。
+
+現時点の整理:
+
+- `component -> primitives color` は避ける
+- 色についてはほぼ semantic 経由に整理済み
+- `component -> primitives space/radius/line-height` は現時点では許容
+
+## 2つ目の theme 検証で得た判断
+
+`minimal` を追加して分かったこと:
+
+- theme は 1つだけでは設計の妥当性を判断しづらい
+- `design.config.yaml` に baseline 値を多く持たせると theme 切り替えが効かなくなる
+- したがって `design.config.yaml` は薄く保つべき
+- primitive color token は `brand` / `neutral` の語彙を使う方が読みやすい
+
+## エラー方針
 
 - theme 名が存在しない場合は即エラー
 - `theme.yaml` が存在しない場合は即エラー
 - `theme.yaml` が空、または dict でない場合はエラー
 - `name` がない場合はエラー
-- `name` とディレクトリ名が一致しない場合はエラー
+- `name` と directory 名が一致しない場合はエラー
 - `styles/` または `templates/` がない場合はエラー
 - `defaults` が dict でない場合は空として扱う
 
-## 設定の解決順序
+## 採用しない方針
 
-設定は次の順序で解決する。
+- `design.config.yaml` を baseline 設定の中心にしない
+- primitive token の完全な theme 横断共通化は目指さない
+- V1 では `extends` や partial theme composition は入れない
 
-```text
-engine defaults
--> theme defaults
--> design.config.yaml
--> slide override
--> markdown comment
-```
+## 次の論点
 
-これにより、テーマが全体のベースラインを定義しつつ、プロジェクトごとの調整も維持できる。
+現時点で次に考える候補:
 
-## テーマの読み込みルール
+1. docs の仕上げ
+2. theme authoring guide を別文書として切り出すか
+3. `space/radius` も semantic 経由に寄せるべきか
+4. 3つ目の theme が本当に必要か
 
-- 有効なテーマは `design.config.yaml.theme.name` から決定する
-- テンプレートは `themes/<theme>/templates` から読む
-- スタイルは `themes/<theme>/styles` を `output/vN/styles` にコピーする
-- all-in-one の `slides.html` も有効テーマのスタイルを使う
-- テーマが存在しない場合は、明確なエラーで失敗させる
-
-## フォント読み込み
-
-現在のフォント読み込みは `templates/base.html.j2` と renderer が生成する `slides.html` にハードコードされている。
-
-これはテーマ対応のレンダリングに移す必要がある。
-
-要件:
-
-- テーマは `theme.yaml` でフォント読み込みメタデータを宣言する
-- renderer はそのメタデータから適切な Google Fonts の `<link>` を生成する
-- CSS の `font-family` 変数は、引き続き config/theme 解決結果から与える
-
-## テーマ管理
-
-管理機能は軽量に保つ。大きなレジストリは不要。
-
-必要な操作:
-
-- 利用可能なテーマの一覧を出す
-- 現在のテーマを表示する
-- テーマを適用する
-
-想定 CLI:
-
-```bash
-python3 scripts/theme.py list
-python3 scripts/theme.py current --project-root .
-python3 scripts/theme.py apply classic --project-root .
-```
-
-振る舞い:
-
-- `list`: `themes/*/theme.yaml` を走査する
-- `current`: `design.config.yaml.theme.name` を読む
-- `apply <name>`: `design.config.yaml.theme.name` を更新する
-
-## 移行手順
-
-1. config 読み込みに theme サポートを追加する
-2. theme メタデータのローダーと軽量 CLI を追加する
-3. generator/renderer を、有効テーマの templates/styles を使う形に変更する
-4. 共通テンプレートと all-in-one HTML からハードコードされたフォントリンクを除去する
-5. 現在の見た目一式を `themes/classic` に移す
-6. スキル文書と workflow 文書を更新する
-
-## V1 でやらないこと
-
-- テーマ継承 (`extends`) は入れない
-- テーマの部分合成は入れない
-- 複数テーマディレクトリの実行時マージはしない
-- radically different なテーマ間で primitive token 名まで完全共通化しようとしない
-
-V1 は明快さと実装の堅さを優先する。
+現時点では、`minimal` をさらに作り込むこと自体は本筋ではない。
+優先すべきは theme system の安定化と documentation の整理。
