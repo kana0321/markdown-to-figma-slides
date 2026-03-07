@@ -18,6 +18,7 @@ from typing import Iterable
 DEFAULT_THEMES = [
     "classic",
     "minimal",
+    "gradient-blue",
 ]
 
 DEFAULT_PAGE_SPECS = [

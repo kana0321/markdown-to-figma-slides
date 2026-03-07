@@ -1,0 +1,59 @@
+name: gradient-blue
+label: Gradient Blue
+description: Deep blue gradient theme with strong title typography and clean light surfaces
+
+fonts:
+  google:
+    - family: Noto Sans JP
+      weights: [400, 500, 700]
+    - family: JetBrains Mono
+      weights: [400, 500, 600]
+
+defaults:
+  global:
+    lang: "ja"
+    fonts:
+      sans: "Noto Sans JP, sans-serif"
+      mono: "JetBrains Mono, monospace"
+    colors:
+      accent: "#4DA3FF"
+      bg_default: "#F6FAFF"
+      bg_inverse: "#0E1525"
+      text_primary: "#0E1525"
+      text_secondary: "#435674"
+
+  badge:
+    enabled: false
+    text: "Confidential"
+    defaults:
+      cover: false
+      section: false
+      agenda: false
+      body: false
+
+  page_number:
+    enabled: true
+    start: 1
+    defaults:
+      cover: false
+      section: false
+      agenda: true
+      body: true
+
+  accent_bar:
+    defaults:
+      cover: "none"
+      section: "none"
+      agenda: "none"
+      body: "none"
+
+  agenda:
+    enabled: true
+
+  end:
+    enabled: true
+    title: "Thank you"
+    subtitle: ""
+
+  tokens: {}
+  slides: []

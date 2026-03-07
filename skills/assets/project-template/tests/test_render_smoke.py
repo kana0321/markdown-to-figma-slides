@@ -70,6 +70,7 @@ class RenderSmokeTest(unittest.TestCase):
         for theme_name, version in (
             ("classic", "vclassic"),
             ("minimal", "vminimal"),
+            ("gradient-blue", "vgradientblue"),
         ):
             result = self.run_generate(theme_name, version)
 

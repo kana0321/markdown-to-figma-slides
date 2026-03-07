@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  {% for link in font_links %}
+  {% if "fonts.gstatic.com" in link %}
+  <link rel="preconnect" href="{{ link }}" crossorigin>
+  {% elif link.endswith("fonts.googleapis.com") %}
+  <link rel="preconnect" href="{{ link }}">
+  {% else %}
+  <link href="{{ link }}" rel="stylesheet">
+  {% endif %}
+  {% endfor %}
+  <link rel="stylesheet" href="{{ css_base }}/tokens.primitives.css" />
+  <link rel="stylesheet" href="{{ css_base }}/tokens.semantic.css" />
+  <link rel="stylesheet" href="{{ css_base }}/tokens.component.css" />
+  <link rel="stylesheet" href="{{ css_base }}/shared/slide.css" />
+  <link rel="stylesheet" href="{{ css_base }}/slide.css" />
+  {% block head_extra %}{% endblock %}
+  <title>{{ page_title | default("Slide") }}</title>
+</head>
+<body>
+  <div class="slide {{ slide_class }}"
+       data-confidential="{{ badge_enabled | lower }}"
+       data-show-source="{{ show_source | lower }}">
+
+    {% if accent_bar != "none" %}
+    <div class="accent-bar accent-bar--{{ accent_bar }}"></div>
+    {% endif %}
+
+    {% if badge_enabled %}
+    <div class="badge badge--confidential type-note">{{ badge_text }}</div>
+    {% endif %}
+
+    <div class="shell">
+      {% block header %}{% endblock %}
+
+      {% block main %}{% endblock %}
+
+      {% block footer %}
+      <div class="footer">
+        {% if source %}
+        <div class="footer__source type-note">{{ source }}</div>
+        {% endif %}
+        {% if page_number_enabled %}
+        <div class="footer__page type-caption">{{ page }}</div>
+        {% endif %}
+      </div>
+      {% endblock %}
+    </div>
+  </div>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</body>
+</html>

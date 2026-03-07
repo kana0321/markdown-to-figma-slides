@@ -219,6 +219,13 @@ component 単位の token を置く。
 theme 固有の layout / decoration / typography override を置く。
 共通化できるものは `shared/styles/slide.css` に寄せる。
 
+運用ルール:
+
+- `cover` / `section` / `body` の `.main` に `max-width` などの幅制限を入れるときは、要素自体も中央に置く
+- 具体的には `justify-self: center` または `margin-inline: auto` を併用する
+- 中身だけ `text-align: center` や `align-items: center` にしても、幅制限した `.main` の箱は左基準のまま残りうる
+- theme 側の `slide.css` で幅制限だけを追加すると、見出しや section slide が少し左へ寄って見える原因になる
+
 ## Template 方針
 
 template は theme の見た目を決める資産として扱う。

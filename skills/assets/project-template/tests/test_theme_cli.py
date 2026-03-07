@@ -38,11 +38,11 @@ class ThemeCliTest(unittest.TestCase):
         self.assertTrue(after.stdout.strip())
 
     def test_apply_accepts_project_root_after_subcommand(self) -> None:
-        result = self.run_theme("apply", "minimal", "--project-root", str(self.project_root))
+        result = self.run_theme("apply", "gradient-blue", "--project-root", str(self.project_root))
 
-        self.assertIn("applied theme: minimal", result.stdout)
+        self.assertIn("applied theme: gradient-blue", result.stdout)
         config_text = (self.project_root / "design.config.yaml").read_text(encoding="utf-8")
-        self.assertIn('name: "minimal"', config_text)
+        self.assertIn('name: "gradient-blue"', config_text)
 
 
 if __name__ == "__main__":

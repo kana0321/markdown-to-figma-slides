@@ -1,0 +1,100 @@
+:root{
+  --theme-gradient-blue-hero:
+    radial-gradient(1040px 700px at 2% -6%, rgba(158, 225, 255, 0.16) 0%, rgba(158, 225, 255, 0.06) 24%, rgba(158, 225, 255, 0) 56%),
+    radial-gradient(920px 680px at 116% 112%, rgba(77, 163, 255, 0.18) 0%, rgba(77, 163, 255, 0.08) 22%, rgba(77, 163, 255, 0) 58%),
+    linear-gradient(135deg, #070B14 0%, #102341 34%, #154E84 68%, #1E8FB8 100%);
+  --theme-gradient-blue-surface:
+    #F6FAFF;
+}
+
+.slide{
+  isolation: isolate;
+}
+
+.slide--body,
+.slide--cover,
+.slide--section{
+  position: relative;
+}
+
+.slide--body{
+  background: var(--theme-gradient-blue-surface);
+}
+
+.slide--body .card,
+.slide--body .callout,
+.slide--body .codeblock,
+.slide--body .data-table{
+  box-shadow: 0 18px 44px rgba(36, 25, 43, 0.08);
+}
+
+.slide--body .agenda-item{
+  border-bottom-color: rgba(21, 115, 214, 0.12);
+}
+
+.slide--cover,
+.slide--section{
+  background: var(--theme-gradient-blue-hero);
+}
+
+.slide--cover .shell,
+.slide--section .shell{
+  position: relative;
+  z-index: 1;
+}
+
+.slide--cover .type-display,
+.slide--cover .type-title,
+.slide--cover .type-subtitle,
+.slide--cover .type-eyebrow,
+.slide--cover .type-body,
+.slide--cover .type-caption,
+.slide--cover .type-note,
+.slide--cover .footer,
+.slide--section .type-section,
+.slide--section .type-title,
+.slide--section .type-subtitle,
+.slide--section .type-eyebrow,
+.slide--section .type-caption,
+.slide--section .type-note,
+.slide--section .footer{
+  color: var(--semantic-color-text-inverse);
+}
+
+.slide--cover .type-subtitle,
+.slide--cover .footer,
+.slide--section .type-subtitle,
+.slide--section .footer{
+  color: rgba(234, 245, 255, 0.82);
+}
+
+.slide--cover .type-eyebrow,
+.slide--section .type-eyebrow{
+  color: #BDE7FF;
+}
+
+.slide--cover .main{
+  width: 100%;
+  position: relative;
+}
+
+.slide--section .main{
+  width: 100%;
+  max-width: 1260px;
+  justify-self: center;
+  margin-inline: auto;
+  position: relative;
+}
+
+.slide--cover .type-display,
+.slide--section .type-section{
+  position: relative;
+  z-index: 1;
+}
+
+.slide--cover .badge,
+.slide--section .badge{
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--semantic-color-text-inverse);
+  border-color: rgba(255, 255, 255, 0.22);
+}

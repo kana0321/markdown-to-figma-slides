@@ -39,8 +39,9 @@
 
 - `classic`
 - `minimal`
+- `gradient-blue`
 
-新しい theme を追加したときは、この 2 theme に加えて新 theme も同じ手順で比較する。
+新しい theme を追加したときは、この 3 theme に加えて新 theme も同じ手順で比較する。
 
 ## 実行手順
 
@@ -63,7 +64,7 @@ python3 skills/scripts/run_visual_qa.py
 
 ```bash
 python3 skills/scripts/run_visual_qa.py --workspace /tmp/slides-qa-run
-python3 skills/scripts/run_visual_qa.py --themes classic minimal
+python3 skills/scripts/run_visual_qa.py --themes classic minimal gradient-blue
 python3 skills/scripts/run_visual_qa.py --skip-screenshots
 ```
 
@@ -96,6 +97,9 @@ python3 scripts/theme.py --project-root . apply classic
 ./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
 
 python3 scripts/theme.py --project-root . apply minimal
+./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
+
+python3 scripts/theme.py --project-root . apply gradient-blue
 ./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
 ```
 
@@ -169,7 +173,7 @@ python3 -m http.server 8080
 今回の実施で、特に差が出やすいと分かった重点確認:
 
 - `body-hero` は theme 差分よりも画像の強さに引っ張られやすいので、overlay と文字可読性を優先して見る
-- `classic` と `minimal` は `cover`, `agenda`, `body-text`, `body-code`, `table`, `card`, `end` の順で見ると差分を把握しやすい
+- `classic`, `minimal`, `gradient-blue` は `cover`, `section`, `agenda`, `table`, `card`, `end` の順で見ると差分を把握しやすい
 - `body-2col` はカラム崩れと、サンプル文面由来のノイズを分けて判断する
 
 ### C. 補足確認 component
