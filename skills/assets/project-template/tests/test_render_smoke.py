@@ -66,7 +66,11 @@ class RenderSmokeTest(unittest.TestCase):
         self.assertTrue(any((version_root / "slides" / "pages").glob("*.html")))
 
     def test_generate_slides_succeeds_for_built_in_themes(self) -> None:
-        for theme_name, version in (("classic", "vclassic"), ("minimal", "vminimal")):
+        for theme_name, version in (
+            ("classic", "vclassic"),
+            ("minimal", "vminimal"),
+            ("editorial-serif", "veditorial-serif"),
+        ):
             result = self.run_generate(theme_name, version)
 
             self.assertIn("generated:", result.stdout)

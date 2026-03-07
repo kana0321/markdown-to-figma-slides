@@ -13,6 +13,7 @@ theme system の V1 は実装済みです。
 - active theme は `design.config.yaml.theme.name` で決まる
 - 標準 theme は `classic`
 - 検証用の 2 つ目の theme として `minimal` を追加済み
+- serif 主体の 3 つ目の theme として `editorial-serif` を追加済み
 - `design.config.yaml` は最小構成にし、theme defaults が baseline になるようにした
 - `scripts/theme.py` は `list`, `current`, `show`, `apply` を提供する
 
@@ -20,6 +21,7 @@ theme system の V1 は実装済みです。
 
 - `classic`
 - `minimal`
+- `editorial-serif`
 
 ## 目的
 
@@ -243,14 +245,15 @@ component は原則として color を semantic から取る。
 - 色についてはほぼ semantic 経由に整理済み
 - `component -> primitives space/radius/line-height` は現時点では許容
 
-## 2つ目の theme 検証で得た判断
+## 複数 theme 検証で得た判断
 
-`minimal` を追加して分かったこと:
+`minimal` と `editorial-serif` を追加して分かったこと:
 
 - theme は 1つだけでは設計の妥当性を判断しづらい
 - `design.config.yaml` に baseline 値を多く持たせると theme 切り替えが効かなくなる
 - したがって `design.config.yaml` は薄く保つべき
 - primitive color token は `brand` / `neutral` の語彙を使う方が読みやすい
+- serif 主体の typography も theme assets 側だけで切り替えられる設計にしておくべき
 
 ## エラー方針
 
@@ -275,7 +278,7 @@ component は原則として color を semantic から取る。
 1. docs の仕上げ
 2. theme authoring guide を別文書として切り出すか
 3. `space/radius` も semantic 経由に寄せるべきか
-4. 3つ目の theme が本当に必要か
+4. 追加 theme の authoring examples をどこまで持つか
 
 現時点では、`minimal` をさらに作り込むこと自体は本筋ではない。
 優先すべきは theme system の安定化と documentation の整理。

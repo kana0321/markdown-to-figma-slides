@@ -15,7 +15,7 @@
 - `skills/assets/project-template/` の変更は、新規に初期化されるプロジェクトの標準挙動に影響します。
 - テーマ機能の設計方針は `docs/theme-design.md` を参照してください。
 - theme system の現在の正本は `docs/theme-design.md` です。
-- 現在の theme は `classic` と `minimal` です。
+- 現在の theme は `classic`、`minimal`、`editorial-serif` です。
 
 ## 変更時の確認
 
