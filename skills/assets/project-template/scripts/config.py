@@ -1,4 +1,4 @@
-"""Load and resolve design.config.yaml with defaults."""
+"""Load and resolve design.config.yaml with theme defaults."""
 
 from __future__ import annotations
 
@@ -7,10 +7,17 @@ from pathlib import Path
 
 import yaml
 
+DEFAULT_THEME_NAME = "classic"
+
 
 # ---------------------------------------------------------------------------
 # Config data structures
 # ---------------------------------------------------------------------------
+
+
+@dataclass
+class ThemeConfig:
+    name: str = DEFAULT_THEME_NAME
 
 
 @dataclass
@@ -107,6 +114,7 @@ class SlideOverride:
 
 @dataclass
 class DesignConfig:
+    theme: ThemeConfig = field(default_factory=ThemeConfig)
     global_: GlobalConfig = field(default_factory=GlobalConfig)
     badge: BadgeConfig = field(default_factory=BadgeConfig)
     page_number: PageNumberConfig = field(default_factory=PageNumberConfig)
@@ -115,6 +123,155 @@ class DesignConfig:
     end: EndConfig = field(default_factory=EndConfig)
     tokens: dict[str, str] = field(default_factory=dict)
     slides: list[SlideOverride] = field(default_factory=list)
+
+
+@dataclass
+class GoogleFont:
+    family: str
+    weights: list[int] = field(default_factory=list)
+
+
+@dataclass
+class ThemeDefinition:
+    name: str
+    root: Path
+    label: str = ""
+    description: str = ""
+    google_fonts: list[GoogleFont] = field(default_factory=list)
+    defaults: dict = field(default_factory=dict)
+
+    @property
+    def templates_dir(self) -> Path:
+        return self.root / "templates"
+
+    @property
+    def styles_dir(self) -> Path:
+        return self.root / "styles"
+
+    @property
+    def theme_yaml_path(self) -> Path:
+        return self.root / "theme.yaml"
+
+    def font_links(self) -> list[str]:
+        if not self.google_fonts:
+            return []
+
+        families: list[str] = []
+        for font in self.google_fonts:
+            family = font.family.replace(" ", "+")
+            if font.weights:
+                weights = ";".join(str(weight) for weight in sorted(set(font.weights)))
+                families.append(f"family={family}:wght@{weights}")
+            else:
+                families.append(f"family={family}")
+
+        query = "&".join(families)
+        return [
+            "https://fonts.googleapis.com",
+            "https://fonts.gstatic.com",
+            f"https://fonts.googleapis.com/css2?{query}&display=swap",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# Theme loading
+# ---------------------------------------------------------------------------
+
+
+def _load_yaml_dict(path: Path) -> dict:
+    """Load a YAML file and return a dict."""
+    if not path.exists():
+        return {}
+
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return raw if isinstance(raw, dict) else {}
+
+
+def read_project_theme_name(config_path: Path) -> str:
+    """Read the selected theme name from design.config.yaml."""
+    raw = _load_yaml_dict(config_path)
+    theme_raw = raw.get("theme", {})
+    if isinstance(theme_raw, dict) and theme_raw.get("name"):
+        return str(theme_raw["name"])
+    return DEFAULT_THEME_NAME
+
+
+def load_theme(project_root: Path, theme_name: str) -> ThemeDefinition:
+    """Load a theme definition from themes/<name>/theme.yaml."""
+    theme_root = project_root / "themes" / theme_name
+    theme_yaml_path = theme_root / "theme.yaml"
+
+    if not theme_yaml_path.exists():
+        raise FileNotFoundError(
+            f"theme not found: {theme_name} ({theme_yaml_path})"
+        )
+
+    raw = _load_yaml_dict(theme_yaml_path)
+    if not raw:
+        raise ValueError(f"invalid theme.yaml: {theme_yaml_path}")
+
+    declared_name = str(raw.get("name", "")).strip()
+    if not declared_name:
+        raise ValueError(f"theme name is required: {theme_yaml_path}")
+    if declared_name != theme_name:
+        raise ValueError(
+            f"theme name mismatch: directory={theme_name} theme.yaml={declared_name}"
+        )
+
+    fonts_raw = raw.get("fonts", {})
+    google_raw = fonts_raw.get("google", []) if isinstance(fonts_raw, dict) else []
+
+    google_fonts: list[GoogleFont] = []
+    for entry in google_raw:
+        if not isinstance(entry, dict):
+            continue
+        family = str(entry.get("family", "")).strip()
+        if not family:
+            continue
+        weights_raw = entry.get("weights", [])
+        weights: list[int] = []
+        if isinstance(weights_raw, list):
+            for weight in weights_raw:
+                try:
+                    weights.append(int(weight))
+                except (TypeError, ValueError):
+                    continue
+        google_fonts.append(GoogleFont(family=family, weights=weights))
+
+    defaults = raw.get("defaults", {})
+    if not isinstance(defaults, dict):
+        defaults = {}
+
+    if not (theme_root / "styles").is_dir():
+        raise FileNotFoundError(f"theme styles directory not found: {theme_root / 'styles'}")
+    if not (theme_root / "templates").is_dir():
+        raise FileNotFoundError(
+            f"theme templates directory not found: {theme_root / 'templates'}"
+        )
+
+    return ThemeDefinition(
+        name=theme_name,
+        root=theme_root,
+        label=str(raw.get("label", theme_name)),
+        description=str(raw.get("description", "")),
+        google_fonts=google_fonts,
+        defaults=defaults,
+    )
+
+
+def list_themes(project_root: Path) -> list[ThemeDefinition]:
+    """List available themes under themes/*."""
+    themes_dir = project_root / "themes"
+    if not themes_dir.exists():
+        return []
+
+    themes: list[ThemeDefinition] = []
+    for theme_dir in sorted(p for p in themes_dir.iterdir() if p.is_dir()):
+        theme_yaml_path = theme_dir / "theme.yaml"
+        if not theme_yaml_path.exists():
+            continue
+        themes.append(load_theme(project_root, theme_dir.name))
+    return themes
 
 
 # ---------------------------------------------------------------------------
@@ -129,7 +286,6 @@ def _merge_dataclass(target, source_dict: dict):
     for key, val in source_dict.items():
         attr_name = key.rstrip("_")
         if not hasattr(target, attr_name):
-            # Try with underscore suffix (e.g. global -> global_)
             attr_name = key + "_"
             if not hasattr(target, attr_name):
                 continue
@@ -140,68 +296,71 @@ def _merge_dataclass(target, source_dict: dict):
             setattr(target, attr_name, val)
 
 
-def load_config(path: Path) -> DesignConfig:
-    """Load design.config.yaml and return a DesignConfig with defaults filled in."""
-    config = DesignConfig()
+def _parse_slide_overrides(entries: list[dict]) -> list[SlideOverride]:
+    """Parse slide override dicts into dataclasses."""
+    parsed: list[SlideOverride] = []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        override = SlideOverride()
+        override.match = entry.get("match", "")
+        override.template = entry.get("template", "")
+        override.ratio = entry.get("ratio", "")
+        override.subtitle = entry.get("subtitle", "")
+        if "badge" in entry:
+            override.badge = bool(entry["badge"])
+        if "page_number" in entry:
+            override.page_number = bool(entry["page_number"])
+        if "accent_bar" in entry:
+            override.accent_bar = str(entry["accent_bar"])
+        if "show_source" in entry:
+            override.show_source = bool(entry["show_source"])
+        if "compact" in entry:
+            override.compact = bool(entry["compact"])
+        if "tokens" in entry and isinstance(entry["tokens"], dict):
+            override.tokens = {str(k): str(v) for k, v in entry["tokens"].items()}
+        parsed.append(override)
+    return parsed
 
-    if not path.exists():
-        return config
 
-    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+def _apply_config_dict(config: DesignConfig, raw: dict) -> None:
+    """Apply a raw config dict onto DesignConfig."""
     if not isinstance(raw, dict):
-        return config
+        return
 
-    # Global
+    if "theme" in raw and isinstance(raw["theme"], dict):
+        _merge_dataclass(config.theme, raw["theme"])
     if "global" in raw:
         _merge_dataclass(config.global_, raw["global"])
-
-    # Badge
     if "badge" in raw:
         _merge_dataclass(config.badge, raw["badge"])
-
-    # Page number
     if "page_number" in raw:
         _merge_dataclass(config.page_number, raw["page_number"])
-
-    # Accent bar
     if "accent_bar" in raw:
         _merge_dataclass(config.accent_bar, raw["accent_bar"])
-
-    # Agenda
     if "agenda" in raw:
         _merge_dataclass(config.agenda, raw["agenda"])
-
-    # End
     if "end" in raw:
         _merge_dataclass(config.end, raw["end"])
-
-    # Tokens
     if "tokens" in raw and isinstance(raw["tokens"], dict):
-        config.tokens = {str(k): str(v) for k, v in raw["tokens"].items()}
-
-    # Slides
+        config.tokens.update({str(k): str(v) for k, v in raw["tokens"].items()})
     if "slides" in raw and isinstance(raw["slides"], list):
-        for entry in raw["slides"]:
-            if not isinstance(entry, dict):
-                continue
-            override = SlideOverride()
-            override.match = entry.get("match", "")
-            override.template = entry.get("template", "")
-            override.ratio = entry.get("ratio", "")
-            override.subtitle = entry.get("subtitle", "")
-            if "badge" in entry:
-                override.badge = bool(entry["badge"])
-            if "page_number" in entry:
-                override.page_number = bool(entry["page_number"])
-            if "accent_bar" in entry:
-                override.accent_bar = str(entry["accent_bar"])
-            if "show_source" in entry:
-                override.show_source = bool(entry["show_source"])
-            if "compact" in entry:
-                override.compact = bool(entry["compact"])
-            if "tokens" in entry and isinstance(entry["tokens"], dict):
-                override.tokens = {str(k): str(v) for k, v in entry["tokens"].items()}
-            config.slides.append(override)
+        config.slides.extend(_parse_slide_overrides(raw["slides"]))
+
+
+def load_config(path: Path) -> DesignConfig:
+    """Load design.config.yaml and merge engine defaults, theme defaults, and project overrides."""
+    project_root = path.parent
+    raw = _load_yaml_dict(path)
+    theme_name = read_project_theme_name(path)
+    theme = load_theme(project_root, theme_name)
+
+    config = DesignConfig()
+    config.theme.name = theme.name
+
+    _apply_config_dict(config, theme.defaults)
+    _apply_config_dict(config, raw)
+    config.theme.name = theme.name
 
     return config
 
@@ -232,35 +391,26 @@ def resolve_slide(
     slide_comment: dict,
     config: DesignConfig,
 ) -> ResolvedSlideConfig:
-    """Resolve the final configuration for a slide by merging defaults, config overrides, and markdown comments."""
+    """Resolve the final configuration for a slide."""
     resolved = ResolvedSlideConfig()
 
-    # --- Layer 1: Defaults from config ---
-    # Badge
     type_badge_default = getattr(config.badge.defaults, slide_type, True)
     resolved.badge_enabled = config.badge.enabled and type_badge_default
     resolved.badge_text = config.badge.text
 
-    # Page number
     type_page_default = getattr(config.page_number.defaults, slide_type, True)
     resolved.page_number_enabled = config.page_number.enabled and type_page_default
 
-    # Accent bar
     resolved.accent_bar = getattr(config.accent_bar.defaults, slide_type, "top")
-
-    # Template default
-    resolved.template = slide_type if slide_type in ("cover", "section", "agenda", "end") else "body"
-
-    # Global tokens
+    resolved.template = (
+        slide_type if slide_type in ("cover", "section", "agenda", "end") else "body"
+    )
     resolved.tokens = dict(config.tokens)
 
-    # --- Layer 2: Config slide overrides ---
-    # First pass: type-level matches
     for override in config.slides:
         if override.match == slide_type:
             _apply_override(resolved, override)
 
-    # Second pass: title-level matches (more specific, higher priority)
     for override in config.slides:
         match_val = override.match
         if match_val.startswith("### ") and match_val[4:] == slide_title:
@@ -268,7 +418,6 @@ def resolve_slide(
         elif match_val.startswith("## ") and match_val[3:] == slide_title:
             _apply_override(resolved, override)
 
-    # --- Layer 3: Markdown comment (highest priority) ---
     if "template" in slide_comment:
         resolved.template = slide_comment["template"]
     if "confidential" in slide_comment:

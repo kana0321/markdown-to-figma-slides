@@ -8,7 +8,7 @@ import re
 import shutil
 from pathlib import Path
 
-from config import load_config
+from config import load_config, load_theme
 
 # Mapping from global.colors keys to CSS variable names (targets semantic layer)
 _COLOR_MAP = {
@@ -77,13 +77,14 @@ def main() -> int:
 
     root = Path(args.project_root).resolve()
     config = load_config(root / "design.config.yaml")
+    theme = load_theme(root, config.theme.name)
     overrides = _build_overrides(config)
 
     if not overrides:
         print("no token overrides to apply")
         return 0
 
-    styles_dir = root / "styles"
+    styles_dir = theme.styles_dir
     targets = [styles_dir]
 
     if args.version:

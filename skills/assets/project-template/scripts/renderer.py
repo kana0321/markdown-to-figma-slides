@@ -19,7 +19,7 @@ try:
 except ImportError:
     _HAS_PYGMENTS = False
 
-from config import DesignConfig, ResolvedSlideConfig, resolve_slide
+from config import DesignConfig, ResolvedSlideConfig, ThemeDefinition, resolve_slide
 from models import Block, Deck, Inline, Slide
 
 CAPTURE_SCRIPT = "https://mcp.figma.com/mcp/html-to-design/capture.js"
@@ -456,6 +456,7 @@ def _extract_hero_image(blocks: list[Block]) -> tuple[list[Block], str, str]:
 def render_deck(
     deck: Deck,
     config: DesignConfig,
+    theme: ThemeDefinition,
     templates_dir: Path,
     output_dir: Path,
     version: str,
@@ -480,7 +481,7 @@ def render_deck(
     # --- Cover ---
     if deck.cover:
         cover_html, cover_body = _render_slide(
-            env, deck.cover, "cover", config, page, "../../styles"
+            env, deck.cover, "cover", config, theme, page, "../../styles"
         )
         _write_page(pages_dir, idx, "cover", cover_html)
         manifest_rows.append(_manifest_row(idx, page, f"{idx:02d}-cover.html", "cover", deck.cover.title))
@@ -501,7 +502,7 @@ def render_deck(
             temp_page += 1 + len(body_slides)  # section + bodies
 
         template = env.get_template("agenda.html.j2")
-        agenda_vars = _base_vars(resolved, config, agenda_page, "../../styles")
+        agenda_vars = _base_vars(resolved, config, theme, agenda_page, "../../styles")
         agenda_vars.update(
             slide_class="slide--body",
             page_title="Agenda",
@@ -524,7 +525,7 @@ def render_deck(
     for sec_slide, body_slides in deck.sections:
         # Section slide
         sec_html, sec_body = _render_slide(
-            env, sec_slide, "section", config, page, "../../styles"
+            env, sec_slide, "section", config, theme, page, "../../styles"
         )
         _write_page(pages_dir, idx, "section", sec_html)
         manifest_rows.append(_manifest_row(idx, page, f"{idx:02d}-section.html", "section", sec_slide.title))
@@ -535,7 +536,7 @@ def render_deck(
         # Body slides
         for body_slide in body_slides:
             body_html_full, body_body = _render_slide(
-                env, body_slide, "body", config, page, "../../styles"
+                env, body_slide, "body", config, theme, page, "../../styles"
             )
             _write_page(pages_dir, idx, "body", body_html_full)
             manifest_rows.append(_manifest_row(idx, page, f"{idx:02d}-body.html", "body", body_slide.title))
@@ -551,7 +552,7 @@ def render_deck(
             subtitle=config.end.subtitle,
         )
         end_html, end_body = _render_slide(
-            env, end_slide, "end", config, page, "../../styles"
+            env, end_slide, "end", config, theme, page, "../../styles"
         )
         _write_page(pages_dir, idx, "end", end_html)
         manifest_rows.append(_manifest_row(idx, page, f"{idx:02d}-end.html", "end", config.end.title))
@@ -561,7 +562,7 @@ def render_deck(
 
     # --- All-in-one slides.html ---
     all_in_one = _build_all_in_one(
-        deck_html_parts, config.global_.lang, "../styles"
+        deck_html_parts, config.global_.lang, "../styles", theme.font_links()
     )
     slides_dir = version_dir / "slides"
     (slides_dir / "slides.html").write_text(all_in_one, encoding="utf-8")
@@ -596,6 +597,7 @@ def _render_slide(
     slide: Slide,
     slide_type: str,
     config: DesignConfig,
+    theme: ThemeDefinition,
     page: int,
     css_base: str,
 ) -> tuple[str, str]:
@@ -619,7 +621,7 @@ def _render_slide(
         resolved.template, "slide--body"
     )
 
-    variables = _base_vars(resolved, config, page, css_base)
+    variables = _base_vars(resolved, config, theme, page, css_base)
     variables.update(
         slide_class=slide_class,
         page_title=slide.title,
@@ -698,6 +700,7 @@ def _render_slide(
 def _base_vars(
     resolved: ResolvedSlideConfig,
     config: DesignConfig,
+    theme: ThemeDefinition,
     page: int,
     css_base: str,
 ) -> dict:
@@ -705,6 +708,7 @@ def _base_vars(
     return {
         "lang": config.global_.lang,
         "css_base": css_base,
+        "font_links": theme.font_links(),
         "badge_enabled": resolved.badge_enabled,
         "badge_text": resolved.badge_text,
         "accent_bar": resolved.accent_bar,
@@ -746,17 +750,34 @@ def _manifest_row(idx: int, page: int, filename: str, kind: str, title: str) -> 
     return {"idx": idx, "page": page, "file": filename, "type": kind, "title": title}
 
 
-def _build_all_in_one(slide_parts: list[str], lang: str, css_base: str) -> str:
+def _build_font_head_tags(font_links: list[str]) -> str:
+    """Build font link tags for HTML head."""
+    if not font_links:
+        return ""
+
+    lines: list[str] = []
+    for link in font_links:
+        if "fonts.gstatic.com" in link:
+            lines.append(f'  <link rel="preconnect" href="{link}" crossorigin>')
+        elif link.endswith("fonts.googleapis.com"):
+            lines.append(f'  <link rel="preconnect" href="{link}">')
+        else:
+            lines.append(f'  <link href="{link}" rel="stylesheet">')
+    return "\n".join(lines)
+
+
+def _build_all_in_one(
+    slide_parts: list[str], lang: str, css_base: str, font_links: list[str]
+) -> str:
     """Build the all-in-one slides.html."""
     items = "\n".join(f'<div class="deck-item">{part}</div>' for part in slide_parts)
+    font_head_tags = _build_font_head_tags(font_links)
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+{font_head_tags}
   <link rel="stylesheet" href="{css_base}/tokens.primitives.css" />
   <link rel="stylesheet" href="{css_base}/tokens.semantic.css" />
   <link rel="stylesheet" href="{css_base}/tokens.component.css" />

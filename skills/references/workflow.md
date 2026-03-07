@@ -14,6 +14,14 @@ Install dependencies if needed:
 pip3 install jinja2 pyyaml
 ```
 
+Confirm available themes if needed:
+
+```bash
+cd /path/to/my-slides
+python3 scripts/theme.py list
+python3 scripts/theme.py current --project-root .
+```
+
 ## 2. Run Pipeline
 
 Run all generation steps:
@@ -55,7 +63,13 @@ python3 scripts/sync_tokens.py --project-root . --version $VERSION
 
 ## 4. Design Tuning (no HTML regeneration)
 
-Edit `design.config.yaml`, CSS token files, or `slide.css` directly, then:
+Switch the active theme:
+
+```bash
+python3 scripts/theme.py apply classic --project-root .
+```
+
+Edit `design.config.yaml`, theme CSS token files, or `slide.css` directly, then:
 
 ```bash
 python3 scripts/sync_tokens.py --project-root . --version vN

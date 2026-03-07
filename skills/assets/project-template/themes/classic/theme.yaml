@@ -1,0 +1,61 @@
+name: classic
+label: Classic
+description: Warm editorial theme with accent bars and rounded cards
+
+fonts:
+  google:
+    - family: Outfit
+      weights: [400, 500, 600, 700]
+    - family: Noto Sans JP
+      weights: [400, 500, 600, 700]
+    - family: JetBrains Mono
+      weights: [400, 500, 600]
+
+defaults:
+  global:
+    lang: "ja"
+    fonts:
+      sans: "Outfit, Noto Sans JP, sans-serif"
+      mono: "JetBrains Mono, monospace"
+    colors:
+      accent: "#D4593A"
+      bg_default: "#F5F0E8"
+      bg_inverse: "#1A1A1A"
+      text_primary: "#1A1A1A"
+      text_secondary: "#4D4D4D"
+
+  badge:
+    enabled: true
+    text: "Confidential"
+    defaults:
+      cover: true
+      section: true
+      agenda: true
+      body: true
+
+  page_number:
+    enabled: true
+    start: 1
+    defaults:
+      cover: false
+      section: false
+      agenda: true
+      body: true
+
+  accent_bar:
+    defaults:
+      cover: "left"
+      section: "none"
+      agenda: "top"
+      body: "top"
+
+  agenda:
+    enabled: true
+
+  end:
+    enabled: true
+    title: "Thank you"
+    subtitle: ""
+
+  tokens: {}
+  slides: []

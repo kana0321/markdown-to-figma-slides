@@ -130,6 +130,83 @@ defaults:
   slides: []
 ```
 
+### V1 schema
+
+必須項目:
+
+- `name`
+- `defaults`
+
+任意項目:
+
+- `label`
+- `description`
+- `fonts.google`
+
+必須ディレクトリ:
+
+- `themes/<name>/theme.yaml`
+- `themes/<name>/styles/`
+- `themes/<name>/templates/`
+
+### `name` の扱い
+
+- `name` は必須
+- `name` はディレクトリ名と一致している必要がある
+- 不一致の場合はエラーにする
+
+例:
+
+- `themes/classic/theme.yaml` の `name` は `classic`
+
+### `fonts.google`
+
+V1 では Google Fonts のみ対応する。
+
+```yaml
+fonts:
+  google:
+    - family: Outfit
+      weights: [400, 500, 600, 700]
+```
+
+ルール:
+
+- `family` は必須
+- `weights` は任意
+- 不正な `weights` 値はその値だけ無視する
+- `fonts.google` がなければフォントリンクは出力しない
+
+### `defaults` に含めてよい項目
+
+- `global`
+- `badge`
+- `page_number`
+- `accent_bar`
+- `agenda`
+- `end`
+- `tokens`
+- `slides`
+
+### V1 で非対応の項目
+
+- `extends`
+- `inherits`
+- フォントプロバイダの複数対応
+- theme ごとの custom script
+- partial theme composition
+- renderer が読む theme 独自 key
+
+### エラー方針
+
+- theme 名が存在しない場合は即エラー
+- `theme.yaml` が存在しない場合は即エラー
+- `theme.yaml` が空、または dict でない場合はエラー
+- `name` がない場合はエラー
+- `name` とディレクトリ名が一致しない場合はエラー
+- `styles/` または `templates/` がない場合はエラー
+- `defaults` が dict でない場合は空として扱う
+
 ## 設定の解決順序
 
 設定は次の順序で解決する。

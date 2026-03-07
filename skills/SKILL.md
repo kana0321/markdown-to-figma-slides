@@ -8,7 +8,7 @@ description: Build and operate a reproducible Markdown-to-HTML slide pipeline fo
 ## Overview
 
 Convert Markdown into versioned HTML slides and capture them to Figma.
-Uses a design config file, CSS token system, and Jinja2 templates for reproducible, tunable output.
+Uses a design config file, theme-based CSS/template assets, and Jinja2 templates for reproducible, tunable output.
 
 ## Quick Start
 
@@ -52,24 +52,12 @@ cd /path/to/my-slides/output && python3 -m http.server 8080
 
 ```
 project-root/
-  design.config.yaml        # Design settings (colors, fonts, badge, etc.)
-  styles/
-    tokens.primitives.css    # Base design tokens
-    tokens.semantic.css      # Semantic aliases
-    tokens.component.css     # Component-level tokens
-    slide.css                # Layout and component styles
-  templates/
-    base.html.j2             # Shared slide shell (badge, footer, accent bar)
-    cover.html.j2
-    agenda.html.j2
-    section.html.j2
-    body.html.j2
-    body-text.html.j2
-    body-2col.html.j2
-    body-3col.html.j2
-    body-code.html.j2
-    body-hero.html.j2
-    custom/                  # User-defined templates (future)
+  design.config.yaml         # Project settings + active theme selection
+  themes/
+    classic/
+      theme.yaml             # Theme metadata and defaults
+      styles/                # Theme CSS tokens + layout
+      templates/             # Theme Jinja2 templates
   scripts/
     generate_slides.py       # Entry point
     parser.py                # Markdown -> AST
@@ -98,18 +86,27 @@ project-root/
 ```
 Markdown -> normalize_md.py -> parser.py (AST) -> renderer.py (HTML)
                                                        |
-                                          design.config.yaml + templates
+                                design.config.yaml + active theme assets
 ```
 
 ### Design Tuning
 
-Two ways to adjust design without regenerating HTML:
+Three ways to adjust design:
 
 1. **`design.config.yaml`** - Change colors, fonts, badge text, per-slide settings
-2. **CSS token files** - Direct CSS variable edits
+2. **`design.config.yaml.theme.name`** - Switch the whole design theme
+3. **Theme CSS files** - Direct CSS variable edits inside `themes/<name>/styles/`
 
 Run `sync_tokens.py` to apply config changes to CSS files.
 HTML re-generation is only needed when markdown content changes.
+
+Theme management:
+
+```bash
+python3 scripts/theme.py list
+python3 scripts/theme.py current --project-root .
+python3 scripts/theme.py apply classic --project-root .
+```
 
 ### Templates (9 types)
 
@@ -136,7 +133,7 @@ steps (`<!-- steps -->...<!-- /steps -->`).
 ### Config Priority
 
 ```
-Markdown <!-- slide: ... --> > design.config.yaml slides[] > defaults
+Markdown <!-- slide: ... --> > design.config.yaml slides[] > theme defaults > engine defaults
 ```
 
 ## References
