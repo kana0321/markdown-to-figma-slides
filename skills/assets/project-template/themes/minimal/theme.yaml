@@ -1,0 +1,59 @@
+name: minimal
+label: Minimal
+description: Clean neutral theme with restrained accents and light surfaces
+
+fonts:
+  google:
+    - family: Noto Sans JP
+      weights: [400, 500, 700]
+    - family: JetBrains Mono
+      weights: [400, 500, 600]
+
+defaults:
+  global:
+    lang: "ja"
+    fonts:
+      sans: "Noto Sans JP, sans-serif"
+      mono: "JetBrains Mono, monospace"
+    colors:
+      accent: "#285C9A"
+      bg_default: "#FFFFFF"
+      bg_inverse: "#F3F6FA"
+      text_primary: "#101828"
+      text_secondary: "#475467"
+
+  badge:
+    enabled: false
+    text: "Confidential"
+    defaults:
+      cover: false
+      section: false
+      agenda: false
+      body: false
+
+  page_number:
+    enabled: true
+    start: 1
+    defaults:
+      cover: false
+      section: false
+      agenda: true
+      body: true
+
+  accent_bar:
+    defaults:
+      cover: "none"
+      section: "none"
+      agenda: "none"
+      body: "none"
+
+  agenda:
+    enabled: true
+
+  end:
+    enabled: true
+    title: "Thank you"
+    subtitle: ""
+
+  tokens: {}
+  slides: []

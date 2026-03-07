@@ -4,15 +4,15 @@
   --semantic-font-mono: var(--primitives-font-mono);
 
   /* --- Semantic / color --- */
-  --semantic-color-bg-canvas:  var(--primitives-color-neutral-950);
+  --semantic-color-bg-canvas:  var(--primitives-color-neutral-50);
   --semantic-color-bg-default: var(--primitives-color-beige-100);
   --semantic-color-bg-surface: var(--primitives-color-neutral-0);
   --semantic-color-bg-subtle:  var(--primitives-color-neutral-50);
-  --semantic-color-bg-inverse: var(--primitives-color-neutral-900);
+  --semantic-color-bg-inverse: var(--primitives-color-neutral-100);
 
-  --semantic-color-surface-card:    var(--primitives-color-neutral-100);
-  --semantic-color-surface-callout: var(--primitives-color-neutral-50);
-  --semantic-color-surface-code:    var(--primitives-color-neutral-700);
+  --semantic-color-surface-card:    var(--primitives-color-neutral-0);
+  --semantic-color-surface-callout: var(--primitives-color-neutral-0);
+  --semantic-color-surface-code:    var(--primitives-color-neutral-900);
 
   --semantic-color-text-primary:   var(--primitives-color-neutral-900);
   --semantic-color-text-secondary: var(--primitives-color-neutral-700);
@@ -21,7 +21,7 @@
 
   --semantic-color-border-subtle:  var(--primitives-color-neutral-100);
   --semantic-color-border-default: var(--primitives-color-neutral-300);
-  --semantic-color-border-strong:  var(--primitives-color-neutral-700);
+  --semantic-color-border-strong:  var(--primitives-color-neutral-500);
 
   --semantic-color-accent-primary-subtle: var(--primitives-color-brand-100);
   --semantic-color-accent-primary:        var(--primitives-color-brand-500);
@@ -49,8 +49,8 @@
   --semantic-size-section-gap-lg: var(--primitives-space-48);
   --semantic-size-section-gap-xl: var(--primitives-space-80);
 
-  --semantic-size-accent-thickness: var(--primitives-space-8);
-  --semantic-size-stroke-strong:    var(--primitives-stroke-2);
+  --semantic-size-accent-thickness: var(--primitives-space-4);
+  --semantic-size-stroke-strong:    var(--primitives-stroke-1);
 
   --semantic-size-layout-col-gap: var(--primitives-space-80);
   --semantic-size-layout-row-gap: var(--primitives-space-32);
@@ -59,7 +59,7 @@
   --semantic-size-radius-pill: var(--primitives-radius-999);
 
   --semantic-size-card-padding: var(--primitives-space-32);
-  --semantic-size-card-radius:  var(--primitives-radius-24);
+  --semantic-size-card-radius:  var(--primitives-radius-12);
   --semantic-size-card-stroke:  var(--primitives-stroke-1);
 
   --semantic-size-callout-padding: var(--primitives-space-32);
@@ -79,13 +79,13 @@
   /* --- Typography --- */
   --semantic-type-display-size:          var(--primitives-font-size-120);
   --semantic-type-display-line-height:   var(--primitives-line-height-120);
-  --semantic-type-display-weight:        var(--primitives-font-weight-bold);
+  --semantic-type-display-weight:        var(--primitives-font-weight-medium);
   --semantic-type-section-size:          var(--primitives-font-size-96);
   --semantic-type-section-line-height:   var(--primitives-line-height-120);
-  --semantic-type-section-weight:        var(--primitives-font-weight-bold);
+  --semantic-type-section-weight:        var(--primitives-font-weight-medium);
   --semantic-type-title-size:            var(--primitives-font-size-64);
   --semantic-type-title-line-height:     var(--primitives-line-height-120);
-  --semantic-type-title-weight:          var(--primitives-font-weight-bold);
+  --semantic-type-title-weight:          var(--primitives-font-weight-medium);
   --semantic-type-subtitle-size:         var(--primitives-font-size-48);
   --semantic-type-subtitle-line-height:  var(--primitives-line-height-120);
   --semantic-type-subtitle-weight:       var(--primitives-font-weight-medium);

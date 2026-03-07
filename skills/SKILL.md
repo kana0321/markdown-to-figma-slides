@@ -93,12 +93,15 @@ Markdown -> normalize_md.py -> parser.py (AST) -> renderer.py (HTML)
 
 Three ways to adjust design:
 
-1. **`design.config.yaml`** - Change colors, fonts, badge text, per-slide settings
+1. **`design.config.yaml`** - Keep project-specific overrides such as active theme, token overrides, and slide overrides
 2. **`design.config.yaml.theme.name`** - Switch the whole design theme
 3. **Theme CSS files** - Direct CSS variable edits inside `themes/<name>/styles/`
 
 Run `sync_tokens.py` to apply config changes to CSS files.
 HTML re-generation is only needed when markdown content changes.
+
+By default, the scaffold's `design.config.yaml` should stay minimal.
+Theme defaults define the baseline design, and `design.config.yaml` is mainly for project-specific overrides.
 
 Theme management:
 

@@ -1,0 +1,19 @@
+{% extends "base.html.j2" %}
+
+{% block header %}
+<div class="header">
+  {% if eyebrow %}
+  <div class="type-eyebrow">{{ eyebrow }}</div>
+  {% endif %}
+  <div class="type-title">{{ title }}</div>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="main {{ 'main--compact' if compact }}">
+  <div class="layout-2col{{ '-' + ratio if ratio }}">
+    <div class="col">{{ left }}</div>
+    <div class="col">{{ right }}</div>
+  </div>
+</div>
+{% endblock %}

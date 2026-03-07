@@ -22,6 +22,9 @@ python3 scripts/theme.py list
 python3 scripts/theme.py current --project-root .
 ```
 
+The scaffold starts with a minimal `design.config.yaml`.
+Theme defaults provide the baseline look, and you only add project-specific overrides as needed.
+
 ## 2. Run Pipeline
 
 Run all generation steps:

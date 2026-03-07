@@ -72,6 +72,9 @@ theme:
   name: classic
 ```
 
+初期 scaffold の `design.config.yaml` は薄く保ち、theme defaults を上書きしすぎないようにする。
+原則として、project 固有 override が必要になったときだけ項目を追加する。
+
 既存のプロジェクト単位の上書き設定は引き続き持つ。
 
 - `global`

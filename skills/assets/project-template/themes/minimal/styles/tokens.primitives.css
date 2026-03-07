@@ -1,29 +1,29 @@
 :root{
   /* --- Fonts (fixed) --- */
-  --primitives-font-sans: Outfit, Noto Sans JP, sans-serif;
+  --primitives-font-sans: Noto Sans JP, sans-serif;
   --primitives-font-mono: JetBrains Mono, monospace;
 
   /* --- Color --- */
-  --primitives-color-beige-100: #F5F0E8;
+  --primitives-color-beige-100: #FFFFFF;
 
   --primitives-color-neutral-0:   #FFFFFF;
-  --primitives-color-neutral-50:  #F7F7F7;
-  --primitives-color-neutral-100: #ECECEC;
-  --primitives-color-neutral-300: #D4D4D4;
-  --primitives-color-neutral-500: #8A8A8A;
-  --primitives-color-neutral-700: #4D4D4D;
-  --primitives-color-neutral-900: #1A1A1A;
-  --primitives-color-neutral-950: #111111;
+  --primitives-color-neutral-50:  #F8FAFC;
+  --primitives-color-neutral-100: #EEF2F6;
+  --primitives-color-neutral-300: #D0D5DD;
+  --primitives-color-neutral-500: #667085;
+  --primitives-color-neutral-700: #475467;
+  --primitives-color-neutral-900: #101828;
+  --primitives-color-neutral-950: #0C111D;
 
-  --primitives-color-brand-100: #F8E3DD;
-  --primitives-color-brand-300: #E8A18F;
-  --primitives-color-brand-500: #D4593A;
-  --primitives-color-brand-700: #A63F27;
+  --primitives-color-brand-100: #EAF2FF;
+  --primitives-color-brand-300: #9DBDF1;
+  --primitives-color-brand-500: #285C9A;
+  --primitives-color-brand-700: #1D436F;
 
   --primitives-color-green-500:  #2E9B63;
   --primitives-color-yellow-500: #D89A1D;
   --primitives-color-red-500:    #C94A4A;
-  --primitives-color-blue-500:   #3B82F6;
+  --primitives-color-blue-500:   #285C9A;
 
   /* --- Space --- */
   --primitives-space-0:   0px;
@@ -41,10 +41,10 @@
 
   /* --- Radius --- */
   --primitives-radius-0:   0px;
-  --primitives-radius-8:   8px;
-  --primitives-radius-12:  12px;
-  --primitives-radius-16:  16px;
-  --primitives-radius-24:  24px;
+  --primitives-radius-8:   6px;
+  --primitives-radius-12:  10px;
+  --primitives-radius-16:  12px;
+  --primitives-radius-24:  16px;
   --primitives-radius-999: 999px;
 
   /* --- Stroke --- */

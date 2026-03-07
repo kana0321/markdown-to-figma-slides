@@ -39,6 +39,8 @@ Markdown の内容変更やテンプレート変更後に使う。
 `design.config.yaml` のトークン変更を CSS に反映する。`slide.css` の変更も出力先にコピーする。HTML の再生成は行わない。
 配色・フォント・余白・レイアウトなどの見た目調整に使う。
 
+`design.config.yaml` は基本的に最小構成のまま保ち、テーマ既定値に対する project 固有の上書きだけを追加する。
+
 ### `/figma-capture-run`
 
 生成済みの `output/slides.html` を Figma にキャプチャし、完了まで追跡する。
@@ -46,7 +48,7 @@ Markdown の内容変更やテンプレート変更後に使う。
 
 ## ファイル構成
 
-- `design.config.yaml` — デザイン設定の唯一のソース
+- `design.config.yaml` — active theme と project 固有 override の設定
 - `themes/<name>/styles/` — テーマごとの CSS トークン（primitives → semantic → component）+ レイアウト
 - `themes/<name>/templates/` — テーマごとの Jinja2 テンプレート
 - `scripts/` — Python スクリプト群
