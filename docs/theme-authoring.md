@@ -246,7 +246,7 @@ python3 scripts/theme.py --project-root . apply my-theme
 - `apply` 後に `design.config.yaml.theme.name` が切り替わるか
 - render が通るか
 - cover / agenda / section / body / end で配色、タイポ、余白が破綻しないか
-- light theme / dark theme のどちらでも semantic token の責務が保てているか
+- 複数 theme 間で semantic token の責務が保てているか
 
 ## 避けること
 

@@ -18,8 +18,6 @@ from typing import Iterable
 DEFAULT_THEMES = [
     "classic",
     "minimal",
-    "editorial-serif",
-    "dark-editorial",
 ]
 
 DEFAULT_PAGE_SPECS = [

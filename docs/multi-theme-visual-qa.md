@@ -39,10 +39,8 @@
 
 - `classic`
 - `minimal`
-- `editorial-serif`
-- `dark-editorial`
 
-新しい theme を追加したときは、この 4 theme に加えて新 theme も同じ手順で比較する。
+新しい theme を追加したときは、この 2 theme に加えて新 theme も同じ手順で比較する。
 
 ## 実行手順
 
@@ -98,12 +96,6 @@ python3 scripts/theme.py --project-root . apply classic
 ./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
 
 python3 scripts/theme.py --project-root . apply minimal
-./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
-
-python3 scripts/theme.py --project-root . apply editorial-serif
-./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
-
-python3 scripts/theme.py --project-root . apply dark-editorial
 ./scripts/run_pipeline.sh --project-root . --input input/raw/sample-catalog.md
 ```
 
@@ -177,7 +169,7 @@ python3 -m http.server 8080
 今回の実施で、特に差が出やすいと分かった重点確認:
 
 - `body-hero` は theme 差分よりも画像の強さに引っ張られやすいので、overlay と文字可読性を優先して見る
-- dark theme は `cover`, `agenda`, `body-text`, `body-code`, `table`, `card`, `end` の順で見ると崩れを見つけやすい
+- `classic` と `minimal` は `cover`, `agenda`, `body-text`, `body-code`, `table`, `card`, `end` の順で見ると差分を把握しやすい
 - `body-2col` はカラム崩れと、サンプル文面由来のノイズを分けて判断する
 
 ### C. 補足確認 component
@@ -191,14 +183,7 @@ python3 -m http.server 8080
 - arrow と steps が theme 差分の中でも崩れないか
 - image が不自然にトリミングされたり、周囲余白を壊したりしないか
 
-### D. dark theme 観点
-
-- `dark-editorial` で本文コントラストが不足していないか
-- muted text が暗背景で沈みすぎていないか
-- code block, table, callout, card が dark palette でも読めるか
-- accent color が発光しすぎず、かつ埋もれてもいないか
-
-### E. theme system 観点
+### D. theme system 観点
 
 - shared CSS を変えずに theme 差分だけで成立しているか
 - semantic token の差し替えで大半の component color が制御できているか
@@ -215,8 +200,8 @@ python3 -m http.server 8080
 
 例:
 
-- `dark-editorial` の table header コントラストが不足
-- `editorial-serif` の cover で title が詰まり気味
+- `minimal` の agenda で section list が詰まり気味
+- `classic` の cover で badge 位置が不自然
 
 ### 2. 全 theme 共通の破綻
 
@@ -246,7 +231,7 @@ python3 -m http.server 8080
 
 - 複数 theme で同じ崩れ方をするなら shared 側を疑う
 - 1 theme だけで崩れるなら theme asset 側を疑う
-- dark theme だけでコントラストが崩れるなら semantic / component token を疑う
+- theme ごとの差分だけで崩れるなら semantic / component token を疑う
 
 ## 実施タイミング
 

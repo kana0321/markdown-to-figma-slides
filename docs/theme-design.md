@@ -8,13 +8,12 @@
 ## 現在の状態
 
 theme system の V1 は実装済みです。
+theme 機能まわりの基盤整備は、現時点で概ね一段落しています。
 
 - project template は `themes/<name>/` 配下の assets を使って描画する
 - active theme は `design.config.yaml.theme.name` で決まる
 - 標準 theme は `classic`
 - 検証用の 2 つ目の theme として `minimal` を追加済み
-- serif 主体の 3 つ目の theme として `editorial-serif` を追加済み
-- dark palette の検証用として `dark-editorial` を追加済み
 - shared のレイアウト / component CSS は `shared/styles/slide.css` に共通化済み
 - 各 theme の `styles/slide.css` は theme 固有 override に寄せた
 - `design.config.yaml` は最小構成にし、theme defaults が baseline になるようにした
@@ -24,13 +23,18 @@ theme system の V1 は実装済みです。
 - multi-theme visual QA 手順は `docs/multi-theme-visual-qa.md` に整理済み
 - semi-automated visual QA runner は `skills/scripts/run_visual_qa.py` に追加済み
 - maintainer 向けの変更判断メモは `docs/maintainer-change-guide.md` に整理済み
+- doc 更新 checklist は `docs/theme-doc-update-checklist.md` に整理済み
 
 現在存在する theme:
 
 - `classic`
 - `minimal`
-- `editorial-serif`
-- `dark-editorial`
+
+現時点の整理:
+
+- theme system の基盤実装は概ね完了
+- 今後の中心は新しい個別変更への対応と、実運用での確認
+- 次の優先は大きな再設計より、個別の theme / template / component 変更を受けて運用で粗を拾うこと
 
 ## 目的
 
@@ -263,14 +267,13 @@ component は原則として color を semantic から取る。
 
 ## 複数 theme 検証で得た判断
 
-`minimal`、`editorial-serif`、`dark-editorial` を追加して分かったこと:
+`minimal` を追加して分かったこと:
 
 - theme は 1つだけでは設計の妥当性を判断しづらい
 - `design.config.yaml` に baseline 値を多く持たせると theme 切り替えが効かなくなる
 - したがって `design.config.yaml` は薄く保つべき
 - primitive color token は `brand` / `neutral` の語彙を使う方が読みやすい
-- serif 主体の typography も theme assets 側だけで切り替えられる設計にしておくべき
-- dark palette でも component token は semantic 経由なら大半を追加なしで再利用できる
+- 2つ目の theme を持つだけでも、`design.config.yaml` を薄く保つ設計の妥当性が見えやすい
 
 ## エラー方針
 
