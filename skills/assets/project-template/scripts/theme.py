@@ -29,6 +29,32 @@ def _available_theme_names(project_root: Path) -> list[str]:
     return [theme.name for theme in list_themes(project_root)]
 
 
+def _normalize_argv(argv: list[str]) -> list[str]:
+    """Allow global options to appear before or after the subcommand."""
+    normalized: list[str] = []
+    deferred: list[str] = []
+    index = 0
+
+    while index < len(argv):
+        arg = argv[index]
+        if arg == "--project-root":
+            deferred.append(arg)
+            if index + 1 < len(argv):
+                deferred.append(argv[index + 1])
+                index += 2
+            else:
+                index += 1
+            continue
+        if arg.startswith("--project-root="):
+            deferred.append(arg)
+            index += 1
+            continue
+        normalized.append(arg)
+        index += 1
+
+    return deferred + normalized
+
+
 def _load_theme_or_exit(project_root: Path, theme_name: str):
     """Load a theme or exit with a helpful error."""
     try:
@@ -74,7 +100,7 @@ def main() -> int:
     apply_parser = subparsers.add_parser("apply", help="Apply a theme")
     apply_parser.add_argument("theme_name", help="Theme name to apply")
 
-    args = parser.parse_args()
+    args = parser.parse_args(_normalize_argv(sys.argv[1:]))
     project_root = Path(args.project_root).resolve()
 
     if args.command == "list":

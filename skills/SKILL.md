@@ -106,9 +106,9 @@ Theme defaults define the baseline design, and `design.config.yaml` is mainly fo
 Theme management:
 
 ```bash
-python3 scripts/theme.py list
-python3 scripts/theme.py current --project-root .
-python3 scripts/theme.py apply classic --project-root .
+python3 scripts/theme.py --project-root . list
+python3 scripts/theme.py --project-root . current
+python3 scripts/theme.py --project-root . apply classic
 ```
 
 ### Templates (9 types)

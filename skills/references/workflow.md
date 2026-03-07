@@ -18,8 +18,8 @@ Confirm available themes if needed:
 
 ```bash
 cd /path/to/my-slides
-python3 scripts/theme.py list
-python3 scripts/theme.py current --project-root .
+python3 scripts/theme.py --project-root . list
+python3 scripts/theme.py --project-root . current
 ```
 
 The scaffold starts with a minimal `design.config.yaml`.
@@ -69,7 +69,7 @@ python3 scripts/sync_tokens.py --project-root . --version $VERSION
 Switch the active theme:
 
 ```bash
-python3 scripts/theme.py apply classic --project-root .
+python3 scripts/theme.py --project-root . apply classic
 ```
 
 Edit `design.config.yaml`, theme CSS token files, or `slide.css` directly, then:
