@@ -184,9 +184,15 @@
   /* --- Section inverse --- */
   --component-section-bg:   var(--semantic-color-bg-inverse);
   --component-section-text: var(--semantic-color-text-inverse);
+  --component-section-title-color: var(--component-section-text);
+  --component-section-eyebrow-color: var(--component-section-text);
+  --component-section-subtitle-color: var(--component-section-text);
 
   /* --- Full Image / Hero --- */
   --component-fullimage-overlay: var(--semantic-color-overlay-dark);
+  --component-fullimage-title-color: var(--semantic-color-text-inverse);
+  --component-fullimage-body-color: var(--semantic-color-text-inverse);
+  --component-fullimage-footer-color: var(--semantic-color-text-inverse);
 
   /* --- Checklist --- */
   --component-checklist-box-size:       var(--semantic-size-checklist-box);
@@ -224,6 +230,7 @@
   --component-steps-desc-color:        var(--semantic-color-text-secondary);
   --component-steps-accent-bg:         var(--semantic-color-accent-primary);
   --component-steps-accent-text:       var(--semantic-color-text-inverse);
+  --component-steps-accent-rule-color: var(--semantic-color-text-inverse);
 
   /* --- Arrow --- */
   --component-arrow-color-secondary:    var(--semantic-color-text-tertiary);

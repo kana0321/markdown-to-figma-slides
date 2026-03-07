@@ -683,3 +683,140 @@ svg.arrow.arrow--accent-subtle{ --component-arrow-color: var(--component-arrow-c
 
 /* --- Visibility --- */
 .is-hidden{ display:none !important; }
+
+body{
+  background:
+    linear-gradient(180deg, #050608 0%, #0B0C0F 100%);
+}
+
+.slide{
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.34);
+  background-image:
+    radial-gradient(circle at top right, rgba(255, 106, 61, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+}
+
+.slide::after{
+  content:"";
+  position:absolute;
+  inset: 28px;
+  border: 1px solid rgba(255, 106, 61, 0.14);
+  pointer-events:none;
+}
+
+.slide--cover{
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 106, 61, 0.26), transparent 22%),
+    radial-gradient(circle at 84% 18%, rgba(109, 211, 255, 0.18), transparent 18%),
+    linear-gradient(135deg, #1A1C21 0%, #0B0C0F 68%, #090A0D 100%);
+}
+
+.slide--cover::before{
+  content:"";
+  position:absolute;
+  inset: 64px 64px auto auto;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 184, 155, 0.20);
+  opacity: 0.9;
+}
+
+.slide--section{
+  background:
+    linear-gradient(112deg, #FF6A3D 0 12%, transparent 12%),
+    linear-gradient(180deg, #13161A 0%, #090A0D 100%);
+  color: var(--component-section-text);
+}
+
+.slide--section::before{
+  content:"";
+  position:absolute;
+  inset: 72px 72px 72px 132px;
+  border-left: 1px solid rgba(255, 184, 155, 0.24);
+  border-bottom: 1px solid rgba(255, 184, 155, 0.14);
+  pointer-events:none;
+}
+
+.type-display,
+.type-section,
+.type-title,
+.type-hero{
+  letter-spacing: -0.02em;
+}
+
+.type-eyebrow,
+.badge{
+  text-transform: uppercase;
+}
+
+.type-subtitle,
+.type-body,
+.type-body-lead,
+.type-body-spacious{
+  letter-spacing: 0.01em;
+}
+
+.card,
+.callout,
+.codeblock{
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
+}
+
+.data-table{
+  border: 1px solid rgba(255, 106, 61, 0.16);
+}
+
+.agenda-item{
+  border-top: 1px solid rgba(255, 106, 61, 0.12);
+}
+
+.agenda-item:last-child{
+  border-bottom: 1px solid rgba(255, 106, 61, 0.12);
+}
+
+.slide--cover .type-display{
+  max-width: 10ch;
+}
+
+.slide--cover .type-subtitle{
+  max-width: 18ch;
+  color: var(--semantic-color-text-secondary);
+}
+
+.slide--section .type-section,
+.slide--section .type-eyebrow,
+.slide--section .type-subtitle{
+  color: var(--component-section-text);
+}
+
+.slide--section .type-section{
+  font-style: italic;
+  text-shadow: 0 12px 48px rgba(0, 0, 0, 0.24);
+}
+
+.slide--section .shell{
+  padding-left: 164px;
+}
+
+.badge{
+  box-shadow: 0 8px 24px rgba(255, 106, 61, 0.18);
+}
+
+.block-badge{
+  text-transform: none;
+}
+
+.card--accent{
+  --component-card-bg: rgba(255, 106, 61, 0.16);
+  --component-card-border-color: var(--semantic-color-accent-primary);
+}
+
+.callout{
+  backdrop-filter: blur(6px);
+}
+
+.slide--fullimage .badge{
+  background: rgba(11, 12, 15, 0.82);
+}
+}

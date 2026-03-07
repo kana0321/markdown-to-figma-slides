@@ -77,11 +77,11 @@
   --component-accent-thickness: var(--semantic-size-accent-thickness);
 
   /* --- Badge (Confidential etc.) --- */
-  --component-badge-bg:             var(--semantic-color-bg-surface);
-  --component-badge-text:           var(--semantic-color-accent-primary);
+  --component-badge-bg:             var(--semantic-color-bg-inverse);
+  --component-badge-text:           var(--semantic-color-accent-primary-strong);
   --component-badge-border-color:   var(--semantic-color-accent-primary);
   --component-badge-border-width:   var(--semantic-size-stroke-strong);
-  --component-badge-font-weight:    var(--semantic-type-note-weight);
+  --component-badge-font-weight:    var(--semantic-type-title-weight);
   --component-badge-radius:         var(--semantic-size-radius-pill);
   --component-badge-padding-x:      var(--primitives-space-12);
   --component-badge-padding-y:      var(--primitives-space-8);
@@ -106,20 +106,20 @@
 
   /* --- Card --- */
   --component-card-bg:           var(--semantic-color-surface-card);
-  --component-card-border-color: var(--semantic-color-border-subtle);
+  --component-card-border-color: var(--semantic-color-border-default);
   --component-card-border-width: var(--semantic-size-card-stroke);
   --component-card-radius:       var(--semantic-size-card-radius);
-  --component-card-padding:      var(--primitives-space-24);
+  --component-card-padding:      var(--semantic-size-card-padding);
   --component-card-gap:          var(--primitives-space-8);
   --component-card-eyebrow-gap:  var(--primitives-space-4);
 
   /* --- Callout --- */
   --component-callout-bg:            var(--semantic-color-surface-callout);
-  --component-callout-border-color:  var(--semantic-color-border-default);
+  --component-callout-border-color:  var(--semantic-color-border-strong);
   --component-callout-accent-color:  var(--semantic-color-status-info);
   --component-callout-border-width:  var(--semantic-size-card-stroke);
-  --component-callout-radius:        var(--primitives-radius-12);
-  --component-callout-padding:       var(--primitives-space-24);
+  --component-callout-radius:        var(--semantic-size-card-radius);
+  --component-callout-padding:       var(--semantic-size-callout-padding);
   --component-callout-gap:           var(--primitives-space-16);
   --component-callout-icon-size:     var(--semantic-size-icon-callout);
   --component-callout-status-width:  var(--semantic-size-accent-thickness);
@@ -128,18 +128,18 @@
 
   /* --- CodeBlock --- */
   --component-code-bg:           var(--semantic-color-surface-code);
-  --component-code-border-color: var(--semantic-color-border-strong);
+  --component-code-border-color: var(--semantic-color-accent-primary);
   --component-code-border-width: var(--semantic-size-card-stroke);
   --component-code-text:         var(--semantic-color-text-inverse);
-  --component-code-radius:       var(--primitives-radius-12);
+  --component-code-radius:       var(--semantic-size-card-radius);
   --component-code-padding:      var(--semantic-size-code-padding);
   --component-code-lang-color:   var(--semantic-color-text-tertiary);
   --component-code-lang-gap:     var(--primitives-space-16);
 
   /* --- Inline Code --- */
-  --component-inline-code-bg:           var(--semantic-color-accent-primary-subtle);
-  --component-inline-code-text:         var(--semantic-color-accent-primary);
-  --component-inline-code-border-color: var(--semantic-color-accent-primary-subtle);
+  --component-inline-code-bg:           var(--semantic-color-bg-inverse);
+  --component-inline-code-text:         var(--semantic-color-accent-primary-strong);
+  --component-inline-code-border-color: var(--semantic-color-accent-primary);
   --component-inline-code-border-width: var(--semantic-size-card-stroke);
   --component-inline-code-radius:       var(--semantic-size-radius-sm);
   --component-inline-code-padding-x:    var(--primitives-space-8);
@@ -148,10 +148,10 @@
   --component-inline-code-line-height:  var(--primitives-line-height-100);
 
   /* --- Table --- */
-  --component-table-header-bg:        var(--semantic-color-bg-subtle);
-  --component-table-header-text:      var(--semantic-color-text-primary);
-  --component-table-row-bg:           var(--semantic-color-bg-default);
-  --component-table-row-alt-bg:       var(--semantic-color-bg-subtle);
+  --component-table-header-bg:        var(--semantic-color-accent-primary);
+  --component-table-header-text:      var(--semantic-color-text-inverse);
+  --component-table-row-bg:           var(--semantic-color-bg-surface);
+  --component-table-row-alt-bg:       var(--semantic-color-bg-default);
   --component-table-border-color:     var(--semantic-color-border-subtle);
   --component-table-border-width:     var(--semantic-size-card-stroke);
   --component-table-cell-padding-x:   var(--primitives-space-24);
@@ -177,19 +177,19 @@
   --component-agenda-item-padding-y: var(--primitives-space-24);
   --component-agenda-num-width:      var(--primitives-space-64);
   --component-agenda-num-color:      var(--semantic-color-accent-primary);
-  --component-agenda-gap:            var(--primitives-space-48);
+  --component-agenda-gap:            var(--primitives-space-32);
   --component-agenda-page-gap:       var(--primitives-space-96);
   --component-agenda-page-color:     var(--semantic-color-text-tertiary);
 
   /* --- Section inverse --- */
-  --component-section-bg:   var(--semantic-color-bg-subtle);
-  --component-section-text: var(--semantic-color-text-primary);
+  --component-section-bg:   var(--semantic-color-bg-inverse);
+  --component-section-text: var(--semantic-color-text-inverse);
   --component-section-title-color: var(--component-section-text);
-  --component-section-eyebrow-color: var(--semantic-color-accent-primary);
+  --component-section-eyebrow-color: var(--semantic-color-accent-primary-strong);
   --component-section-subtitle-color: var(--component-section-text);
 
   /* --- Full Image / Hero --- */
-  --component-fullimage-overlay: rgba(12, 17, 29, 0.28);
+  --component-fullimage-overlay: rgba(23, 17, 19, 0.46);
   --component-fullimage-title-color: var(--semantic-color-text-inverse);
   --component-fullimage-body-color: var(--semantic-color-text-inverse);
   --component-fullimage-footer-color: var(--semantic-color-text-inverse);
@@ -221,7 +221,7 @@
   /* --- Steps --- */
   --component-steps-gap:               4px;
   --component-steps-notch:             20px;
-  --component-steps-item-bg:           var(--semantic-color-bg-subtle);
+  --component-steps-item-bg:           var(--semantic-color-bg-inverse);
   --component-steps-item-gap:          var(--primitives-space-4);
   --component-steps-item-padding-x:    var(--primitives-space-24);
   --component-steps-item-padding-y:    var(--primitives-space-16);
@@ -230,7 +230,7 @@
   --component-steps-desc-color:        var(--semantic-color-text-secondary);
   --component-steps-accent-bg:         var(--semantic-color-accent-primary);
   --component-steps-accent-text:       var(--semantic-color-text-inverse);
-  --component-steps-accent-rule-color: var(--semantic-color-text-inverse);
+  --component-steps-accent-rule-color: var(--semantic-color-accent-primary-strong);
 
   /* --- Arrow --- */
   --component-arrow-color-secondary:    var(--semantic-color-border-default);

@@ -14,6 +14,7 @@ theme system の V1 は実装済みです。
 - 標準 theme は `classic`
 - 検証用の 2 つ目の theme として `minimal` を追加済み
 - serif 主体の 3 つ目の theme として `editorial-serif` を追加済み
+- dark palette の検証用として `dark-editorial` を追加済み
 - `design.config.yaml` は最小構成にし、theme defaults が baseline になるようにした
 - `scripts/theme.py` は `list`, `current`, `show`, `apply` を提供する
 
@@ -22,6 +23,7 @@ theme system の V1 は実装済みです。
 - `classic`
 - `minimal`
 - `editorial-serif`
+- `dark-editorial`
 
 ## 目的
 
@@ -247,13 +249,14 @@ component は原則として color を semantic から取る。
 
 ## 複数 theme 検証で得た判断
 
-`minimal` と `editorial-serif` を追加して分かったこと:
+`minimal`、`editorial-serif`、`dark-editorial` を追加して分かったこと:
 
 - theme は 1つだけでは設計の妥当性を判断しづらい
 - `design.config.yaml` に baseline 値を多く持たせると theme 切り替えが効かなくなる
 - したがって `design.config.yaml` は薄く保つべき
 - primitive color token は `brand` / `neutral` の語彙を使う方が読みやすい
 - serif 主体の typography も theme assets 側だけで切り替えられる設計にしておくべき
+- dark palette でも component token は semantic 経由なら大半を追加なしで再利用できる
 
 ## エラー方針
 

@@ -1,0 +1,10 @@
+{% extends "base.html.j2" %}
+
+{% block main %}
+<div class="main main--center al-col al-center t-center">
+  <div class="type-section w-hero">{{ title }}</div>
+  {% if subtitle %}
+  <div class="type-subtitle w-hero">{{ subtitle }}</div>
+  {% endif %}
+</div>
+{% endblock %}

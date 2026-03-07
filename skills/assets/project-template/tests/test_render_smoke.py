@@ -70,6 +70,7 @@ class RenderSmokeTest(unittest.TestCase):
             ("classic", "vclassic"),
             ("minimal", "vminimal"),
             ("editorial-serif", "veditorial-serif"),
+            ("dark-editorial", "vdark-editorial"),
         ):
             result = self.run_generate(theme_name, version)
 

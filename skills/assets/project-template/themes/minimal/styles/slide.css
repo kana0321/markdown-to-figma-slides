@@ -530,8 +530,9 @@ body{
   color: var(--component-section-text);
 }
 .slide--section .type-section,
-.slide--section .type-eyebrow{ color: var(--semantic-color-text-inverse); }
-.slide--section .type-subtitle{ color: var(--component-section-text); }
+.slide--section .type-title{ color: var(--component-section-title-color); }
+.slide--section .type-eyebrow{ color: var(--component-section-eyebrow-color); }
+.slide--section .type-subtitle{ color: var(--component-section-subtitle-color); }
 
 /* --- Full Image / Hero --- */
 .slide--fullimage .fullimage{
@@ -565,8 +566,10 @@ body{
 .slide--fullimage .type-eyebrow,
 .slide--fullimage .type-subtitle,
 .slide--fullimage .type-body,
-.slide--fullimage .type-hero{ color: var(--semantic-color-text-inverse); }
-.slide--fullimage .footer{ color: var(--semantic-color-text-inverse); }
+.slide--fullimage .type-hero{ color: var(--component-fullimage-body-color); }
+.slide--fullimage .type-title,
+.slide--fullimage .type-hero{ color: var(--component-fullimage-title-color); }
+.slide--fullimage .footer{ color: var(--component-fullimage-footer-color); }
 
 /* --- Footer page --- */
 .footer__page{ margin-left:auto; }
@@ -646,7 +649,7 @@ body{
 }
 /* Accent variant (e.g. last item) */
 .steps-item--accent .steps-item__title{ color: var(--component-steps-accent-text); }
-.steps-item--accent .steps-item__desc{  color: var(--component-steps-accent-text); opacity:0.8; border-top-color: var(--semantic-color-text-inverse); }
+.steps-item--accent .steps-item__desc{  color: var(--component-steps-accent-text); opacity:0.8; border-top-color: var(--component-steps-accent-rule-color); }
 
 .steps-item__title{
   color: var(--component-steps-title-color);
