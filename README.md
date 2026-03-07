@@ -1,8 +1,12 @@
 # Markdown to Figma Slides
 
-Markdown を書くだけで、Figma に取り込める HTML スライドを生成するツールです。
+Markdown を書くだけで、Figma に取り込める HTML スライドを生成するスキルです。
 
-Claude Code（または OpenAI Codex 等の AI エージェント）に依頼すると、Markdown の正規化からテンプレート適用、バージョン管理、Figma キャプチャまでを一貫して進めてくれます。
+Claude Code（または OpenAI Codex 等の AI エージェント）に依頼すると、Markdown の正規化からテンプレート適用、バージョン管理、Figma キャプチャまでを一貫して進めてくれます。生成のたびにバージョン付きスナップショット（`v1`, `v2`, ...）が作られるので、過去のスライドを失う心配がありません。
+
+## まずは試してみる
+
+`skills/assets/sample-catalog.md` にサンプルの Markdown ファイルが入っています。まずはこれを使ってスライド生成を試してみてください。
 
 ## 前提条件
 
