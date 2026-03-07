@@ -9,6 +9,7 @@
 - `docs/theme-design.md`
 - `docs/theme-authoring.md`
 - `docs/multi-theme-visual-qa.md`
+- `docs/theme-doc-update-checklist.md`
 
 ## まず先に切り分けること
 
