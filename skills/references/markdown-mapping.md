@@ -1,0 +1,100 @@
+# Markdown Mapping Reference
+
+## Heading Mapping
+
+- `#` at document start: Cover slide (`.type-display`)
+- `##`: Section slide (`.type-section`)
+- `###`: Body slide title (`.type-title`)
+- `####`: Layout split key in 2col/3col templates, otherwise subtitle (`.type-subtitle`)
+
+## Body Elements
+
+| Markdown | HTML Output | CSS Class |
+|---|---|---|
+| paragraph | `<div>` | `.type-body` |
+| `- ` list | `<ul>` | `.ul` (3-level nesting) |
+| `1. ` list | `<div>` | `.ol > .ol-item` |
+| `- [x]` / `- [ ]` | `<ul>` | `.checklist > .checklist-item` |
+| fenced code | `<div>` | `.codeblock` |
+| inline code | `<span>` | `.inline-code` |
+| `**bold**` | `<strong>` | - |
+| `[text](url)` | `<a>` | `.link` |
+| `> [!TYPE]` | `<div>` | `.callout[data-status]` |
+| pipe table | `<table>` | `.data-table` |
+| `![alt](src "cap")` | `<figure>` / `<div>` | `.image-block` |
+| `<!-- card -->` | `<div>` wrapping next block | `.card` |
+| `<!-- card: accent -->` | `<div>` wrapping next block | `.card.card--accent` |
+| `<!-- badge: text -->` | `<div>` | `.block-badge` |
+| `<!-- arrow: direction -->` | `<div>` | `.arrow` |
+| `<!-- steps -->...<!-- /steps -->` | `<div>` | `.steps > .steps-item` |
+
+## Arrow
+
+方向付きシェブロン矢印。コンテンツブロック間やカラム内に配置できる。
+
+```md
+<!-- arrow: right -->
+<!-- arrow: down; size=sm -->
+<!-- arrow: left; size=lg; color=accent-subtle -->
+```
+
+| パラメータ | 値 | デフォルト |
+|---|---|---|
+| direction (必須) | `right`, `left`, `up`, `down` | - |
+| size | `lg`, `sm` | `lg` |
+| color | `secondary`, `accent-subtle` | `secondary` |
+
+マルチカラムテンプレートの `.col` 内に `right` / `left` を配置すると、CSS でカラム間のセパレータとして自動配置される。
+
+## Steps
+
+水平ステップフロー。OL（番号付きリスト）をシェブロン型ブロックとして描画する。
+
+```md
+<!-- steps -->
+1. **タイトル** 説明テキスト
+2. **タイトル** 説明テキスト
+3. **タイトル**
+<!-- /steps -->
+```
+
+- `**太字**` がタイトル、その後のテキストが説明になる。説明がある場合はアクセントカラーの区切り線で区切られる。
+- 最初のシェブロンは左端フラット、2番目以降は左にノッチ付き。
+
+| パラメータ | 値 | デフォルト |
+|---|---|---|
+| accent | `last` (最終ステップをアクセントカラーに) | なし |
+
+```md
+<!-- steps: accent=last -->
+1. **企画**
+2. **設計**
+3. **リリース**
+<!-- /steps -->
+```
+
+## Callout Status Mapping
+
+| Markdown | `data-status` |
+|---|---|
+| `[!NOTE]` | `info` |
+| `[!TIP]` | `success` |
+| `[!WARNING]` | `warning` |
+| `[!CAUTION]` | `danger` |
+
+## Template Selection
+
+Explicit comment format:
+
+```md
+<!-- slide: template=body-2col; ratio=6040; compact=true -->
+```
+
+Supported keys: `template`, `confidential`, `show_source`, `show_pages`, `caption`, `status`, `eyebrow`, `subtitle`, `ratio`, `compact`
+
+## `####` Layout Rules
+
+- Only interpreted as layout keys in 2col/3col templates
+- 2-column: `#### Left`, `#### Right`
+- 3-column: `#### Col1`, `#### Col2`, `#### Col3`
+- Unknown labels treated as normal subtitle headings

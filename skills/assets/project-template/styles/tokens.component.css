@@ -1,0 +1,235 @@
+:root{
+  /* --- Slide base --- */
+  --component-canvas-bg:   var(--semantic-color-bg-canvas);
+  --component-slide-bg:    var(--semantic-color-bg-default);
+  --component-slide-width:  var(--semantic-size-slide-width);
+  --component-slide-height: var(--semantic-size-slide-height);
+
+  /* --- Shell / layout --- */
+  --component-shell-padding-x:      var(--semantic-size-slide-padding-x);
+  --component-shell-padding-top:    var(--semantic-size-slide-padding-top);
+  --component-shell-padding-bottom: var(--semantic-size-slide-padding-bottom);
+  --component-shell-gap:            var(--semantic-size-section-gap-md);
+
+  --component-content-max-width: var(--semantic-size-content-max-width);
+  --component-hero-max-width:    var(--semantic-size-hero-max-width);
+
+  /* --- Typography --- */
+  --component-type-display-size:        var(--semantic-type-display-size);
+  --component-type-display-line-height: var(--semantic-type-display-line-height);
+  --component-type-display-weight:      var(--semantic-type-display-weight);
+
+  --component-type-section-size:        var(--semantic-type-section-size);
+  --component-type-section-line-height: var(--semantic-type-section-line-height);
+  --component-type-section-weight:      var(--semantic-type-section-weight);
+
+  --component-type-title-size:        var(--semantic-type-title-size);
+  --component-type-title-line-height: var(--semantic-type-title-line-height);
+  --component-type-title-weight:      var(--semantic-type-title-weight);
+
+  --component-type-subtitle-size:        var(--semantic-type-subtitle-size);
+  --component-type-subtitle-line-height: var(--semantic-type-subtitle-line-height);
+  --component-type-subtitle-weight:      var(--semantic-type-subtitle-weight);
+
+  --component-type-body-lead-size:        var(--semantic-type-body-lead-size);
+  --component-type-body-lead-line-height: var(--semantic-type-body-lead-line-height);
+  --component-type-body-lead-weight:      var(--semantic-type-body-lead-weight);
+
+  --component-type-body-size:        var(--semantic-type-body-size);
+  --component-type-body-line-height: var(--semantic-type-body-line-height);
+  --component-type-body-weight:      var(--semantic-type-body-weight);
+
+  --component-type-body-spacious-size:        var(--semantic-type-body-spacious-size);
+  --component-type-body-spacious-line-height: var(--semantic-type-body-spacious-line-height);
+  --component-type-body-spacious-weight:      var(--semantic-type-body-spacious-weight);
+
+  --component-type-caption-size:        var(--semantic-type-caption-size);
+  --component-type-caption-line-height: var(--semantic-type-caption-line-height);
+  --component-type-caption-weight:      var(--semantic-type-caption-weight);
+
+  --component-type-note-size:        var(--semantic-type-note-size);
+  --component-type-note-line-height: var(--semantic-type-note-line-height);
+  --component-type-note-weight:      var(--semantic-type-note-weight);
+
+  --component-type-metric-size:        var(--semantic-type-metric-size);
+  --component-type-metric-line-height: var(--semantic-type-metric-line-height);
+  --component-type-metric-weight:      var(--semantic-type-metric-weight);
+
+  --component-type-eyebrow-size:           var(--semantic-type-eyebrow-size);
+  --component-type-eyebrow-line-height:    var(--semantic-type-eyebrow-line-height);
+  --component-type-eyebrow-weight:         var(--semantic-type-eyebrow-weight);
+  --component-type-eyebrow-letter-spacing: var(--semantic-type-eyebrow-letter-spacing);
+
+  --component-type-heading4-size:        var(--semantic-type-heading4-size);
+  --component-type-heading4-line-height: var(--semantic-type-heading4-line-height);
+  --component-type-heading4-weight:      var(--semantic-type-heading4-weight);
+
+  --component-type-hero-size:        var(--semantic-type-hero-size);
+  --component-type-hero-line-height: var(--semantic-type-hero-line-height);
+  --component-type-hero-weight:      var(--semantic-type-hero-weight);
+
+  --component-type-code-size:        var(--semantic-type-code-size);
+  --component-type-code-line-height: var(--semantic-type-code-line-height);
+  --component-type-code-weight:      var(--semantic-type-code-weight);
+  --component-type-code-lang-size:   var(--semantic-type-code-size);
+
+  /* --- Accent line thickness --- */
+  --component-accent-thickness: var(--semantic-size-accent-thickness);
+
+  /* --- Badge (Confidential etc.) --- */
+  --component-badge-bg:             var(--semantic-color-bg-surface);
+  --component-badge-text:           var(--semantic-color-status-danger);
+  --component-badge-border-color:   var(--semantic-color-status-danger);
+  --component-badge-border-width:   var(--semantic-size-stroke-strong);
+  --component-badge-font-weight:    var(--semantic-type-title-weight);
+  --component-badge-radius:         var(--semantic-size-radius-pill);
+  --component-badge-padding-x:      var(--primitives-space-12);
+  --component-badge-padding-y:      var(--primitives-space-8);
+  --component-badge-letter-spacing: var(--semantic-type-badge-letter-spacing);
+
+  /* --- Header --- */
+  --component-header-gap:           var(--semantic-size-section-gap-sm);
+  --component-header-eyebrow-color: var(--semantic-color-accent-primary);
+
+  /* --- Footer --- */
+  --component-footer-color: var(--semantic-color-text-tertiary);
+  --component-footer-gap:   var(--primitives-space-24);
+
+  /* --- Body --- */
+  --component-body-gap-sm: var(--semantic-size-section-gap-sm);
+  --component-body-gap-md: var(--semantic-size-section-gap-md);
+  --component-body-gap-lg: var(--semantic-size-section-gap-lg);
+
+  /* --- Layout (multi-column) --- */
+  --component-layout-col-gap: var(--primitives-space-120);
+  --component-layout-row-gap: var(--semantic-size-layout-row-gap);
+
+  /* --- Card --- */
+  --component-card-bg:           var(--semantic-color-surface-card);
+  --component-card-border-color: var(--semantic-color-border-default);
+  --component-card-border-width: var(--semantic-size-card-stroke);
+  --component-card-radius:       var(--semantic-size-card-radius);
+  --component-card-padding:      var(--semantic-size-card-padding);
+  --component-card-gap:          var(--primitives-space-8);
+  --component-card-eyebrow-gap:  var(--primitives-space-4);
+
+  /* --- Callout --- */
+  --component-callout-bg:            var(--semantic-color-surface-callout);
+  --component-callout-border-color:  var(--semantic-color-border-subtle);
+  --component-callout-accent-color:  var(--semantic-color-status-info);
+  --component-callout-border-width:  var(--semantic-size-card-stroke);
+  --component-callout-radius:        var(--semantic-size-card-radius);
+  --component-callout-padding:       var(--semantic-size-callout-padding);
+  --component-callout-gap:           var(--primitives-space-16);
+  --component-callout-icon-size:     var(--semantic-size-icon-callout);
+  --component-callout-status-width:  var(--semantic-size-accent-thickness);
+  --component-callout-status-radius: var(--semantic-size-radius-pill);
+  --component-callout-status-color:  var(--component-callout-accent-color);
+
+  /* --- CodeBlock --- */
+  --component-code-bg:           var(--semantic-color-surface-code);
+  --component-code-border-color: var(--semantic-color-border-default);
+  --component-code-border-width: var(--semantic-size-card-stroke);
+  --component-code-text:         var(--semantic-color-text-inverse);
+  --component-code-radius:       var(--semantic-size-card-radius);
+  --component-code-padding:      var(--semantic-size-code-padding);
+  --component-code-lang-color:   var(--semantic-color-text-tertiary);
+  --component-code-lang-gap:     var(--primitives-space-16);
+
+  /* --- Inline Code --- */
+  --component-inline-code-bg:           var(--semantic-color-surface-card);
+  --component-inline-code-text:         var(--semantic-color-status-danger);
+  --component-inline-code-border-color: var(--semantic-color-border-default);
+  --component-inline-code-border-width: var(--semantic-size-card-stroke);
+  --component-inline-code-radius:       var(--semantic-size-radius-sm);
+  --component-inline-code-padding-x:    var(--primitives-space-8);
+  --component-inline-code-padding-y:    var(--primitives-space-4);
+  --component-inline-code-font-size:    var(--semantic-size-inline-code-font);
+  --component-inline-code-line-height:  var(--primitives-line-height-100);
+
+  /* --- Table --- */
+  --component-table-header-bg:        var(--semantic-color-bg-inverse);
+  --component-table-header-text:      var(--semantic-color-text-inverse);
+  --component-table-row-bg:           var(--semantic-color-bg-default);
+  --component-table-row-alt-bg:       var(--semantic-color-bg-subtle);
+  --component-table-border-color:     var(--semantic-color-border-subtle);
+  --component-table-border-width:     var(--semantic-size-card-stroke);
+  --component-table-cell-padding-x:   var(--primitives-space-24);
+  --component-table-cell-padding-y:   var(--primitives-space-16);
+  --component-table-accent-col-color: var(--semantic-color-accent-primary);
+  --component-table-header-weight:    var(--component-type-subtitle-weight);
+  --component-table-accent-col-weight: var(--component-type-subtitle-weight);
+
+  /* --- List --- */
+  --component-list-indent:     var(--semantic-size-list-indent);
+  --component-list-item-gap:   var(--semantic-size-list-item-gap);
+  --component-list-marker-gap: var(--semantic-size-list-marker-gap);
+
+  /* --- Ordered List (numbered steps) --- */
+  --component-ol-gap:      var(--semantic-size-section-gap-md);
+  --component-ol-item-gap: var(--semantic-size-ol-item-gap);
+  --component-ol-num-size: var(--semantic-size-ol-num-size);
+  --component-ol-num-bg:   var(--semantic-color-accent-primary);
+  --component-ol-num-text: var(--semantic-color-text-inverse);
+  --component-ol-num-weight: var(--component-type-title-weight);
+
+  /* --- Agenda --- */
+  --component-agenda-item-padding-y: var(--primitives-space-24);
+  --component-agenda-num-width:      var(--primitives-space-64);
+  --component-agenda-num-color:      var(--semantic-color-accent-primary);
+  --component-agenda-gap:            var(--primitives-space-48);
+  --component-agenda-page-gap:       var(--primitives-space-120);
+  --component-agenda-page-color:     var(--semantic-color-text-tertiary);
+
+  /* --- Section inverse --- */
+  --component-section-bg:   var(--semantic-color-bg-inverse);
+  --component-section-text: var(--semantic-color-text-inverse);
+
+  /* --- Full Image / Hero --- */
+  --component-fullimage-overlay: var(--semantic-color-overlay-dark);
+
+  /* --- Checklist --- */
+  --component-checklist-box-size:       var(--semantic-size-checklist-box);
+  --component-checklist-box-radius:     var(--semantic-size-radius-sm);
+  --component-checklist-box-border:     var(--semantic-color-border-default);
+  --component-checklist-check-color:    var(--semantic-color-accent-primary);
+  --component-checklist-check-bg:       var(--semantic-color-accent-primary-subtle);
+
+  /* --- Block Badge --- */
+  --component-block-badge-padding-x:      var(--primitives-space-16);
+  --component-block-badge-padding-y:      var(--primitives-space-8);
+  --component-block-badge-radius:         var(--semantic-size-radius-pill);
+  --component-block-badge-font-size:      var(--semantic-type-caption-size);
+  --component-block-badge-font-weight:    var(--semantic-type-eyebrow-weight);
+  --component-block-badge-letter-spacing: var(--semantic-type-badge-letter-spacing);
+  --component-block-badge-text:           var(--semantic-color-text-inverse);
+
+  /* --- Image block --- */
+  --component-image-radius:      var(--primitives-radius-16);
+  --component-image-caption-gap: var(--semantic-size-image-caption-gap);
+
+  /* --- Link --- */
+  --component-link-color:     var(--semantic-color-accent-primary);
+  --component-link-underline: var(--semantic-size-card-stroke);
+
+  /* --- Steps --- */
+  --component-steps-gap:               4px;
+  --component-steps-notch:             20px;
+  --component-steps-item-bg:           var(--semantic-color-bg-subtle);
+  --component-steps-item-gap:          var(--primitives-space-4);
+  --component-steps-item-padding-x:    var(--primitives-space-24);
+  --component-steps-item-padding-y:    var(--primitives-space-16);
+  --component-steps-item-min-h:        72px;
+  --component-steps-title-color:       var(--semantic-color-text-primary);
+  --component-steps-desc-color:        var(--semantic-color-text-secondary);
+  --component-steps-accent-bg:         var(--semantic-color-accent-primary);
+  --component-steps-accent-text:       var(--semantic-color-text-inverse);
+
+  /* --- Arrow --- */
+  --component-arrow-color-secondary:    var(--semantic-color-text-tertiary);
+  --component-arrow-color-accent-subtle: var(--semantic-color-accent-primary);
+  --component-arrow-size-lg:   80px;
+  --component-arrow-size-lg-h: 110px;
+  --component-arrow-size-sm:   48px;
+  --component-arrow-size-sm-h: 64px;
+}

@@ -1,0 +1,98 @@
+:root{
+  /* --- Fonts (fixed) --- */
+  --primitives-font-sans: Outfit, Noto Sans JP, sans-serif;
+  --primitives-font-mono: JetBrains Mono, monospace;
+
+  /* --- Color --- */
+  --primitives-color-beige-100: #F5F0E8;
+
+  --primitives-color-gray-0:   #FFFFFF;
+  --primitives-color-gray-50:  #F7F7F7;
+  --primitives-color-gray-100: #ECECEC;
+  --primitives-color-gray-300: #D4D4D4;
+  --primitives-color-gray-500: #8A8A8A;
+  --primitives-color-gray-700: #4D4D4D;
+  --primitives-color-gray-900: #1A1A1A;
+  --primitives-color-gray-950: #111111;
+
+  --primitives-color-orange-100: #F8E3DD;
+  --primitives-color-orange-300: #E8A18F;
+  --primitives-color-orange-500: #D4593A;
+  --primitives-color-orange-700: #A63F27;
+
+  --primitives-color-green-500:  #2E9B63;
+  --primitives-color-yellow-500: #D89A1D;
+  --primitives-color-red-500:    #C94A4A;
+  --primitives-color-blue-500:   #3B82F6;
+
+  /* --- Space --- */
+  --primitives-space-0:   0px;
+  --primitives-space-4:   4px;
+  --primitives-space-8:   8px;
+  --primitives-space-12:  12px;
+  --primitives-space-16:  16px;
+  --primitives-space-24:  24px;
+  --primitives-space-32:  32px;
+  --primitives-space-48:  48px;
+  --primitives-space-64:  64px;
+  --primitives-space-80:  80px;
+  --primitives-space-96:  96px;
+  --primitives-space-120: 120px;
+
+  /* --- Radius --- */
+  --primitives-radius-0:   0px;
+  --primitives-radius-8:   8px;
+  --primitives-radius-12:  12px;
+  --primitives-radius-16:  16px;
+  --primitives-radius-24:  24px;
+  --primitives-radius-999: 999px;
+
+  /* --- Stroke --- */
+  --primitives-stroke-1: 1px;
+  --primitives-stroke-2: 2px;
+
+  /* --- Overlay --- */
+  --primitives-overlay-dark: rgba(0, 0, 0, 0.50);
+
+  /* --- Slide size --- */
+  --primitives-size-slide-width:  1920px;
+  --primitives-size-slide-height: 1080px;
+  --primitives-size-content-max-width: 1728px;
+  --primitives-size-hero-max-width: 1200px;
+
+  /* --- Typography scale --- */
+  --primitives-font-size-14:  14px;
+  --primitives-font-size-20:  20px;
+  --primitives-font-size-24:  24px;
+  --primitives-font-size-32:  32px;
+  --primitives-font-size-36:  36px;
+  --primitives-font-size-48:  48px;
+  --primitives-font-size-64:  64px;
+  --primitives-font-size-72:  72px;
+  --primitives-font-size-96:  96px;
+  --primitives-font-size-120: 120px;
+
+  --primitives-line-height-100: 1;
+  --primitives-line-height-120: 1.2;
+  --primitives-line-height-140: 1.4;
+  --primitives-line-height-180: 1.8;
+  --primitives-line-height-hero: 86px;
+
+  --primitives-font-weight-regular: 400;
+  --primitives-font-weight-medium: 500;
+  --primitives-font-weight-bold: 700;
+
+  --primitives-letter-spacing-eyebrow: 0.04em;
+  --primitives-letter-spacing-badge: 0.08em;
+
+  /* --- Icon size --- */
+  --primitives-size-icon-36: 36px;
+
+  /* --- Relative size tokens --- */
+  --primitives-size-inline-code-font: 0.85em;
+  --primitives-size-list-indent: 1.2em;
+  --primitives-size-list-item-gap: 0.35em;
+  --primitives-size-ol-item-gap: 1em;
+  --primitives-size-ol-num-size: 1.5em;
+  --primitives-size-checklist-box: 1.1em;
+}
