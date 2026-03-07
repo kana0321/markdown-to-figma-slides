@@ -1,4 +1,4 @@
 interface:
   display_name: "Markdown to Figma Slides"
-  short_description: "Build Markdown-to-HTML slide workflows for Figma handoff"
-  default_prompt: "Use $markdown-to-figma-slides to turn my markdown into versioned HTML slides for Figma."
+  short_description: "Generate versioned HTML slides and design tuning for Figma"
+  default_prompt: "Use $markdown-to-figma-slides to normalize my markdown, generate versioned HTML slides, tune design tokens, and prepare Figma capture."
