@@ -72,13 +72,13 @@ Switch the active theme:
 python3 scripts/theme.py --project-root . apply classic
 ```
 
-Edit `design.config.yaml`, theme CSS token files, or `slide.css` directly, then:
+Edit `design.config.yaml`, theme CSS token files, theme `slide.css`, or `shared/styles/slide.css` directly, then:
 
 ```bash
 python3 scripts/sync_tokens.py --project-root . --version vN
 ```
 
-This syncs token overrides and also copies `slide.css` to the version output if changed.
+This syncs token overrides and also copies both theme `slide.css` and `shared/styles/slide.css` to the version output if changed.
 
 ## 5. Preview
 

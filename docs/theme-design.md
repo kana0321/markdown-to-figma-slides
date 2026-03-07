@@ -71,11 +71,18 @@ theme が持つもの:
 - theme defaults
 - フォント読み込み定義
 
+共通エンジン配下に持つもの:
+
+- `shared/styles/slide.css`
+
 ## ディレクトリ構成
 
 ```text
 project-root/
   design.config.yaml
+  shared/
+    styles/
+      slide.css
   themes/
     classic/
       theme.yaml
@@ -211,7 +218,7 @@ python3 scripts/theme.py --project-root . apply minimal
 依存関係は次を基本とする。
 
 ```text
-primitives -> semantic -> component -> slide.css
+primitives -> semantic -> component -> shared slide.css -> theme slide.css
 ```
 
 ### primitives

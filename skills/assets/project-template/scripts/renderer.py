@@ -575,11 +575,14 @@ def render_deck(
 
     # --- Copy styles ---
     styles_src = templates_dir.parent / "styles"
+    shared_styles_src = theme.root.parents[1] / "shared" / "styles"
     styles_dst = version_dir / "styles"
     if styles_src.is_dir():
         if styles_dst.exists():
             shutil.rmtree(styles_dst)
         shutil.copytree(styles_src, styles_dst)
+    if shared_styles_src.is_dir():
+        shutil.copytree(shared_styles_src, styles_dst / "shared", dirs_exist_ok=True)
 
     # --- Redirect entry ---
     _write_redirect(output_dir, version)
@@ -781,6 +784,7 @@ def _build_all_in_one(
   <link rel="stylesheet" href="{css_base}/tokens.primitives.css" />
   <link rel="stylesheet" href="{css_base}/tokens.semantic.css" />
   <link rel="stylesheet" href="{css_base}/tokens.component.css" />
+  <link rel="stylesheet" href="{css_base}/shared/slide.css" />
   <link rel="stylesheet" href="{css_base}/slide.css" />
   <title>All Slides</title>
 </head>

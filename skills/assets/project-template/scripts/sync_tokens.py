@@ -80,12 +80,10 @@ def main() -> int:
     theme = load_theme(root, config.theme.name)
     overrides = _build_overrides(config)
 
-    if not overrides:
-        print("no token overrides to apply")
-        return 0
-
     styles_dir = theme.styles_dir
     targets = [styles_dir]
+    if not overrides:
+        print("no token overrides to apply")
 
     if args.version:
         version_styles = root / "output" / args.version / "styles"
@@ -115,6 +113,18 @@ def main() -> int:
                 shutil.copy2(slide_src, slide_dst)
                 changed += 1
                 print(f"copied: {slide_dst}")
+
+        shared_slide_src = theme.root.parents[1] / "shared" / "styles" / "slide.css"
+        shared_slide_dst = version_styles / "shared" / "slide.css"
+        if shared_slide_src.exists() and version_styles.is_dir():
+            shared_slide_dst.parent.mkdir(parents=True, exist_ok=True)
+            if (
+                not shared_slide_dst.exists()
+                or shared_slide_src.read_bytes() != shared_slide_dst.read_bytes()
+            ):
+                shutil.copy2(shared_slide_src, shared_slide_dst)
+                changed += 1
+                print(f"copied: {shared_slide_dst}")
 
     if not changed:
         print("no changes needed")

@@ -60,6 +60,7 @@ class RenderSmokeTest(unittest.TestCase):
         self.assertTrue((version_root / "manifest.json").exists())
         self.assertTrue((version_root / "slides" / "slides.html").exists())
         self.assertTrue((version_root / "styles" / "slide.css").exists())
+        self.assertTrue((version_root / "styles" / "shared" / "slide.css").exists())
         self.assertTrue((version_root / "styles" / "tokens.primitives.css").exists())
         self.assertTrue((version_root / "styles" / "tokens.semantic.css").exists())
         self.assertTrue((version_root / "styles" / "tokens.component.css").exists())
