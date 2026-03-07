@@ -543,6 +543,22 @@ def render_deck(
             idx += 1
             page += 1
 
+    # --- End ---
+    if config.end.enabled:
+        end_slide = Slide(
+            type="end",
+            title=config.end.title,
+            subtitle=config.end.subtitle,
+        )
+        end_html, end_body = _render_slide(
+            env, end_slide, "end", config, page, "../../styles"
+        )
+        _write_page(pages_dir, idx, "end", end_html)
+        manifest_rows.append(_manifest_row(idx, page, f"{idx:02d}-end.html", "end", config.end.title))
+        deck_html_parts.append(end_body)
+        idx += 1
+        page += 1
+
     # --- All-in-one slides.html ---
     all_in_one = _build_all_in_one(
         deck_html_parts, config.global_.lang, "../styles"
@@ -596,6 +612,7 @@ def _render_slide(
     slide_class_map = {
         "cover": "slide--cover",
         "section": "slide--section slide--section",
+        "end": "slide--cover",
         "body-hero": "slide--body slide--fullimage",
     }
     slide_class = slide_class_map.get(

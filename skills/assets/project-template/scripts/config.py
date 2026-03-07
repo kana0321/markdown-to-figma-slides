@@ -41,13 +41,16 @@ class TypeDefaults:
     section: bool = True
     agenda: bool = True
     body: bool = True
+    end: bool = True
 
 
 @dataclass
 class BadgeConfig:
     enabled: bool = True
     text: str = "Confidential"
-    defaults: TypeDefaults = field(default_factory=TypeDefaults)
+    defaults: TypeDefaults = field(
+        default_factory=lambda: TypeDefaults(end=False)
+    )
 
 
 @dataclass
@@ -55,7 +58,7 @@ class PageNumberConfig:
     enabled: bool = True
     start: int = 1
     defaults: TypeDefaults = field(
-        default_factory=lambda: TypeDefaults(cover=False, section=False)
+        default_factory=lambda: TypeDefaults(cover=False, section=False, end=False)
     )
 
 
@@ -65,11 +68,19 @@ class AccentBarDefaults:
     section: str = "none"
     agenda: str = "top"
     body: str = "top"
+    end: str = "left"
 
 
 @dataclass
 class AccentBarConfig:
     defaults: AccentBarDefaults = field(default_factory=AccentBarDefaults)
+
+
+@dataclass
+class EndConfig:
+    enabled: bool = True
+    title: str = "Thank you"
+    subtitle: str = ""
 
 
 @dataclass
@@ -101,6 +112,7 @@ class DesignConfig:
     page_number: PageNumberConfig = field(default_factory=PageNumberConfig)
     accent_bar: AccentBarConfig = field(default_factory=AccentBarConfig)
     agenda: AgendaConfig = field(default_factory=AgendaConfig)
+    end: EndConfig = field(default_factory=EndConfig)
     tokens: dict[str, str] = field(default_factory=dict)
     slides: list[SlideOverride] = field(default_factory=list)
 
@@ -158,6 +170,10 @@ def load_config(path: Path) -> DesignConfig:
     # Agenda
     if "agenda" in raw:
         _merge_dataclass(config.agenda, raw["agenda"])
+
+    # End
+    if "end" in raw:
+        _merge_dataclass(config.end, raw["end"])
 
     # Tokens
     if "tokens" in raw and isinstance(raw["tokens"], dict):
@@ -233,7 +249,7 @@ def resolve_slide(
     resolved.accent_bar = getattr(config.accent_bar.defaults, slide_type, "top")
 
     # Template default
-    resolved.template = slide_type if slide_type in ("cover", "section", "agenda") else "body"
+    resolved.template = slide_type if slide_type in ("cover", "section", "agenda", "end") else "body"
 
     # Global tokens
     resolved.tokens = dict(config.tokens)

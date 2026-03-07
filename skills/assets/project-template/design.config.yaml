@@ -37,9 +37,11 @@ accent_bar:
 
 agenda:
   enabled: true
-  title: "Agenda"
-  eyebrow: "Agenda"
-  show_pages: true
+
+end:
+  enabled: true
+  title: "Thank you"
+  subtitle: ""
 
 tokens: {}
 
