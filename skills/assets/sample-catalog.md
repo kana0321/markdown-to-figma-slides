@@ -603,19 +603,19 @@ This is the basic 2x2 grid for compact information grouping.
 <!-- cell: col=1; row=2 -->
 | Metric | Value |
 |---|---|
-| MRR | 12.4M |
+| MRR | $12.4M |
 | NRR | 118% |
 <!-- /cell -->
 
 <!-- cell: col=2; row=2 -->
-1. **Group** content by meaning
-2. **Place** blocks to guide the eye
+1. **Group** information by type
+2. **Place** content to guide the eye
 3. **Emphasize** only what matters
 <!-- /cell -->
 
 <!-- /grid -->
 
-### Body Grid (With Span)
+### Body Grid (with spans)
 
 <!-- slide: template=body-grid -->
 
@@ -635,7 +635,7 @@ This gives you a large hero cell without falling back to a fixed 2-column struct
 - Tall side rail
 - FAQ
 - Constraints
-- Links
+- Reference links
 <!-- /cell -->
 
 <!-- cell: col=1; row=2 -->
@@ -644,12 +644,12 @@ Phased rollout
 <!-- /cell -->
 
 <!-- cell: col=2; row=2 -->
-Ship in stages and expand once the signal is clear.
+Roll out in stages and widen the release as confidence grows.
 <!-- /cell -->
 
 <!-- /grid -->
 
-### Body Grid (Directional Spacing)
+### Body Grid (directional gaps)
 
 <!-- slide: template=body-grid -->
 
@@ -660,13 +660,13 @@ Ship in stages and expand once the signal is clear.
 **Make the left-right split more pronounced**
 
 - `col_gap=lg`
-- Wider spacing between columns
-- Clearer separation between horizontal groups
+- Widen the space between columns
+- Make each side read as a clearer group
 <!-- /card -->
 <!-- /cell -->
 
 <!-- cell: col=2; row=1; col_span=2 -->
-Use this when you want more air between columns but still want related rows to read as one cluster.
+This example keeps the horizontal spacing loose while tightening the vertical rhythm.
 
 | Setting | Value |
 |---|---|
@@ -675,12 +675,12 @@ Use this when you want more air between columns but still want related rows to r
 <!-- /cell -->
 
 <!-- cell: col=2; row=2 -->
-The tighter row spacing keeps the upper and lower cells visually connected.
+Smaller vertical gaps help related items feel like one cluster.
 <!-- /cell -->
 
 <!-- cell: col=3; row=2 -->
 > [!TIP]
-> Useful when horizontal grouping matters more than vertical separation.
+> This works well when columns should feel clearly separated, but rows still need to read as connected.
 <!-- /cell -->
 
 <!-- /grid -->
