@@ -1,12 +1,29 @@
 # Markdown to Figma Slides
 
-![Sample Catalog Preview](docs/sample-catalog-preview.png)
+![Markdown to Figma Slides Preview](docs/readme-preview.png)
+
+日本語: このページ / English: [README.en.md](README.en.md)
 
 Markdown を書くだけで、Figma に取り込める HTML スライドを生成するスキルです。
 
 Claude Code（または OpenAI Codex 等の AI エージェント）に依頼すると、Markdown の正規化からテンプレート適用、バージョン管理、テーマ切り替え、Figma キャプチャまでを一貫して進めてくれます。生成のたびにバージョン付きスナップショット（`v1`, `v2`, ...）が作られるので、過去のスライドを失う心配がありません。
 
-Git に不慣れな場合は、[Git の運用ガイド](docs/git-workflow.md) を先に読むと進めやすくなります。
+## 目次
+
+- [まずは試してみる](#まずは試してみる)
+- [前提条件](#前提条件)
+- [はじめかた](#はじめかた)
+- [テーマ](#テーマ)
+- [Markdown の書き方](#markdown-の書き方)
+- [コンポーネント](#コンポーネント)
+- [テンプレート](#テンプレート)
+- [スライドの表示設定](#スライドの表示設定)
+- [デザイン調整](#デザイン調整)
+- [プロジェクト構成](#プロジェクト構成)
+- [スラッシュコマンド](#スラッシュコマンド)
+- [Figma キャプチャ](#figma-キャプチャ)
+- [手動でのコマンド実行](#手動でのコマンド実行)
+- [トラブルシューティング](#トラブルシューティング)
 
 ## まずは試してみる
 
