@@ -90,6 +90,17 @@ Explicit comment format:
 <!-- slide: template=body-2col; ratio=6040; compact=true -->
 ```
 
+`body-grid` uses a stricter block grammar inside the slide body:
+
+```md
+<!-- slide: template=body-grid -->
+<!-- grid: columns=2; rows=2; gap=md -->
+<!-- cell: col=1; row=1 -->
+Cell content
+<!-- /cell -->
+<!-- /grid -->
+```
+
 Accepted keys during parsing / normalization:
 `template`, `confidential`, `show_source`, `eyebrow`, `subtitle`, `ratio`, `compact`
 
@@ -119,3 +130,14 @@ Body slide note:
 - 2-column: `#### Left`, `#### Right`
 - 3-column: `#### Col1`, `#### Col2`, `#### Col3`
 - Unknown labels treated as normal subtitle headings
+
+## Body Grid Rules
+
+- `body-grid` requires exactly one `<!-- grid: ... --> ... <!-- /grid -->` block
+- `grid` requires `columns` and `rows`
+- optional grid gap keys: `gap`, `col_gap`, `row_gap`
+- gap values are `sm`, `md`, `lg`
+- each `cell` requires `col` and `row`
+- optional cell span keys: `col_span`, `row_span`
+- content outside `cell` blocks is rejected
+- grid size is validated and overlapping cells are rejected

@@ -118,7 +118,7 @@ python3 scripts/theme.py --project-root . current
 python3 scripts/theme.py --project-root . apply classic
 ```
 
-### Templates (9 types)
+### Templates (10 types)
 
 | Template | Usage |
 |---|---|
@@ -127,6 +127,7 @@ python3 scripts/theme.py --project-root . apply classic
 | `section` | Section divider (dark bg) |
 | `body` | General purpose |
 | `body-text` | Long-form text |
+| `body-grid` | Strict grid layout with `<!-- grid -->` / `<!-- cell -->` |
 | `body-2col` | Two columns (ratio: 4060/6040/equal) |
 | `body-3col` | Three columns |
 | `body-code` | Code-focused |

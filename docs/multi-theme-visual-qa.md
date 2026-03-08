@@ -23,7 +23,7 @@
 理由:
 
 - cover / agenda / section / end を含む
-- `body`, `body-text`, `body-2col`, `body-3col`, `body-code`, `body-hero` を含む
+- `body`, `body-text`, `body-grid`, `body-2col`, `body-3col`, `body-code`, `body-hero` を含む
 - list, table, code block, callout, card, badge, image, arrow, steps を広く含む
 - built-in theme の smoke test でも使っている
 
@@ -148,6 +148,7 @@ python3 -m http.server 8080
 - `agenda`
 - `section`
 - `body-text`
+- `body-grid`
 - `body-2col`
 - `body-3col`
 - `body-hero`
@@ -165,6 +166,7 @@ python3 -m http.server 8080
 - `section` で大見出しが潰れないか
 - `body` でタイトルと本文の余白バランスが保たれているか
 - `body-text` で長文の可読性が落ちていないか
+- `body-grid` でセル間余白、span、セル内コンテンツ密度が破綻しないか
 - `body-2col` と `body-3col` でカラム幅と段落折返しが破綻しないか
 - `body-code` でコード文字サイズ、行高、背景コントラストが自然か
 - `body-hero` で画像 overlay と文字可読性が保たれているか

@@ -162,7 +162,8 @@ body{
 .layout-2col,
 .layout-2col-4060,
 .layout-2col-6040,
-.layout-3col {
+.layout-3col,
+.layout-grid {
   display:grid;
   column-gap: var(--component-layout-col-gap);
   row-gap: var(--component-layout-row-gap);
@@ -173,11 +174,26 @@ body{
 .layout-2col-4060 { grid-template-columns: 2fr 3fr; }
 .layout-2col-6040 { grid-template-columns: 3fr 2fr; }
 .layout-3col      { grid-template-columns: 1fr 1fr 1fr; }
+.layout-grid{
+  grid-template-columns: var(--grid-columns);
+  grid-template-rows: var(--grid-rows);
+  column-gap: var(--grid-col-gap);
+  row-gap: var(--grid-row-gap);
+}
 .col{
   display:flex;
   flex-direction:column;
   gap: var(--component-body-gap-md);
   min-width:0;
+  overflow:visible;
+  position:relative;
+}
+.grid-cell{
+  display:flex;
+  flex-direction:column;
+  gap: var(--component-body-gap-md);
+  min-width:0;
+  min-height:0;
   overflow:visible;
   position:relative;
 }

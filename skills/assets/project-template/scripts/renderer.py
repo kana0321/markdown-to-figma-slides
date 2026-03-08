@@ -262,6 +262,40 @@ def _render_steps(block: Block) -> str:
     return f'<div class="steps">{"".join(parts)}</div>'
 
 
+def _render_grid(block: Block) -> str:
+    """Render a grid block using CSS Grid and inline custom properties."""
+    columns = block.meta.get("columns", [])
+    rows = block.meta.get("rows", [])
+    col_gap = block.meta.get("col_gap", "md")
+    row_gap = block.meta.get("row_gap", "md")
+    source_kind = block.meta.get("source_kind", "")
+    style = (
+        f'--grid-columns: {" ".join(columns)}; '
+        f'--grid-rows: {" ".join(rows)}; '
+        f'--grid-col-gap: var(--component-grid-gap-{html.escape(col_gap, quote=True)}); '
+        f'--grid-row-gap: var(--component-grid-gap-{html.escape(row_gap, quote=True)});'
+    )
+    source_attr = html.escape(source_kind, quote=True)
+    cells_html = "".join(_render_grid_cell(cell) for cell in block.children)
+    return (
+        f'<div class="layout-grid" data-grid-source-kind="{source_attr}" style="{style}">'
+        f"{cells_html}"
+        f"</div>"
+    )
+
+
+def _render_grid_cell(block: Block) -> str:
+    """Render a single grid cell."""
+    col = block.meta.get("col", 1)
+    row = block.meta.get("row", 1)
+    col_span = block.meta.get("col_span", 1)
+    row_span = block.meta.get("row_span", 1)
+    style = f"grid-column: {col} / span {col_span}; grid-row: {row} / span {row_span};"
+    inner = "".join(block_to_html(child) for child in block.children)
+    empty_mod = " grid-cell--empty" if not block.children else ""
+    return f'<div class="grid-cell{empty_mod}" style="{style}">{inner}</div>'
+
+
 def block_to_html(block: Block) -> str:
     """Convert a Block AST node to an HTML string."""
 
@@ -272,6 +306,9 @@ def block_to_html(block: Block) -> str:
     if block.type == "heading4":
         inner = inline_to_html(block.children)
         return f'<div class="type-heading4">{inner}</div>'
+
+    if block.type == "grid":
+        return _render_grid(block)
 
     if block.type == "ul":
         items_html = _render_list_items_nested(block.children, "ul")

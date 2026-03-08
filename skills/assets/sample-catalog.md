@@ -111,6 +111,39 @@
 - モニタリング
 - 改善サイクル
 
+### ボディグリッド
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=2; rows=2; gap=md -->
+
+<!-- cell: col=1; row=1 -->
+主要メッセージをセル単位で整理できる汎用グリッドです。
+
+- `columns` と `rows` で骨格を定義
+- 各セルには通常の body block をそのまま配置可能
+<!-- /cell -->
+
+<!-- cell: col=2; row=1 -->
+<!-- card: accent -->
+span を使わなくても、情報のまとまりを均等に比較できます。
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+| 指標 | 値 |
+|---|---|
+| MRR | 12.4M |
+| NRR | 118% |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+> [!TIP]
+> 強調したいセルだけ card や callout を入れると、密度を保ったまま強弱を付けられます。
+<!-- /cell -->
+
+<!-- /grid -->
+
 ### ヒーロー
 
 <!-- slide: template=body-hero -->
@@ -478,6 +511,39 @@ Deploy, monitor, and gather feedback.
 - Release
 - Monitoring
 - Iteration
+
+### Body Grid
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=2; rows=2; gap=md -->
+
+<!-- cell: col=1; row=1 -->
+Body Grid gives you a generic grid layout for arranging multiple messages with equal weight.
+
+- Define the frame with `columns` and `rows`
+- Each cell accepts the same body blocks as a standard slide
+<!-- /cell -->
+
+<!-- cell: col=2; row=1 -->
+<!-- card: accent -->
+Even without spans, grid cells make side-by-side comparison layouts straightforward.
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+| Metric | Value |
+|---|---|
+| MRR | $12.4M |
+| NRR | 118% |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+> [!TIP]
+> Add cards or callouts only where you need emphasis, and keep the rest of the grid quiet.
+<!-- /cell -->
+
+<!-- /grid -->
 
 ### Hero
 
