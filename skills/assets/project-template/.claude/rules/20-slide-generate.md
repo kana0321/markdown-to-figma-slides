@@ -4,8 +4,9 @@ paths:
   - "scripts/parser.py"
   - "scripts/renderer.py"
   - "scripts/models.py"
-  - "templates/**"
-  - "styles/**"
+  - "themes/**/templates/**"
+  - "themes/**/styles/**"
+  - "shared/styles/**"
   - "output/**"
   - "input/current.md"
 ---
@@ -60,6 +61,7 @@ paths:
 
 - `body-text`: 本文の `type-body` クラスを `type-body-spacious` に自動変換し、可読性を向上させる。
 - `body-hero`: 最初の画像ブロックをヒーロー画像として抽出し、残りをコンテンツとして表示。本文クラスを `type-hero` に変換する。
+- `body-grid-full`: `body-grid` と同じ grid 文法を使用するが、スライドヘッダー（タイトル・アイブロウ）なしで描画する。コンテンツ優先の大きいレイアウト向け。
 - `body-code`: コードブロック中心のスライド用。
 
 ## Arrow コンポーネント
