@@ -28,13 +28,16 @@ DEFAULT_PAGE_SPECS = [
     ("05-body", "Body Text"),
     ("06-body", "Body 2col"),
     ("09-body", "Body 3col"),
-    ("10-body", "Body Hero"),
-    ("11-body", "Body Code"),
-    ("16-body", "Table"),
-    ("23-body", "Card"),
-    ("29-body", "Arrow"),
-    ("30-body", "Image"),
-    ("73-end", "End"),
+    ("10-body", "Body Grid 2x2"),
+    ("11-body", "Body Grid Span"),
+    ("12-body", "Body Grid Directional Spacing"),
+    ("13-body", "Body Hero"),
+    ("14-body", "Body Code"),
+    ("19-body", "Table"),
+    ("26-body", "Card"),
+    ("32-body", "Arrow"),
+    ("33-body", "Image"),
+    ("79-end", "End"),
 ]
 
 VERSION_RE = re.compile(r"^v\d+$")

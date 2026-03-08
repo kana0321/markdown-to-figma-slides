@@ -7,6 +7,7 @@
 細かい設計方針の正本は次を参照する。
 
 - `docs/theme-design.md`
+- `docs/body-grid-design.md`
 - `docs/theme-authoring.md`
 - `docs/multi-theme-visual-qa.md`
 - `docs/theme-doc-update-checklist.md`

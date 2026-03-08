@@ -103,6 +103,9 @@
   /* --- Layout (multi-column) --- */
   --component-layout-col-gap: var(--primitives-space-96);
   --component-layout-row-gap: var(--semantic-size-layout-row-gap);
+  --component-grid-gap-sm: var(--semantic-size-section-gap-sm);
+  --component-grid-gap-md: var(--semantic-size-section-gap-md);
+  --component-grid-gap-lg: var(--semantic-size-section-gap-xl);
 
   /* --- Card --- */
   --component-card-bg:           var(--semantic-color-surface-card);
