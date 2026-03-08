@@ -1,6 +1,8 @@
 # Markdown to Figma Slides
 
-![Sample Catalog Preview](docs/sample-catalog-preview.png)
+![Markdown to Figma Slides Preview](docs/readme-preview.png)
+
+日本語: このページ / English: [README.en.md](README.en.md)
 
 Markdown を書くだけで、Figma に取り込める HTML スライドを生成するスキルです。
 
