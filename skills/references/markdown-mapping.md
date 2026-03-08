@@ -90,17 +90,6 @@ Explicit comment format:
 <!-- slide: template=body-2col; ratio=6040; compact=true -->
 ```
 
-`body-grid` uses a stricter block grammar inside the slide body:
-
-```md
-<!-- slide: template=body-grid -->
-<!-- grid: columns=2; rows=2; gap=md -->
-<!-- cell: col=1; row=1 -->
-Cell content
-<!-- /cell -->
-<!-- /grid -->
-```
-
 Accepted keys during parsing / normalization:
 `template`, `confidential`, `show_source`, `eyebrow`, `subtitle`, `ratio`, `compact`
 
@@ -131,13 +120,49 @@ Body slide note:
 - 3-column: `#### Col1`, `#### Col2`, `#### Col3`
 - Unknown labels treated as normal subtitle headings
 
-## Body Grid Rules
+## `body-grid` Layout Rules
 
-- `body-grid` requires exactly one `<!-- grid: ... --> ... <!-- /grid -->` block
-- `grid` requires `columns` and `rows`
-- optional grid gap keys: `gap`, `col_gap`, `row_gap`
-- gap values are `sm`, `md`, `lg`
-- each `cell` requires `col` and `row`
-- optional cell span keys: `col_span`, `row_span`
-- content outside `cell` blocks is rejected
-- grid size is validated and overlapping cells are rejected
+`body-grid` is a strict block grammar.
+
+```md
+### Example
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=sm -->
+<!-- cell: col=1; row=1; col_span=2 -->
+Main content
+<!-- /cell -->
+<!-- cell: col=3; row=1; row_span=2 -->
+Side content
+<!-- /cell -->
+<!-- /grid -->
+```
+
+`grid` attributes:
+
+| Attribute | Required | Values |
+|---|---|---|
+| `columns` | yes | integer `1..6` |
+| `rows` | yes | integer `1..6` |
+| `gap` | no | `sm`, `md`, `lg` (fallback for both directions) |
+| `col_gap` | no | `sm`, `md`, `lg` |
+| `row_gap` | no | `sm`, `md`, `lg` |
+
+`cell` attributes:
+
+| Attribute | Required | Values |
+|---|---|---|
+| `col` | yes | positive integer |
+| `row` | yes | positive integer |
+| `col_span` | no | positive integer, default `1` |
+| `row_span` | no | positive integer, default `1` |
+
+Rules:
+
+- `template=body-grid` requires exactly one root `grid` block
+- `gap` applies to both axes unless `col_gap` and/or `row_gap` override one side
+- `grid` may contain only `cell` blocks
+- content outside `grid` or directly inside `grid` is rejected
+- `unknown` attributes, duplicate attributes, invalid values, overlap, and out-of-bounds placement all raise parse errors
+- nested `grid` / `cell` blocks are not supported
+- `body-2col` / `body-3col` keep their legacy `####` routing syntax, but are normalized to the same internal grid layout engine

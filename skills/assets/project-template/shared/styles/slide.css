@@ -689,7 +689,9 @@ svg.arrow.arrow--accent-subtle{ --component-arrow-color: var(--component-arrow-c
 
 /* --- Arrow as column separator --- */
 .col:not(:last-child) > .arrow.arrow--right,
-.col:not(:first-child) > .arrow.arrow--left{
+.col:not(:first-child) > .arrow.arrow--left,
+.layout-grid--legacy-cols .grid-cell:not(:last-child) > .arrow.arrow--right,
+.layout-grid--legacy-cols .grid-cell:not(:first-child) > .arrow.arrow--left{
   position:absolute;
   top:50%;
   left:calc(100% + var(--component-layout-col-gap) / 2);

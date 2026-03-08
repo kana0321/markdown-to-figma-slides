@@ -91,6 +91,8 @@ _GRID_REQUIRED_KEYS = {"columns", "rows"}
 _GRID_GAP_VALUES = {"sm", "md", "lg"}
 _CELL_ALLOWED_KEYS = {"col", "row", "col_span", "row_span"}
 _CELL_REQUIRED_KEYS = {"col", "row"}
+_LEGACY_COL_LABELS_2 = ("left", "right")
+_LEGACY_COL_LABELS_3 = ("col1", "col2", "col3")
 
 
 class MarkdownParseError(ValueError):
@@ -133,7 +135,7 @@ def _parse_strict_comment_attrs(
     kind: str,
     slide_title: str,
 ) -> dict[str, str]:
-    """Parse a strict key=value comment payload and reject unknown / duplicate keys."""
+    """Parse 'key=value; key2=value2' and reject unknown / duplicate keys."""
     result: dict[str, str] = {}
     seen: set[str] = set()
 
@@ -142,7 +144,10 @@ def _parse_strict_comment_attrs(
         if not part:
             continue
         if "=" not in part:
-            _raise_parse_error(f"{kind} attributes must use key=value syntax", slide_title)
+            _raise_parse_error(
+                f"{kind} attributes must use key=value syntax",
+                slide_title,
+            )
         key, value = part.split("=", 1)
         key = key.strip().lower()
         value = value.strip()
@@ -155,8 +160,9 @@ def _parse_strict_comment_attrs(
 
     missing = [key for key in sorted(required_keys) if key not in result]
     if missing:
+        missing_list = ", ".join(missing)
         _raise_parse_error(
-            f"{kind} is missing required attribute(s): {', '.join(missing)}",
+            f"{kind} is missing required attribute(s): {missing_list}",
             slide_title,
         )
 
@@ -174,19 +180,17 @@ def _parse_positive_int(
 ) -> int:
     try:
         parsed = int(value)
-    except ValueError as exc:
-        raise MarkdownParseError(
-            f"{kind} attribute '{attr_name}' must be an integer on slide '{_slide_name(slide_title)}'"
-        ) from exc
+    except ValueError:
+        parsed = -1
 
-    if parsed < min_value:
+    if parsed < min_value or (max_value is not None and parsed > max_value):
+        if max_value is None:
+            _raise_parse_error(
+                f"{kind} attribute '{attr_name}' must be a positive integer",
+                slide_title,
+            )
         _raise_parse_error(
-            f"{kind} attribute '{attr_name}' must be >= {min_value}",
-            slide_title,
-        )
-    if max_value is not None and parsed > max_value:
-        _raise_parse_error(
-            f"{kind} attribute '{attr_name}' must be <= {max_value}",
+            f"{kind} attribute '{attr_name}' must be an integer between {min_value} and {max_value}",
             slide_title,
         )
     return parsed
@@ -629,10 +633,6 @@ def parse_blocks(lines: list[str]) -> list[Block]:
                 or _ARROW_COMMENT_RE.match(s)
                 or _STEPS_COMMENT_RE.match(s)
                 or _STEPS_CLOSE_RE.match(s)
-                or _GRID_OPEN_RE.match(s)
-                or _GRID_CLOSE_RE.match(s)
-                or _CELL_OPEN_RE.match(s)
-                or _CELL_CLOSE_RE.match(s)
                 or s.startswith("<!--")
             ):
                 break
@@ -699,7 +699,44 @@ def _build_grid_cell(
     )
 
 
+def _parse_body_grid_blocks(lines: list[str], slide_title: str) -> list[Block]:
+    """Parse a strict body-grid slide body."""
+    blocks: list[Block] = []
+    i = 0
+
+    while i < len(lines):
+        stripped = lines[i].strip()
+        if not stripped:
+            i += 1
+            continue
+
+        gm = _GRID_OPEN_RE.match(stripped)
+        if gm:
+            if blocks:
+                _raise_parse_error(
+                    "body-grid requires exactly one <!-- grid: ... --> block",
+                    slide_title,
+                )
+            grid_block, i = _parse_grid_block(lines, i, slide_title)
+            blocks.append(grid_block)
+            continue
+
+        _raise_parse_error(
+            "body-grid does not allow content outside <!-- cell --> blocks",
+            slide_title,
+        )
+
+    if len(blocks) != 1:
+        _raise_parse_error(
+            "body-grid requires exactly one <!-- grid: ... --> block",
+            slide_title,
+        )
+
+    return blocks
+
+
 def _resolve_grid_gap(attrs: dict[str, str], slide_title: str) -> tuple[str, str]:
+    """Resolve shorthand/explicit gap values into (col_gap, row_gap)."""
     gap = attrs.get("gap", "").lower()
     col_gap = attrs.get("col_gap", "").lower()
     row_gap = attrs.get("row_gap", "").lower()
@@ -715,36 +752,88 @@ def _resolve_grid_gap(attrs: dict[str, str], slide_title: str) -> tuple[str, str
     return col_gap or fallback, row_gap or fallback
 
 
-def _validate_grid_cells(
-    cells: list[Block],
-    declared_columns: int,
-    declared_rows: int,
+def _parse_grid_block(
+    lines: list[str],
+    start: int,
     slide_title: str,
-) -> None:
-    occupied: set[tuple[int, int]] = set()
+) -> tuple[Block, int]:
+    """Parse a strict grid block and return (grid_block, next_index)."""
+    gm = _GRID_OPEN_RE.match(lines[start].strip())
+    raw_attrs = gm.group(1) if gm else ""
+    attrs = _parse_strict_comment_attrs(
+        raw_attrs,
+        allowed_keys=_GRID_ALLOWED_KEYS,
+        required_keys=_GRID_REQUIRED_KEYS,
+        kind="grid",
+        slide_title=slide_title,
+    )
 
-    for cell in cells:
-        col = cell.meta["col"]
-        row = cell.meta["row"]
-        col_span = cell.meta["col_span"]
-        row_span = cell.meta["row_span"]
-        col_end = col + col_span - 1
-        row_end = row + row_span - 1
+    declared_columns = _parse_positive_int(
+        attrs["columns"],
+        attr_name="columns",
+        kind="grid",
+        slide_title=slide_title,
+        min_value=1,
+        max_value=6,
+    )
+    declared_rows = _parse_positive_int(
+        attrs["rows"],
+        attr_name="rows",
+        kind="grid",
+        slide_title=slide_title,
+        min_value=1,
+        max_value=6,
+    )
+    col_gap, row_gap = _resolve_grid_gap(attrs, slide_title)
 
-        if col_end > declared_columns or row_end > declared_rows:
-            _raise_parse_error(
-                f"cell at row={row} col={col} exceeds declared grid size {declared_columns}x{declared_rows}",
-                slide_title,
+    cells: list[Block] = []
+    i = start + 1
+    while i < len(lines):
+        stripped = lines[i].strip()
+        if not stripped:
+            i += 1
+            continue
+
+        if _GRID_CLOSE_RE.match(stripped):
+            if not cells:
+                _raise_parse_error(
+                    "body-grid requires at least one <!-- cell: ... --> block",
+                    slide_title,
+                )
+            _validate_grid_cells(cells, declared_columns, declared_rows, slide_title)
+            return (
+                _build_grid_block(
+                    columns=["1fr"] * declared_columns,
+                    rows=["1fr"] * declared_rows,
+                    col_gap=col_gap,
+                    row_gap=row_gap,
+                    source_kind="body-grid",
+                    declared_columns=declared_columns,
+                    declared_rows=declared_rows,
+                    children=cells,
+                ),
+                i + 1,
             )
 
-        for rr in range(row, row_end + 1):
-            for cc in range(col, col_end + 1):
-                if (rr, cc) in occupied:
-                    _raise_parse_error(
-                        f"grid cells overlap at row={rr} col={cc}",
-                        slide_title,
-                    )
-                occupied.add((rr, cc))
+        if _CELL_OPEN_RE.match(stripped):
+            cell_block, i = _parse_grid_cell(lines, i, slide_title, len(cells))
+            cells.append(cell_block)
+            continue
+
+        if _CELL_CLOSE_RE.match(stripped):
+            _raise_parse_error(
+                "<!-- /cell --> found without matching <!-- cell: ... -->",
+                slide_title,
+            )
+        if _GRID_OPEN_RE.match(stripped):
+            _raise_parse_error("nested <!-- grid: ... --> blocks are not supported", slide_title)
+
+        _raise_parse_error(
+            "body-grid does not allow content outside <!-- cell --> blocks",
+            slide_title,
+        )
+
+    _raise_parse_error("unclosed <!-- grid: ... --> block", slide_title)
 
 
 def _parse_grid_cell(
@@ -753,6 +842,7 @@ def _parse_grid_cell(
     slide_title: str,
     cell_index: int,
 ) -> tuple[Block, int]:
+    """Parse a strict cell block and return (cell_block, next_index)."""
     cm = _CELL_OPEN_RE.match(lines[start].strip())
     raw_attrs = cm.group(1) if cm else ""
     attrs = _parse_strict_comment_attrs(
@@ -816,115 +906,103 @@ def _parse_grid_cell(
     _raise_parse_error("unclosed <!-- cell: ... --> block", slide_title)
 
 
-def _parse_grid_block(lines: list[str], start: int, slide_title: str) -> tuple[Block, int]:
-    gm = _GRID_OPEN_RE.match(lines[start].strip())
-    raw_attrs = gm.group(1) if gm else ""
-    attrs = _parse_strict_comment_attrs(
-        raw_attrs,
-        allowed_keys=_GRID_ALLOWED_KEYS,
-        required_keys=_GRID_REQUIRED_KEYS,
-        kind="grid",
-        slide_title=slide_title,
-    )
+def _validate_grid_cells(
+    cells: list[Block],
+    declared_columns: int,
+    declared_rows: int,
+    slide_title: str,
+) -> None:
+    """Validate bounds and overlap for grid cells."""
+    occupied: set[tuple[int, int]] = set()
 
-    declared_columns = _parse_positive_int(
-        attrs["columns"],
-        attr_name="columns",
-        kind="grid",
-        slide_title=slide_title,
-        max_value=6,
-    )
-    declared_rows = _parse_positive_int(
-        attrs["rows"],
-        attr_name="rows",
-        kind="grid",
-        slide_title=slide_title,
-        max_value=6,
-    )
-    col_gap, row_gap = _resolve_grid_gap(attrs, slide_title)
+    for cell in cells:
+        col = cell.meta["col"]
+        row = cell.meta["row"]
+        col_span = cell.meta["col_span"]
+        row_span = cell.meta["row_span"]
+        col_end = col + col_span - 1
+        row_end = row + row_span - 1
 
-    cells: list[Block] = []
-    i = start + 1
-    while i < len(lines):
-        stripped = lines[i].strip()
-        if not stripped:
-            i += 1
-            continue
-
-        if _GRID_CLOSE_RE.match(stripped):
-            if not cells:
-                _raise_parse_error(
-                    "body-grid requires at least one <!-- cell: ... --> block",
-                    slide_title,
-                )
-            _validate_grid_cells(cells, declared_columns, declared_rows, slide_title)
-            return (
-                _build_grid_block(
-                    columns=["1fr"] * declared_columns,
-                    rows=["1fr"] * declared_rows,
-                    col_gap=col_gap,
-                    row_gap=row_gap,
-                    source_kind="body-grid",
-                    declared_columns=declared_columns,
-                    declared_rows=declared_rows,
-                    children=cells,
-                ),
-                i + 1,
-            )
-
-        if _CELL_OPEN_RE.match(stripped):
-            cell_block, i = _parse_grid_cell(lines, i, slide_title, len(cells))
-            cells.append(cell_block)
-            continue
-
-        if _CELL_CLOSE_RE.match(stripped):
+        if col_end > declared_columns or row_end > declared_rows:
             _raise_parse_error(
-                "<!-- /cell --> found without matching <!-- cell: ... -->",
+                f"cell at row={row} col={col} exceeds declared grid size {declared_columns}x{declared_rows}",
                 slide_title,
             )
-        if _GRID_OPEN_RE.match(stripped):
-            _raise_parse_error("nested <!-- grid: ... --> blocks are not supported", slide_title)
 
-        _raise_parse_error(
-            "body-grid does not allow content outside <!-- cell --> blocks",
-            slide_title,
+        for rr in range(row, row_end + 1):
+            for cc in range(col, col_end + 1):
+                if (rr, cc) in occupied:
+                    _raise_parse_error(
+                        f"grid cells overlap at row={rr} col={cc}",
+                        slide_title,
+                    )
+                occupied.add((rr, cc))
+
+
+def _split_legacy_columns(
+    blocks: list[Block],
+    labels: tuple[str, ...],
+) -> dict[str, list[Block]]:
+    columns: dict[str, list[Block]] = {label: [] for label in labels}
+    current_col = labels[0]
+
+    for block in blocks:
+        if block.type == "heading4":
+            label_text = "".join(inline.text for inline in block.children).strip().lower()
+            if label_text in columns:
+                current_col = label_text
+                continue
+        columns[current_col].append(block)
+
+    return columns
+
+
+def _normalize_legacy_grid_blocks(
+    blocks: list[Block],
+    *,
+    template: str,
+    ratio: str,
+) -> list[Block]:
+    """Normalize legacy 2col / 3col body blocks into a grid block."""
+    if template == "body-2col":
+        labels = _LEGACY_COL_LABELS_2
+        columns_by_label = _split_legacy_columns(blocks, labels)
+        if ratio == "6040":
+            columns = ["3fr", "2fr"]
+        elif ratio == "4060":
+            columns = ["2fr", "3fr"]
+        else:
+            columns = ["1fr", "1fr"]
+    else:
+        labels = _LEGACY_COL_LABELS_3
+        columns_by_label = _split_legacy_columns(blocks, labels)
+        columns = ["1fr", "1fr", "1fr"]
+
+    cells: list[Block] = []
+    for idx, label in enumerate(labels, start=1):
+        cells.append(
+            _build_grid_cell(
+                col=idx,
+                row=1,
+                col_span=1,
+                row_span=1,
+                cell_index=idx - 1,
+                children=columns_by_label[label],
+            )
         )
 
-    _raise_parse_error("unclosed <!-- grid: ... --> block", slide_title)
-
-
-def _parse_body_grid_blocks(lines: list[str], slide_title: str) -> list[Block]:
-    blocks: list[Block] = []
-    i = 0
-
-    while i < len(lines):
-        stripped = lines[i].strip()
-        if not stripped:
-            i += 1
-            continue
-
-        if _GRID_OPEN_RE.match(stripped):
-            if blocks:
-                _raise_parse_error(
-                    "body-grid requires exactly one <!-- grid: ... --> block",
-                    slide_title,
-                )
-            grid_block, i = _parse_grid_block(lines, i, slide_title)
-            blocks.append(grid_block)
-            continue
-
-        _raise_parse_error(
-            "body-grid does not allow content outside <!-- cell --> blocks",
-            slide_title,
+    return [
+        _build_grid_block(
+            columns=columns,
+            rows=["1fr"],
+            col_gap="lg",
+            row_gap="lg",
+            source_kind=template,
+            declared_columns=len(columns),
+            declared_rows=1,
+            children=cells,
         )
-
-    if len(blocks) != 1:
-        _raise_parse_error(
-            "body-grid requires exactly one <!-- grid: ... --> block",
-            slide_title,
-        )
-
-    return blocks
+    ]
 
 # ---------------------------------------------------------------------------
 # Source extraction
@@ -1108,7 +1186,15 @@ def parse_markdown(text: str) -> Deck:
                 blocks, source = _extract_grid_source(blocks)
             else:
                 blocks = parse_blocks(remaining_lines)
-                blocks, source = _extract_source(blocks)
+                if template_name in ("body-2col", "body-3col"):
+                    blocks = _normalize_legacy_grid_blocks(
+                        blocks,
+                        template=template_name,
+                        ratio=comment.get("ratio", ""),
+                    )
+                    blocks, source = _extract_grid_source(blocks)
+                else:
+                    blocks, source = _extract_source(blocks)
 
             slide = Slide(
                 type="body",

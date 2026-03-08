@@ -105,7 +105,8 @@ class ParserTest(unittest.TestCase):
         )
 
         _, body_slides = deck.sections[0]
-        grid = body_slides[0].blocks[0]
+        body = body_slides[0]
+        grid = body.blocks[0]
 
         self.assertEqual(grid.type, "grid")
         self.assertEqual(grid.meta["columns"], ["1fr", "1fr", "1fr"])
@@ -142,6 +143,59 @@ class ParserTest(unittest.TestCase):
 
         self.assertEqual(grid.meta["col_gap"], "lg")
         self.assertEqual(grid.meta["row_gap"], "md")
+
+    def test_legacy_body_2col_normalizes_to_grid_ast(self) -> None:
+        deck = self.parse(
+            """
+            # Deck
+
+            ## Section
+
+            ### Two Col
+            <!-- slide: template=body-2col; ratio=6040 -->
+            #### Left
+            Left side
+            #### Right
+            Right side
+            """
+        )
+
+        _, body_slides = deck.sections[0]
+        grid = body_slides[0].blocks[0]
+
+        self.assertEqual(grid.type, "grid")
+        self.assertEqual(grid.meta["source_kind"], "body-2col")
+        self.assertEqual(grid.meta["columns"], ["3fr", "2fr"])
+        self.assertEqual(grid.meta["col_gap"], "lg")
+        self.assertEqual(grid.meta["row_gap"], "lg")
+        self.assertEqual(len(grid.children), 2)
+        self.assertEqual(grid.children[0].children[0].type, "paragraph")
+        self.assertEqual(grid.children[1].children[0].type, "paragraph")
+
+    def test_legacy_body_3col_keeps_empty_column_as_empty_cell(self) -> None:
+        deck = self.parse(
+            """
+            # Deck
+
+            ## Section
+
+            ### Three Col
+            <!-- slide: template=body-3col -->
+            #### Col1
+            First
+            #### Col3
+            Third
+            """
+        )
+
+        _, body_slides = deck.sections[0]
+        grid = body_slides[0].blocks[0]
+
+        self.assertEqual(grid.meta["source_kind"], "body-3col")
+        self.assertEqual(len(grid.children), 3)
+        self.assertTrue(grid.children[0].children)
+        self.assertFalse(grid.children[1].children)
+        self.assertTrue(grid.children[2].children)
 
     def test_body_grid_extracts_footer_source_from_last_cell(self) -> None:
         deck = self.parse(

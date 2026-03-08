@@ -130,6 +130,7 @@ python3 scripts/theme.py --project-root . apply classic
 | `body-grid` | Strict grid layout with `<!-- grid -->` / `<!-- cell -->` |
 | `body-2col` | Two columns (ratio: 4060/6040/equal) |
 | `body-3col` | Three columns |
+| `body-grid` | Strict CSS-grid layout via `grid` / `cell` comments |
 | `body-code` | Code-focused |
 | `body-hero` | Full background image + message |
 
@@ -172,12 +173,15 @@ Body slide note:
 
 - `subtitle` is only applied for cover / section slides
 - if `subtitle` appears on a body slide comment, it is dropped during parsing
+- `body-grid` uses strict body content grammar:
+  exactly one `<!-- grid: ... -->` root block, with `<!-- cell: ... --> ... <!-- /cell -->` children only
 
 ## References
 
 - Read `references/workflow.md` when you need exact commands, manual step execution, or output locations.
 - Read `references/markdown-mapping.md` when the user asks how markdown maps to layouts, templates, or special comments.
 - Read `references/figma-capture.md` when the user wants Figma import, capture, or polling instructions.
+- Read `../docs/body-grid-design.md` when the user wants the maintainer-facing design rationale or implementation contract for `body-grid`.
 - Read `../docs/theme-authoring.md` when the user wants to add or customize a built-in theme in the project scaffold.
 - Read `../docs/multi-theme-visual-qa.md` when the user wants to compare theme output visually or verify theme-related changes across built-in themes.
 - Read `../docs/maintainer-change-guide.md` when the user wants to extend templates/components and you need to identify which layers and files should change.

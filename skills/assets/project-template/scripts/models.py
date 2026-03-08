@@ -34,7 +34,7 @@ class Block:
     #   badge:      {"text": "...", "status": "info"}
     #   table:      {"headers": [str, ...], "rows": [[str, ...], ...]}
     #   image:      {"src": "...", "alt": "...", "caption": "..."}
-    #   grid:       {"columns": ["1fr", ...], "rows": ["1fr", ...], "col_gap": "md", ...}
+    #   grid:       {"columns": ["1fr", ...], "rows": ["1fr", ...], "col_gap": "lg", "row_gap": "sm"}
     #   grid_cell:  {"col": 1, "row": 1, "col_span": 1, "row_span": 1}
     #   ul/ol item: stored as child blocks with type "li"
     #   checklist:  children are "li" blocks with meta {"checked": bool}
