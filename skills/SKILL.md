@@ -33,7 +33,8 @@ Exact commands and rerun rules live in `references/workflow.md`.
 - Keep `design.config.yaml` minimal. Baseline design should come from theme defaults.
 - Treat `themes/<name>/` as the source of truth for theme assets.
 - Use `references/markdown-mapping.md` for syntax, template, and slide comment questions.
-- Use `../docs/theme-design.md` for theme-system design decisions.
+- Use `references/theme-system.md` for theme-system rules and operating constraints.
+- Use `../docs/theme-design.md` only when maintainer-facing design decisions matter.
 - Use `../docs/maintainer-change-guide.md` before extending parser, renderer, or component contracts.
 
 ## References
@@ -41,9 +42,9 @@ Exact commands and rerun rules live in `references/workflow.md`.
 - Read `references/workflow.md` for initialization, generation, rerun decisions, output locations, and manual commands.
 - Read `references/markdown-mapping.md` for Markdown grammar, templates, comments, and `body-grid` rules.
 - Read `references/figma-capture.md` for Figma import, capture, and polling instructions.
-- Read `../docs/theme-design.md` for the current theme-system source of truth.
-- Read `../docs/theme-authoring.md` when adding or customizing a built-in theme in the project scaffold.
-- Read `../docs/multi-theme-visual-qa.md` when verifying theme-related changes across built-in themes.
+- Read `references/theme-system.md` for the current user-facing theme-system rules.
+- Read `references/theme-authoring.md` when adding or customizing a built-in theme in the project scaffold.
+- Read `references/visual-qa.md` when verifying theme-related changes across built-in themes.
 - Read `../docs/body-grid-design.md` when the user needs maintainer-facing design rationale for `body-grid`.
 - Read `../docs/maintainer-change-guide.md` when a change may affect parser, renderer, CSS layers, or docs.
 
