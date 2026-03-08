@@ -5,9 +5,7 @@ import unittest
 from pathlib import Path
 
 
-MODULE_PATH = (
-    Path(__file__).resolve().parents[1] / "skills" / "scripts" / "run_visual_qa.py"
-)
+MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "run_visual_qa.py"
 SPEC = importlib.util.spec_from_file_location("run_visual_qa", MODULE_PATH)
 MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
