@@ -1,5 +1,8 @@
 # Markdown Mapping Reference
 
+この文書は、Markdown の書き方とユーザー向けの制約をまとめたリファレンスです。
+内部設計や実装判断は `../docs/body-grid-design.md` と `../docs/theme-design.md` を参照してください。
+
 ## Heading Mapping
 
 - `#` at document start: Cover slide (`.type-display`)
@@ -166,4 +169,7 @@ Rules:
 - content outside `grid` or directly inside `grid` is rejected
 - `unknown` attributes, duplicate attributes, invalid values, overlap, and out-of-bounds placement all raise parse errors
 - nested `grid` / `cell` blocks are not supported
-- `body-2col` / `body-3col` keep their legacy `####` routing syntax, but are normalized to the same internal grid layout engine
+
+Maintainer note:
+
+- internal layout-engine decisions and the implementation contract for `body-grid` live in `../docs/body-grid-design.md`
