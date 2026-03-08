@@ -118,7 +118,7 @@ python3 scripts/theme.py --project-root . current
 python3 scripts/theme.py --project-root . apply classic
 ```
 
-### Templates (10 types)
+### Templates (11 types)
 
 | Template | Usage |
 |---|---|
@@ -128,6 +128,7 @@ python3 scripts/theme.py --project-root . apply classic
 | `body` | General purpose |
 | `body-text` | Long-form text |
 | `body-grid` | Strict grid layout with `<!-- grid -->` / `<!-- cell -->` |
+| `body-grid-full` | Headerless grid layout for larger content-first compositions |
 | `body-2col` | Two columns (ratio: 4060/6040/equal) |
 | `body-3col` | Three columns |
 | `body-code` | Code-focused |
@@ -172,7 +173,7 @@ Body slide note:
 
 - `subtitle` is only applied for cover / section slides
 - if `subtitle` appears on a body slide comment, it is dropped during parsing
-- `body-grid` uses strict body content grammar:
+- `body-grid` / `body-grid-full` use strict body content grammar:
   exactly one `<!-- grid: ... -->` root block, with `<!-- cell: ... --> ... <!-- /cell -->` children only
 
 ## References

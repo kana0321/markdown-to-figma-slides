@@ -106,6 +106,7 @@
   --component-grid-gap-sm: var(--semantic-size-section-gap-sm);
   --component-grid-gap-md: var(--semantic-size-section-gap-md);
   --component-grid-gap-lg: var(--semantic-size-section-gap-xl);
+  --component-grid-full-padding-top: var(--primitives-space-48);
 
   /* --- Card --- */
   --component-card-bg:           var(--semantic-color-surface-card);

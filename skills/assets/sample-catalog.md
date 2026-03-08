@@ -214,6 +214,38 @@
 
 <!-- /grid -->
 
+### ボディグリッド（ヘッダーなし）
+
+<!-- slide: template=body-grid-full -->
+
+<!-- grid: columns=3; rows=2; gap=sm -->
+
+<!-- cell: col=1; row=1 -->
+![エメラルドの湖](https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=2; row=1 -->
+![朝焼けのビーチ](https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=3; row=1 -->
+![渓谷の朝](https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+![夕暮れの住宅街](https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+![川辺の谷](https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=3; row=2 -->
+![静かな入り江](https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- /grid -->
+
 ### ヒーロー
 
 <!-- slide: template=body-hero -->
@@ -681,6 +713,38 @@ Smaller vertical gaps help related items feel like one cluster.
 <!-- cell: col=3; row=2 -->
 > [!TIP]
 > This works well when columns should feel clearly separated, but rows still need to read as connected.
+<!-- /cell -->
+
+<!-- /grid -->
+
+### Body Grid (headerless)
+
+<!-- slide: template=body-grid-full -->
+
+<!-- grid: columns=3; rows=2; gap=sm -->
+
+<!-- cell: col=1; row=1 -->
+![Emerald lake](https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=2; row=1 -->
+![Sunrise beach](https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=3; row=1 -->
+![Morning canyon](https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+![Residential dusk](https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+![River valley](https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&h=675&fit=crop&q=80)
+<!-- /cell -->
+
+<!-- cell: col=3; row=2 -->
+![Quiet inlet](https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1200&h=675&fit=crop&q=80)
 <!-- /cell -->
 
 <!-- /grid -->
