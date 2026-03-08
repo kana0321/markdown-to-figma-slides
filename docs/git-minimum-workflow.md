@@ -19,6 +19,41 @@
 git branch --show-current
 ```
 
+## ブランチを切る前にやること
+
+まず `main` を最新にします。
+古い `main` からブランチを切ると、あとで GitHub 上の `main` とズレて大きいコンフリクトになりやすいです。
+
+```bash
+git switch main
+git fetch origin
+git pull
+```
+
+その上で、作業開始前は次の 3 つを見ると安全です。
+
+1. 最新化した `main` の最近の履歴を確認する
+
+```bash
+git log --oneline --decorate origin/main -n 15
+```
+
+2. 触ろうとしているキーワードをコードと履歴の両方で探す
+
+```bash
+rg -n "body-grid|grid-full" .
+git log --oneline --grep="body-grid"
+```
+
+3. これからやる変更が「新規」か「既存変更の追認・追従」かを先に決める
+
+ポイント:
+
+- 先に `main` を最新化してからブランチを切る
+- 今ある branch 名だけで判断しない
+- `main` にすでに近い変更が入っていないか先に見る
+- 同じ領域の変更が見つかったら、別ブランチで新規に進めるか、既存変更に乗るかを決めてから着手する
+
 ## いつも使うコマンド
 
 状態確認:
