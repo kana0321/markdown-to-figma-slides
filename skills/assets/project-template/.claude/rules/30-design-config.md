@@ -3,7 +3,8 @@ paths:
   - "design.config.yaml"
   - "scripts/config.py"
   - "scripts/sync_tokens.py"
-  - "styles/**"
+  - "themes/**/styles/**"
+  - "shared/styles/**"
 ---
 
 # Design Config Rules
@@ -64,7 +65,6 @@ paths:
   - `template` → テンプレート選択
   - `confidential` → `badge_enabled`（`true`/`false`）
   - `show_source` → 出典フッター表示
-  - `show_pages` → ページ番号表示（Markdown コメントのみ対応、config の `page_number` とは別系統）
   - `compact` → コンパクト表示
   - `ratio` → 2col の幅比率
 - 設定優先順: Markdown コメント > `slides[]` タイトルマッチ > `slides[]` タイプマッチ > デフォルト。
