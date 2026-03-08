@@ -337,7 +337,7 @@ def build_report_html(
 
     <p class="note">
       Screenshots {"included" if include_screenshots else "were skipped"}.
-      Compare these against the checklist in <code>docs/multi-theme-visual-qa.md</code>.
+      Compare these against the checklist in <code>skills/references/visual-qa.md</code>.
     </p>
   </main>
 </body>

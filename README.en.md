@@ -16,7 +16,7 @@ This repository does not contain generated slide deliverables themselves. It con
 - Source of truth for Figma capture: `skills/references/figma-capture.md`
 - Bundled scaffold: `skills/assets/project-template/`
 
-The source of truth for the theme system is `docs/theme-design.md`.
+The user-facing source of truth for theme-system operation is `skills/references/theme-system.md`. The maintainer-facing design record remains `docs/theme-design.md`.
 
 ## Quick Start
 
@@ -93,7 +93,7 @@ If you want to switch themes, you can ask with a prompt like this:
 Switch this slide project to the minimal theme and make it easy for me to review the updated look.
 ```
 
-For theme-system design decisions, see `docs/theme-design.md`. For exact operational steps, see `skills/references/workflow.md`.
+For user-facing theme-system rules, see `skills/references/theme-system.md`. For exact operational steps, see `skills/references/workflow.md`. Maintainer-facing design decisions remain in `docs/theme-design.md`.
 
 ## Project Scaffold at a Glance
 
@@ -131,9 +131,9 @@ Rules for initialized projects are included in `skills/assets/project-template/C
 | Initialization, generation, rerun decisions, and manual commands | `skills/references/workflow.md` |
 | Markdown syntax, templates, and special comments | `skills/references/markdown-mapping.md` |
 | Figma import and polling | `skills/references/figma-capture.md` |
-| Theme-system design principles | `docs/theme-design.md` |
-| Adding or customizing built-in themes | `docs/theme-authoring.md` |
-| Multi-theme visual verification | `docs/multi-theme-visual-qa.md` |
+| Theme-system operating rules | `skills/references/theme-system.md` |
+| Adding or customizing built-in themes | `skills/references/theme-authoring.md` |
+| Multi-theme visual verification | `skills/references/visual-qa.md` |
 | Maintainer guidance for deciding change scope | `docs/maintainer-change-guide.md` |
 
 ## Troubleshooting

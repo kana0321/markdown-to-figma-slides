@@ -8,8 +8,8 @@
 
 - `docs/theme-design.md`
 - `docs/body-grid-design.md`
-- `docs/theme-authoring.md`
-- `docs/multi-theme-visual-qa.md`
+- `../skills/references/theme-authoring.md`
+- `../skills/references/visual-qa.md`
 - `docs/theme-doc-update-checklist.md`
 
 ## まず先に切り分けること
@@ -97,7 +97,7 @@ theme ごとの差分なら各 theme の `styles/slide.css` に置く。
 
 - `skills/assets/sample-catalog.md`
 - `skills/references/markdown-mapping.md`
-- `docs/multi-theme-visual-qa.md`
+- `../skills/references/visual-qa.md`
 
 ### 変更規模の目安
 
@@ -194,7 +194,7 @@ theme ごとの差分なら各 theme の `styles/slide.css` に置く。
 - `skills/references/markdown-mapping.md`
 - `skills/SKILL.md`
 - `skills/references/workflow.md`
-- `docs/multi-theme-visual-qa.md`
+- `../skills/references/visual-qa.md`
 
 #### 8. tests と visual QA を回す
 

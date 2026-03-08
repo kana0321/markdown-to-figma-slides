@@ -4,7 +4,7 @@
 
 - Markdown 記法は `markdown-mapping.md`
 - Figma 取り込みは `figma-capture.md`
-- theme system の設計方針は `../docs/theme-design.md`
+- theme system の運用ルールは `theme-system.md`
 
 ## 1. Initialize
 
@@ -106,7 +106,7 @@ python3 scripts/theme.py --project-root . apply classic
 
 Keep `design.config.yaml` thin. The baseline design should come from theme defaults, not from project-level baseline overrides.
 
-For theme-system rules, token layering, and config resolution order, use `../docs/theme-design.md`.
+For theme-system rules, token layering, and config resolution order, use `theme-system.md`.
 
 ## 6. Create or Customize a Theme
 
@@ -125,7 +125,7 @@ python3 scripts/theme.py --project-root . apply my-theme
 ./scripts/run_pipeline.sh --project-root . --input input/raw/source.md
 ```
 
-Use `../docs/theme-authoring.md` for the full authoring rules and `../docs/multi-theme-visual-qa.md` for visual verification.
+Use `theme-authoring.md` for the full authoring rules and `visual-qa.md` for visual verification.
 
 ## 7. Preview
 
