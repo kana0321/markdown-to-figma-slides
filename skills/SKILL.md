@@ -130,7 +130,6 @@ python3 scripts/theme.py --project-root . apply classic
 | `body-grid` | Strict grid layout with `<!-- grid -->` / `<!-- cell -->` |
 | `body-2col` | Two columns (ratio: 4060/6040/equal) |
 | `body-3col` | Three columns |
-| `body-grid` | Strict CSS-grid layout via `grid` / `cell` comments |
 | `body-code` | Code-focused |
 | `body-hero` | Full background image + message |
 
