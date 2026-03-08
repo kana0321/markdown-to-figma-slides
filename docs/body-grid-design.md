@@ -1,5 +1,8 @@
 # Body Grid Design
 
+この文書は maintainer 向けの設計メモです。
+利用者向けの書き方と入力制約は `../skills/references/markdown-mapping.md` を参照してください。
+
 ## Goals / non-goals
 
 ### Goals
@@ -35,6 +38,8 @@
 
 ## Final grammar / AST / renderer rules
 
+利用者向けの記法一覧や属性表は `../skills/references/markdown-mapping.md` を基準にし、この文書では設計判断と内部契約を主に扱います。
+
 ### User-facing grammar
 
 `body-grid` は `<!-- slide: template=body-grid -->` で opt-in する。
@@ -64,6 +69,11 @@ Bottom middle
 
 <!-- /grid -->
 ```
+
+### Input contract
+
+利用者向けの属性一覧は `../skills/references/markdown-mapping.md` を参照。
+ここでは parser / renderer の設計前提として必要な制約だけを残す。
 
 ### `grid` rules
 

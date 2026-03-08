@@ -2,8 +2,12 @@
 
 ## この文書の位置づけ
 
-この文書は、`markdown-to-figma-slides` における theme system の現在の正本です。
+この文書は、`markdown-to-figma-slides` における theme system の設計判断と基準をまとめる文書です。
 過去の検討経緯ではなく、現時点の仕様、採用した判断、次の論点を整理します。
+
+利用者向けの操作手順は `../skills/references/workflow.md`、
+built-in theme の追加手順は `docs/theme-authoring.md`、
+maintainer 向けの変更判断は `docs/maintainer-change-guide.md` を参照してください。
 
 ## 現在の状態
 
@@ -122,7 +126,7 @@ project-root/
 補足:
 
 - project template 直下の旧 `styles/` と `templates/` は廃止済み
-- theme assets の正本は `themes/<name>/` のみ
+- theme assets は `themes/<name>/` を基準に扱う
 
 ## 設定の考え方
 
