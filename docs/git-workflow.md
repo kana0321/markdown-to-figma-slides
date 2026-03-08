@@ -79,7 +79,7 @@ git diff --staged
 変更を保存対象に入れる:
 
 ```bash
-git add docs/git-minimum-workflow.md
+git add docs/git-workflow.md
 ```
 
 変更を 1 つの区切りとして保存:
@@ -114,7 +114,7 @@ git commit -m "Update README"
 
 ```bash
 git status
-git add docs/git-minimum-workflow.md
+git add docs/git-workflow.md
 git status
 git commit -m "Refresh Git minimum workflow guide"
 ```
@@ -181,7 +181,7 @@ git push -u origin docs/git-minimum-workflow-refresh
 git branch --show-current
 git status
 git diff
-git add docs/git-minimum-workflow.md
+git add docs/git-workflow.md
 git commit -m "Refresh Git minimum workflow guide"
 git push
 ```
