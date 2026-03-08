@@ -8,7 +8,22 @@ Markdown to Figma Slides is a skill for generating HTML slide decks from Markdow
 
 When you ask Claude Code, OpenAI Codex, or another coding agent to use this repo, it can handle the whole flow: project initialization, Markdown normalization, template selection, versioned HTML output, theme switching, and optional Figma capture. Each generation creates a versioned snapshot such as `v1`, `v2`, and so on, so previous outputs are not overwritten.
 
-If you are not comfortable with Git yet, start with the [Git workflow guide](docs/git-workflow.md).
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Requirements](#requirements)
+- [How to Start](#how-to-start)
+- [Themes](#themes)
+- [Markdown Rules](#markdown-rules)
+- [Components](#components)
+- [Templates](#templates)
+- [Slide Display Settings](#slide-display-settings)
+- [Design Tuning](#design-tuning)
+- [Project Layout](#project-layout)
+- [Slash Commands](#slash-commands)
+- [Figma Capture](#figma-capture)
+- [Manual Commands](#manual-commands)
+- [Troubleshooting](#troubleshooting)
 
 ## Quick Start
 
