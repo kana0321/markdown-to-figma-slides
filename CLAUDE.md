@@ -13,11 +13,11 @@
 ## 重要な前提
 
 - `skills/assets/project-template/` の変更は、新規に初期化されるプロジェクトの標準挙動に影響します。
+- このリポジトリで Git 関連の作業をするときは `docs/git-workflow.md` を参照してください。
 - テーマ機能の設計方針は `docs/theme-design.md` を参照してください。
 - theme system の現在の正本は `docs/theme-design.md` です。
 - theme まわりの実装状況、採用済みの判断、次の優先候補も `docs/theme-design.md` を参照してください。
 - 現在の built-in theme は `classic`、`minimal`、`gradient-blue` です。
-- `/clear` 後に再開するときの短いメモは `/Users/kanaaoyama/.codex/memories/markdown-to-figma-slides-next-session.md` を参照してください。
 
 ## 変更時の確認
 
