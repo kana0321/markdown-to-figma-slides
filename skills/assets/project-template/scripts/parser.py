@@ -699,7 +699,12 @@ def _build_grid_cell(
     )
 
 
-def _parse_body_grid_blocks(lines: list[str], slide_title: str) -> list[Block]:
+def _parse_body_grid_blocks(
+    lines: list[str],
+    slide_title: str,
+    *,
+    source_kind: str = "body-grid",
+) -> list[Block]:
     """Parse a strict body-grid slide body."""
     blocks: list[Block] = []
     i = 0
@@ -717,7 +722,7 @@ def _parse_body_grid_blocks(lines: list[str], slide_title: str) -> list[Block]:
                     "body-grid requires exactly one <!-- grid: ... --> block",
                     slide_title,
                 )
-            grid_block, i = _parse_grid_block(lines, i, slide_title)
+            grid_block, i = _parse_grid_block(lines, i, slide_title, source_kind)
             blocks.append(grid_block)
             continue
 
@@ -756,6 +761,7 @@ def _parse_grid_block(
     lines: list[str],
     start: int,
     slide_title: str,
+    source_kind: str = "body-grid",
 ) -> tuple[Block, int]:
     """Parse a strict grid block and return (grid_block, next_index)."""
     gm = _GRID_OPEN_RE.match(lines[start].strip())
@@ -807,7 +813,7 @@ def _parse_grid_block(
                     rows=["1fr"] * declared_rows,
                     col_gap=col_gap,
                     row_gap=row_gap,
-                    source_kind="body-grid",
+                    source_kind=source_kind,
                     declared_columns=declared_columns,
                     declared_rows=declared_rows,
                     children=cells,
@@ -1181,8 +1187,12 @@ def parse_markdown(text: str) -> Deck:
             eyebrow = comment.pop("eyebrow", "") or current_section.title
             comment.pop("subtitle", None)
             template_name = comment.get("template", "")
-            if template_name == "body-grid":
-                blocks = _parse_body_grid_blocks(remaining_lines, title)
+            if template_name in ("body-grid", "body-grid-full"):
+                blocks = _parse_body_grid_blocks(
+                    remaining_lines,
+                    title,
+                    source_kind=template_name,
+                )
                 blocks, source = _extract_grid_source(blocks)
             else:
                 blocks = parse_blocks(remaining_lines)

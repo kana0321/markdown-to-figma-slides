@@ -625,6 +625,7 @@ def _render_slide(
         "section": "slide--section slide--section",
         "end": "slide--cover",
         "body-hero": "slide--body slide--fullimage",
+        "body-grid-full": "slide--body slide--body-grid-full",
     }
     slide_class = slide_class_map.get(
         resolved.template, "slide--body"

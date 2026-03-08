@@ -120,9 +120,9 @@ Body slide note:
 - 3-column: `#### Col1`, `#### Col2`, `#### Col3`
 - Unknown labels treated as normal subtitle headings
 
-## `body-grid` Layout Rules
+## `body-grid` / `body-grid-full` Layout Rules
 
-`body-grid` is a strict block grammar.
+`body-grid` and `body-grid-full` share the same strict block grammar.
 
 ```md
 ### Example
@@ -160,6 +160,7 @@ Side content
 Rules:
 
 - `template=body-grid` requires exactly one root `grid` block
+- `template=body-grid-full` uses the same grid grammar, but renders without the standard body header
 - `gap` applies to both axes unless `col_gap` and/or `row_gap` override one side
 - `grid` may contain only `cell` blocks
 - content outside `grid` or directly inside `grid` is rejected

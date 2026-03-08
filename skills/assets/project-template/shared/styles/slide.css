@@ -35,6 +35,12 @@ body{
   gap: var(--component-shell-gap);
   min-height:0;
 }
+.slide--body-grid-full .shell{
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "main"
+    "footer";
+}
 
 /* --- Regions --- */
 .main{
@@ -48,6 +54,12 @@ body{
 }
 .main--center{
   justify-content:center;
+}
+.main--grid-full{
+  height:100%;
+}
+.slide--body-grid-full .layout-grid{
+  padding-top: var(--component-grid-full-padding-top);
 }
 
 /* --- Typography --- */
@@ -457,7 +469,6 @@ body{
   max-width:100%;
   height:auto;
   object-fit:contain;
-  border-radius: var(--component-image-radius);
   display:block;
 }
 .image-block--captioned{
@@ -499,6 +510,9 @@ body{
   letter-spacing: var(--component-badge-letter-spacing);
   font-weight: var(--component-badge-font-weight);
   text-transform:uppercase;
+}
+.slide--body-grid-full .badge{
+  z-index: 4;
 }
 
 /* --- Accent bars --- */

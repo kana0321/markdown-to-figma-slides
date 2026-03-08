@@ -39,9 +39,9 @@ themes/
       body.html.j2
       body-text.html.j2
       body-grid.html.j2
+      body-grid-full.html.j2
       body-2col.html.j2
       body-3col.html.j2
-      body-grid.html.j2
       body-code.html.j2
       body-hero.html.j2
       end.html.j2

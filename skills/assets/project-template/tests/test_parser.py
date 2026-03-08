@@ -144,6 +144,34 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(grid.meta["col_gap"], "lg")
         self.assertEqual(grid.meta["row_gap"], "md")
 
+    def test_body_grid_full_parses_with_same_strict_grid_grammar(self) -> None:
+        deck = self.parse(
+            """
+            # Deck
+
+            ## Section
+
+            ### Grid Slide
+            <!-- slide: template=body-grid-full -->
+            <!-- grid: columns=2; rows=1 -->
+            <!-- cell: col=1; row=1 -->
+            A
+            <!-- /cell -->
+            <!-- cell: col=2; row=1 -->
+            B
+            <!-- /cell -->
+            <!-- /grid -->
+            """
+        )
+
+        _, body_slides = deck.sections[0]
+        grid = body_slides[0].blocks[0]
+
+        self.assertEqual(grid.type, "grid")
+        self.assertEqual(grid.meta["source_kind"], "body-grid-full")
+        self.assertEqual(grid.meta["columns"], ["1fr", "1fr"])
+        self.assertEqual(grid.meta["rows"], ["1fr"])
+
     def test_legacy_body_2col_normalizes_to_grid_ast(self) -> None:
         deck = self.parse(
             """

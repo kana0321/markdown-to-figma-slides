@@ -23,7 +23,7 @@
 理由:
 
 - cover / agenda / section / end を含む
-- `body`, `body-text`, `body-2col`, `body-3col`, `body-grid`, `body-code`, `body-hero` を含む
+- `body`, `body-text`, `body-2col`, `body-3col`, `body-grid`, `body-grid-full`, `body-code`, `body-hero` を含む
 - list, table, code block, callout, card, badge, image, arrow, steps を広く含む
 - built-in theme の smoke test でも使っている
 
@@ -32,7 +32,7 @@
 - `body-2col` のサンプル文面には、説明用のインラインコードとして `` `#### Left` `` と `` `#### Right` `` が含まれる
 - これは `skills/assets/sample-catalog.md` の説明文由来であり、theme 固有の破綻とは分けて扱う
 - `body-3col` の `#### Col1` / `#### Col2` / `#### Col3` は現時点では routing 用見出しとして問題視しない
-- `body-grid` は strict grammar のため、崩れが見えた場合は theme 差分より先に parser / renderer 回帰を疑う
+- `body-grid` / `body-grid-full` は strict grammar のため、崩れが見えた場合は theme 差分より先に parser / renderer 回帰を疑う
 
 ## 対象 theme
 
@@ -152,6 +152,7 @@ python3 -m http.server 8080
 - `body-2col`
 - `body-3col`
 - `body-grid`
+- `body-grid-full`
 - `body-hero`
 - `body-code`
 - `table`
@@ -169,6 +170,7 @@ python3 -m http.server 8080
 - `body-text` で長文の可読性が落ちていないか
 - `body-2col` と `body-3col` でカラム幅と段落折返しが破綻しないか
 - `body-grid` で gap、span、空セルを含む配置が意図通り維持されるか
+- `body-grid-full` で header なしでも本文開始位置、footer 位置、縦方向の余白が不自然でないか
 - `body-grid` の directional spacing サンプルで、`col_gap` と `row_gap` が別々に効いているか
 - `body-code` でコード文字サイズ、行高、背景コントラストが自然か
 - `body-hero` で画像 overlay と文字可読性が保たれているか
@@ -179,7 +181,7 @@ python3 -m http.server 8080
 - `body-hero` は theme 差分よりも画像の強さに引っ張られやすいので、overlay と文字可読性を優先して見る
 - `classic`, `minimal`, `gradient-blue` は `cover`, `section`, `agenda`, `table`, `card`, `end` の順で見ると差分を把握しやすい
 - `body-2col` はカラム崩れと、サンプル文面由来のノイズを分けて判断する
-- `body-grid` は `sm/md/lg` gap の差、`col_span` / `row_span`、混在 block の overflow を優先して見る
+- `body-grid` / `body-grid-full` は `sm/md/lg` gap の差、`col_span` / `row_span`、混在 block の overflow を優先して見る
 - 特に directional spacing サンプルでは、左右の分離だけが広がり、上下の距離は意図どおり小さく保たれているかを確認する
 
 ### C. 補足確認 component
