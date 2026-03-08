@@ -111,6 +111,109 @@
 - モニタリング
 - 改善サイクル
 
+### ボディグリッド（2x2）
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=2; rows=2; gap=sm -->
+
+<!-- cell: col=1; row=1 -->
+主要論点をコンパクトに並べる基本 2x2 グリッドです。
+
+- 各セルは既存 body block をそのまま使えます
+- `gap=sm` は高密度な情報整理向けです
+<!-- /cell -->
+
+<!-- cell: col=2; row=1 -->
+> [!TIP]
+> セル自体は装飾を持たないので、強調したい場合は card や callout を中で使います。
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+| 指標 | 値 |
+|---|---|
+| MRR | 12.4M |
+| NRR | 118% |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+1. **整理** 情報の種類を分ける
+2. **配置** セル単位で視線を制御する
+3. **強調** 必要な要素だけ装飾する
+<!-- /cell -->
+
+<!-- /grid -->
+
+### ボディグリッド（spanあり）
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=md -->
+
+<!-- cell: col=1; row=1; col_span=2 -->
+大きい主役領域をつくるには `col_span` / `row_span` を使います。
+
+<!-- card: accent -->
+メインメッセージを横長のセルにまとめると、2col より自由に強弱を付けられます。
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=3; row=1; row_span=2 -->
+#### 補助情報
+
+- 右側に縦長の補助列
+- FAQ
+- 制約条件
+- 参考リンク
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+<!-- badge: rollout -->
+段階導入
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+段階的にロールアウトし、反応を見ながら機能を広げます。
+<!-- /cell -->
+
+<!-- /grid -->
+
+### ボディグリッド（余白を方向別に調整）
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=sm -->
+
+<!-- cell: col=1; row=1; row_span=2 -->
+<!-- card: accent -->
+**左右の区切りを強める**
+
+- `col_gap=lg`
+- カラム間の余白を大きく取る
+- 左右のまとまりを見分けやすくする
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=2; row=1; col_span=2 -->
+横方向はゆったり、縦方向は詰め気味にしたい時の例です。
+
+| 設定 | 値 |
+|---|---|
+| `col_gap` | `lg` |
+| `row_gap` | `sm` |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+上下の距離は小さいままなので、関連する情報をひとまとまりで読ませやすくなります。
+<!-- /cell -->
+
+<!-- cell: col=3; row=2 -->
+> [!TIP]
+> 左右はしっかり分けたいが、上下はつながって見せたい時に向いています。
+<!-- /cell -->
+
+<!-- /grid -->
+
 ### ヒーロー
 
 <!-- slide: template=body-hero -->
@@ -478,6 +581,109 @@ Deploy, monitor, and gather feedback.
 - Release
 - Monitoring
 - Iteration
+
+### Body Grid (2x2)
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=2; rows=2; gap=sm -->
+
+<!-- cell: col=1; row=1 -->
+This is the basic 2x2 grid for compact information grouping.
+
+- Each cell accepts the same body blocks as a normal slide
+- `gap=sm` works well for dense content
+<!-- /cell -->
+
+<!-- cell: col=2; row=1 -->
+> [!TIP]
+> Cells stay unstyled on purpose, so emphasis should come from cards or callouts placed inside them.
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+| Metric | Value |
+|---|---|
+| MRR | 12.4M |
+| NRR | 118% |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+1. **Group** content by meaning
+2. **Place** blocks to guide the eye
+3. **Emphasize** only what matters
+<!-- /cell -->
+
+<!-- /grid -->
+
+### Body Grid (With Span)
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=md -->
+
+<!-- cell: col=1; row=1; col_span=2 -->
+Use `col_span` and `row_span` when one message should dominate the slide.
+
+<!-- card: accent -->
+This gives you a large hero cell without falling back to a fixed 2-column structure.
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=3; row=1; row_span=2 -->
+#### Supporting Notes
+
+- Tall side rail
+- FAQ
+- Constraints
+- Links
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+<!-- badge: rollout -->
+Phased rollout
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+Ship in stages and expand once the signal is clear.
+<!-- /cell -->
+
+<!-- /grid -->
+
+### Body Grid (Directional Spacing)
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=sm -->
+
+<!-- cell: col=1; row=1; row_span=2 -->
+<!-- card: accent -->
+**Make the left-right split more pronounced**
+
+- `col_gap=lg`
+- Wider spacing between columns
+- Clearer separation between horizontal groups
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=2; row=1; col_span=2 -->
+Use this when you want more air between columns but still want related rows to read as one cluster.
+
+| Setting | Value |
+|---|---|
+| `col_gap` | `lg` |
+| `row_gap` | `sm` |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+The tighter row spacing keeps the upper and lower cells visually connected.
+<!-- /cell -->
+
+<!-- cell: col=3; row=2 -->
+> [!TIP]
+> Useful when horizontal grouping matters more than vertical separation.
+<!-- /cell -->
+
+<!-- /grid -->
 
 ### Hero
 

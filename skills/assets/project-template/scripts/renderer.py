@@ -262,6 +262,41 @@ def _render_steps(block: Block) -> str:
     return f'<div class="steps">{"".join(parts)}</div>'
 
 
+def _render_grid(block: Block) -> str:
+    """Render a grid block using CSS Grid and inline custom properties."""
+    columns = block.meta.get("columns", [])
+    rows = block.meta.get("rows", [])
+    col_gap = block.meta.get("col_gap", "md")
+    row_gap = block.meta.get("row_gap", "md")
+    source_kind = block.meta.get("source_kind", "")
+    layout_mod = " layout-grid--legacy-cols" if source_kind in ("body-2col", "body-3col") else ""
+    style = (
+        f'--grid-columns: {" ".join(columns)}; '
+        f'--grid-rows: {" ".join(rows)}; '
+        f'--grid-col-gap: var(--component-grid-gap-{html.escape(col_gap, quote=True)}); '
+        f'--grid-row-gap: var(--component-grid-gap-{html.escape(row_gap, quote=True)});'
+    )
+    cells_html = "".join(_render_grid_cell(cell) for cell in block.children)
+    source_attr = html.escape(source_kind, quote=True)
+    return (
+        f'<div class="layout-grid{layout_mod}" data-grid-source-kind="{source_attr}" style="{style}">'
+        f"{cells_html}"
+        f"</div>"
+    )
+
+
+def _render_grid_cell(block: Block) -> str:
+    """Render a grid cell as a position-only layout box."""
+    col = block.meta.get("col", 1)
+    row = block.meta.get("row", 1)
+    col_span = block.meta.get("col_span", 1)
+    row_span = block.meta.get("row_span", 1)
+    style = f"grid-column: {col} / span {col_span}; grid-row: {row} / span {row_span};"
+    empty_mod = " grid-cell--empty" if not block.children else ""
+    inner = "".join(block_to_html(child) for child in block.children)
+    return f'<div class="grid-cell{empty_mod}" style="{style}">{inner}</div>'
+
+
 def block_to_html(block: Block) -> str:
     """Convert a Block AST node to an HTML string."""
 
@@ -272,6 +307,9 @@ def block_to_html(block: Block) -> str:
     if block.type == "heading4":
         inner = inline_to_html(block.children)
         return f'<div class="type-heading4">{inner}</div>'
+
+    if block.type == "grid":
+        return _render_grid(block)
 
     if block.type == "ul":
         items_html = _render_list_items_nested(block.children, "ul")
@@ -391,38 +429,6 @@ def _parse_cell(text: str) -> list[Inline]:
 def blocks_to_html(blocks: list[Block]) -> str:
     """Render a list of blocks to a single HTML string."""
     return "\n".join(block_to_html(b) for b in blocks)
-
-
-# ---------------------------------------------------------------------------
-# Column splitting (for 2col / 3col templates)
-# ---------------------------------------------------------------------------
-
-_COL_LABELS_2 = {"left", "right"}
-_COL_LABELS_3 = {"col1", "col2", "col3"}
-
-
-def _split_columns(
-    blocks: list[Block], labels: set[str]
-) -> dict[str, list[Block]]:
-    """Split blocks by #### heading labels into columns."""
-    columns: dict[str, list[Block]] = {label: [] for label in labels}
-    current_col: str = ""
-    sorted_labels = sorted(labels)
-
-    for block in blocks:
-        if block.type == "heading4":
-            label_text = inline_to_html(block.children).strip().lower()
-            if label_text in labels:
-                current_col = label_text
-                continue
-        if current_col:
-            columns[current_col].append(block)
-        else:
-            # No column label yet, put in first column
-            if sorted_labels:
-                columns[sorted_labels[0]].append(block)
-
-    return columns
 
 
 # ---------------------------------------------------------------------------
@@ -637,39 +643,7 @@ def _render_slide(
     )
 
     # Template-specific content
-    if resolved.template in ("body-2col",):
-        columns = _split_columns(slide.blocks, _COL_LABELS_2)
-        # Extract source from column tails when slide-level source is empty
-        if not slide.source:
-            from parser import _extract_source
-            for col_key in ("right", "left"):
-                col_blocks = columns.get(col_key, [])
-                col_blocks, col_source = _extract_source(col_blocks)
-                if col_source:
-                    columns[col_key] = col_blocks
-                    variables["source"] = col_source
-                    variables["show_source"] = True
-                    break
-        variables["left"] = blocks_to_html(columns.get("left", []))
-        variables["right"] = blocks_to_html(columns.get("right", []))
-        variables["ratio"] = resolved.ratio
-    elif resolved.template in ("body-3col",):
-        columns = _split_columns(slide.blocks, _COL_LABELS_3)
-        # Extract source from column tails when slide-level source is empty
-        if not slide.source:
-            from parser import _extract_source
-            for col_key in ("col3", "col2", "col1"):
-                col_blocks = columns.get(col_key, [])
-                col_blocks, col_source = _extract_source(col_blocks)
-                if col_source:
-                    columns[col_key] = col_blocks
-                    variables["source"] = col_source
-                    variables["show_source"] = True
-                    break
-        variables["col1"] = blocks_to_html(columns.get("col1", []))
-        variables["col2"] = blocks_to_html(columns.get("col2", []))
-        variables["col3"] = blocks_to_html(columns.get("col3", []))
-    elif resolved.template == "body-hero":
+    if resolved.template == "body-hero":
         remaining, hero_src, hero_alt = _extract_hero_image(slide.blocks)
         variables["hero_src"] = hero_src
         variables["hero_alt"] = hero_alt

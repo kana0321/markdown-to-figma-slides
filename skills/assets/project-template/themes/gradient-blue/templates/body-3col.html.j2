@@ -10,11 +10,7 @@
 {% endblock %}
 
 {% block main %}
-<div class="main {{ 'main--compact' if compact }}">
-  <div class="layout-3col">
-    <div class="col">{{ col1 }}</div>
-    <div class="col">{{ col2 }}</div>
-    <div class="col">{{ col3 }}</div>
-  </div>
+<div class="main al-col gap-lg {{ 'main--compact' if compact }}">
+  {{ content }}
 </div>
 {% endblock %}
