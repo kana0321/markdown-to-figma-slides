@@ -475,6 +475,7 @@ body{
   display:flex;
   flex-direction:column;
   gap: var(--component-image-caption-gap);
+  margin: 0;
 }
 .image-block--captioned img{
   flex:1 1 0;
