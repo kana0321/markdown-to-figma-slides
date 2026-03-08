@@ -111,23 +111,22 @@
 - モニタリング
 - 改善サイクル
 
-### ボディグリッド
+### ボディグリッド（2x2）
 
 <!-- slide: template=body-grid -->
 
-<!-- grid: columns=2; rows=2; gap=md -->
+<!-- grid: columns=2; rows=2; gap=sm -->
 
 <!-- cell: col=1; row=1 -->
-主要メッセージをセル単位で整理できる汎用グリッドです。
+主要論点をコンパクトに並べる基本 2x2 グリッドです。
 
-- `columns` と `rows` で骨格を定義
-- 各セルには通常の body block をそのまま配置可能
+- 各セルは既存 body block をそのまま使えます
+- `gap=sm` は高密度な情報整理向けです
 <!-- /cell -->
 
 <!-- cell: col=2; row=1 -->
-<!-- card: accent -->
-span を使わなくても、情報のまとまりを均等に比較できます。
-<!-- /card -->
+> [!TIP]
+> セル自体は装飾を持たないので、強調したい場合は card や callout を中で使います。
 <!-- /cell -->
 
 <!-- cell: col=1; row=2 -->
@@ -138,8 +137,79 @@ span を使わなくても、情報のまとまりを均等に比較できます
 <!-- /cell -->
 
 <!-- cell: col=2; row=2 -->
+1. **整理** 情報の種類を分ける
+2. **配置** セル単位で視線を制御する
+3. **強調** 必要な要素だけ装飾する
+<!-- /cell -->
+
+<!-- /grid -->
+
+### ボディグリッド（spanあり）
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=md -->
+
+<!-- cell: col=1; row=1; col_span=2 -->
+大きい主役領域をつくるには `col_span` / `row_span` を使います。
+
+<!-- card: accent -->
+メインメッセージを横長のセルにまとめると、2col より自由に強弱を付けられます。
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=3; row=1; row_span=2 -->
+#### 補助情報
+
+- 右側に縦長の補助列
+- FAQ
+- 制約条件
+- 参考リンク
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+<!-- badge: rollout -->
+段階導入
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+段階的にロールアウトし、反応を見ながら機能を広げます。
+<!-- /cell -->
+
+<!-- /grid -->
+
+### ボディグリッド（余白を方向別に調整）
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=sm -->
+
+<!-- cell: col=1; row=1; row_span=2 -->
+<!-- card: accent -->
+**左右の区切りを強める**
+
+- `col_gap=lg`
+- カラム間の余白を大きく取る
+- 左右のまとまりを見分けやすくする
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=2; row=1; col_span=2 -->
+横方向はゆったり、縦方向は詰め気味にしたい時の例です。
+
+| 設定 | 値 |
+|---|---|
+| `col_gap` | `lg` |
+| `row_gap` | `sm` |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+上下の距離は小さいままなので、関連する情報をひとまとまりで読ませやすくなります。
+<!-- /cell -->
+
+<!-- cell: col=3; row=2 -->
 > [!TIP]
-> 強調したいセルだけ card や callout を入れると、密度を保ったまま強弱を付けられます。
+> 左右はしっかり分けたいが、上下はつながって見せたい時に向いています。
 <!-- /cell -->
 
 <!-- /grid -->
@@ -512,23 +582,22 @@ Deploy, monitor, and gather feedback.
 - Monitoring
 - Iteration
 
-### Body Grid
+### Body Grid (2x2)
 
 <!-- slide: template=body-grid -->
 
-<!-- grid: columns=2; rows=2; gap=md -->
+<!-- grid: columns=2; rows=2; gap=sm -->
 
 <!-- cell: col=1; row=1 -->
-Body Grid gives you a generic grid layout for arranging multiple messages with equal weight.
+This is the basic 2x2 grid for compact information grouping.
 
-- Define the frame with `columns` and `rows`
-- Each cell accepts the same body blocks as a standard slide
+- Each cell accepts the same body blocks as a normal slide
+- `gap=sm` works well for dense content
 <!-- /cell -->
 
 <!-- cell: col=2; row=1 -->
-<!-- card: accent -->
-Even without spans, grid cells make side-by-side comparison layouts straightforward.
-<!-- /card -->
+> [!TIP]
+> Cells stay unstyled on purpose, so emphasis should come from cards or callouts placed inside them.
 <!-- /cell -->
 
 <!-- cell: col=1; row=2 -->
@@ -539,8 +608,79 @@ Even without spans, grid cells make side-by-side comparison layouts straightforw
 <!-- /cell -->
 
 <!-- cell: col=2; row=2 -->
+1. **Group** information by type
+2. **Place** content to guide the eye
+3. **Emphasize** only what matters
+<!-- /cell -->
+
+<!-- /grid -->
+
+### Body Grid (with spans)
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=md -->
+
+<!-- cell: col=1; row=1; col_span=2 -->
+Use `col_span` and `row_span` when one message should dominate the slide.
+
+<!-- card: accent -->
+This gives you a large hero cell without falling back to a fixed 2-column structure.
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=3; row=1; row_span=2 -->
+#### Supporting Notes
+
+- Tall side rail
+- FAQ
+- Constraints
+- Reference links
+<!-- /cell -->
+
+<!-- cell: col=1; row=2 -->
+<!-- badge: rollout -->
+Phased rollout
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+Roll out in stages and widen the release as confidence grows.
+<!-- /cell -->
+
+<!-- /grid -->
+
+### Body Grid (directional gaps)
+
+<!-- slide: template=body-grid -->
+
+<!-- grid: columns=3; rows=2; col_gap=lg; row_gap=sm -->
+
+<!-- cell: col=1; row=1; row_span=2 -->
+<!-- card: accent -->
+**Make the left-right split more pronounced**
+
+- `col_gap=lg`
+- Widen the space between columns
+- Make each side read as a clearer group
+<!-- /card -->
+<!-- /cell -->
+
+<!-- cell: col=2; row=1; col_span=2 -->
+This example keeps the horizontal spacing loose while tightening the vertical rhythm.
+
+| Setting | Value |
+|---|---|
+| `col_gap` | `lg` |
+| `row_gap` | `sm` |
+<!-- /cell -->
+
+<!-- cell: col=2; row=2 -->
+Smaller vertical gaps help related items feel like one cluster.
+<!-- /cell -->
+
+<!-- cell: col=3; row=2 -->
 > [!TIP]
-> Add cards or callouts only where you need emphasis, and keep the rest of the grid quiet.
+> This works well when columns should feel clearly separated, but rows still need to read as connected.
 <!-- /cell -->
 
 <!-- /grid -->
