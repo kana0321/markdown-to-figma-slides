@@ -1,5 +1,11 @@
 # Workflow Reference
 
+この文書は、project 初期化、スライド生成、再実行判断、手動コマンドの正本です。
+
+- Markdown 記法は `markdown-mapping.md`
+- Figma 取り込みは `figma-capture.md`
+- theme system の設計方針は `../docs/theme-design.md`
+
 ## 1. Initialize
 
 Create a project from bundled scaffold:
@@ -14,6 +20,12 @@ Install dependencies if needed:
 pip3 install jinja2 pyyaml pygments
 ```
 
+Optionally copy the bundled sample deck:
+
+```bash
+cp /path/to/repo/skills/assets/sample-catalog.md /path/to/my-slides/input/raw/sample-catalog.md
+```
+
 Confirm available themes if needed:
 
 ```bash
@@ -23,7 +35,7 @@ python3 scripts/theme.py --project-root . current
 ```
 
 The scaffold starts with a minimal `design.config.yaml`.
-Theme defaults provide the baseline look, and you only add project-specific overrides as needed.
+Theme defaults provide the baseline look, and you should only add project-specific overrides.
 
 ## 2. Run Pipeline
 
@@ -35,6 +47,7 @@ cd /path/to/my-slides
 ```
 
 Outputs:
+
 - `output/vN/slides/pages/*.html`
 - `output/vN/slides/slides.html`
 - `output/vN/SLIDES.md`
@@ -42,7 +55,24 @@ Outputs:
 - `output/vN/source/` (input snapshots + config snapshot)
 - `output/slides.html` (latest redirect entry)
 
-## 3. Manual Commands
+## 3. Rerun Decision
+
+| 変更した対象 | 必要なアクション |
+| --- | --- |
+| Markdown の内容 | `./scripts/run_pipeline.sh ...` で再生成 |
+| 有効 theme の template (`themes/<name>/templates/*.html.j2`) | `./scripts/run_pipeline.sh ...` で再生成 |
+| `design.config.yaml` の `theme.name` | `./scripts/run_pipeline.sh ...` で再生成 |
+| `design.config.yaml` の色・フォント・トークン | `python3 scripts/sync_tokens.py --project-root . --version vN` |
+| `design.config.yaml` の `slides[]` template 指定 | `./scripts/run_pipeline.sh ...` で再生成 |
+| 有効 theme の CSS / `shared/styles/slide.css` | `python3 scripts/sync_tokens.py --project-root . --version vN` |
+
+補足:
+
+- `sync_tokens.py --project-root .` は active theme の token CSS を更新する
+- `sync_tokens.py --project-root . --version vN` は version 出力側の CSS も更新する
+- `theme.name` の変更や template 変更は HTML を再生成する
+
+## 4. Manual Commands
 
 Step-by-step control:
 
@@ -64,40 +94,21 @@ python3 scripts/generate_slides.py --input input/current.md --version $VERSION -
 python3 scripts/sync_tokens.py --project-root . --version $VERSION
 ```
 
-## 4. Design Tuning (no HTML regeneration)
+## 5. Theme Operations
 
 Switch the active theme:
 
 ```bash
+python3 scripts/theme.py --project-root . list
+python3 scripts/theme.py --project-root . current
 python3 scripts/theme.py --project-root . apply classic
 ```
 
-Edit `design.config.yaml`, theme CSS token files, theme `slide.css`, or `shared/styles/slide.css` directly, then:
+Keep `design.config.yaml` thin. The baseline design should come from theme defaults, not from project-level baseline overrides.
 
-```bash
-python3 scripts/sync_tokens.py --project-root . --version vN
-```
+For theme-system rules, token layering, and config resolution order, use `../docs/theme-design.md`.
 
-Current behavior:
-
-- `sync_tokens.py --project-root .` updates the active theme's token CSS files in `themes/<active-theme>/styles/`
-- `sync_tokens.py --project-root . --version vN` also syncs token CSS into `output/vN/styles/`
-- with `--version`, it also copies theme `slide.css` and `shared/styles/slide.css` into the version output if changed
-
-Template note:
-
-- `body-grid-full` is a headerless variant of `body-grid`
-- it uses the same strict `<!-- grid: ... -->` / `<!-- cell: ... -->` grammar
-- shared spacing tweaks for `body-grid-full` should stay in `shared/styles/slide.css` and theme-specific values should stay in theme component tokens
-
-Known limitations:
-
-- `show_pages`, `caption`, and `status` are not supported as `<!-- slide: ... -->` keys
-- `subtitle` in a body slide comment is dropped during parsing
-- Figma capture requires a local HTTP server and external capture script access
-- detailed limitations are tracked in `docs/theme-design.md`
-
-## 4.5 Create or Customize a Theme
+## 6. Create or Customize a Theme
 
 When you need a new built-in theme, copy an existing one first:
 
@@ -106,7 +117,7 @@ cd /path/to/my-slides
 cp -R themes/classic themes/my-theme
 ```
 
-Then update `themes/my-theme/theme.yaml` so `name` matches the directory name, adjust CSS and templates, and inspect it with:
+Then inspect and apply it:
 
 ```bash
 python3 scripts/theme.py --project-root . show my-theme
@@ -114,13 +125,20 @@ python3 scripts/theme.py --project-root . apply my-theme
 ./scripts/run_pipeline.sh --project-root . --input input/raw/source.md
 ```
 
-Use `docs/theme-authoring.md` in the repo root for the full authoring rules and file responsibilities.
+Use `../docs/theme-authoring.md` for the full authoring rules and `../docs/multi-theme-visual-qa.md` for visual verification.
 
-When a theme or shared styling change needs visual verification across themes, use `docs/multi-theme-visual-qa.md` in the repo root.
-
-## 5. Preview
+## 7. Preview
 
 ```bash
-cd output && python3 -m http.server 8080
-# Open http://localhost:8080/slides.html
+cd output
+python3 -m http.server 8080
 ```
+
+Open `http://localhost:8080/slides.html`.
+
+## 8. Related References
+
+- `markdown-mapping.md` for syntax, templates, comments, and `body-grid`
+- `figma-capture.md` for capture flow
+- `../docs/body-grid-design.md` for maintainer-facing `body-grid` rationale
+- `../docs/maintainer-change-guide.md` for implementation impact by change type

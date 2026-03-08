@@ -5,6 +5,11 @@
 - Local HTTP server running in `output/` directory
 - Figma MCP server connected
 
+Note:
+
+- Claude Code can proceed through the capture flow when Figma MCP is available
+- Codex cannot currently execute the Figma capture step, so treat this reference as Claude Code-specific for the final handoff
+
 ## Capture Flow
 
 1. Start local server:
