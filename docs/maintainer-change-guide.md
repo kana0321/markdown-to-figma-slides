@@ -33,6 +33,11 @@
 これは基本的に「既存 contract の中で見た目を変える」変更。
 新しい Markdown 構文や AST を増やさないなら、比較的軽い。
 
+補足:
+
+- `body-grid-full` のように、既存 grammar や renderer contract を流用する template variant 追加もまずこのパターンで考える
+- `body-grid` と同じ strict grammar を使い、header の有無や shared CSS / token の調整だけで成立するなら、新 component 追加として扱わない
+
 ### 主に触る場所
 
 #### 1. 入力の置き場所を決める

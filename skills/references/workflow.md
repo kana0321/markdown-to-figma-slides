@@ -84,6 +84,12 @@ Current behavior:
 - `sync_tokens.py --project-root . --version vN` also syncs token CSS into `output/vN/styles/`
 - with `--version`, it also copies theme `slide.css` and `shared/styles/slide.css` into the version output if changed
 
+Template note:
+
+- `body-grid-full` is a headerless variant of `body-grid`
+- it uses the same strict `<!-- grid: ... -->` / `<!-- cell: ... -->` grammar
+- shared spacing tweaks for `body-grid-full` should stay in `shared/styles/slide.css` and theme-specific values should stay in theme component tokens
+
 Known limitations:
 
 - `show_pages`, `caption`, and `status` are not supported as `<!-- slide: ... -->` keys
