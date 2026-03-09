@@ -1,7 +1,7 @@
 # Markdown Mapping Reference
 
-この文書は、Markdown の書き方とユーザー向けの制約をまとめたリファレンスです。
-内部設計や実装判断は `../docs/body-grid-design.md` と `../docs/theme-design.md` を参照してください。
+This document is a reference for Markdown authoring rules and user-facing constraints.
+For internal design and implementation decisions, see `../docs/body-grid-design.md` and `../docs/theme-design.md`.
 
 ## Heading Mapping
 
@@ -33,7 +33,7 @@
 
 ## Arrow
 
-方向付きシェブロン矢印。コンテンツブロック間やカラム内に配置できる。
+A directional chevron arrow. It can be placed between content blocks or inside columns.
 
 ```md
 <!-- arrow: right -->
@@ -41,38 +41,38 @@
 <!-- arrow: left; size=lg; color=accent-subtle -->
 ```
 
-| パラメータ | 値 | デフォルト |
+| Parameter | Values | Default |
 |---|---|---|
-| direction (必須) | `right`, `left`, `up`, `down` | - |
+| direction (required) | `right`, `left`, `up`, `down` | - |
 | size | `lg`, `sm` | `lg` |
 | color | `secondary`, `accent-subtle` | `secondary` |
 
-マルチカラムテンプレートの `.col` 内に `right` / `left` を配置すると、CSS でカラム間のセパレータとして自動配置される。
+When `right` or `left` is placed inside `.col` in a multi-column template, CSS automatically positions it as a separator between columns.
 
 ## Steps
 
-水平ステップフロー。OL（番号付きリスト）をシェブロン型ブロックとして描画する。
+A horizontal step flow. Ordered lists are rendered as chevron-style blocks.
 
 ```md
 <!-- steps -->
-1. **タイトル** 説明テキスト
-2. **タイトル** 説明テキスト
-3. **タイトル**
+1. **Title** Description text
+2. **Title** Description text
+3. **Title**
 <!-- /steps -->
 ```
 
-- `**太字**` がタイトル、その後のテキストが説明になる。説明がある場合はアクセントカラーの区切り線で区切られる。
-- 最初のシェブロンは左端フラット、2番目以降は左にノッチ付き。
+- `**bold**` becomes the title, and any following text becomes the description. When a description is present, it is separated by an accent-colored divider.
+- The first chevron has a flat left edge. Every chevron after that has a left-side notch.
 
-| パラメータ | 値 | デフォルト |
+| Parameter | Values | Default |
 |---|---|---|
-| accent | `last` (最終ステップをアクセントカラーに) | なし |
+| accent | `last` (highlight the final step with the accent color) | none |
 
 ```md
 <!-- steps: accent=last -->
-1. **企画**
-2. **設計**
-3. **リリース**
+1. **Plan**
+2. **Design**
+3. **Release**
 <!-- /steps -->
 ```
 

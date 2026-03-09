@@ -1,20 +1,20 @@
 # Theme Authoring Guide
 
-この文書は、新しい theme を追加または調整するときの実務ガイドです。
+This document is a practical guide for adding or adjusting a theme.
 
-- theme system の運用ルールは `theme-system.md`
-- 実行手順は `workflow.md`
-- 見た目確認は `visual-qa.md`
-- repo maintainer 向けの設計判断は `../../docs/theme-design.md`
+- Theme system usage rules: `theme-system.md`
+- Execution workflow: `workflow.md`
+- Visual verification: `visual-qa.md`
+- Maintainer-facing design decisions: `../../docs/theme-design.md`
 
-## 追加前に理解しておくこと
+## Before You Add a Theme
 
-- theme は配色差し替えではなく design package として扱う
-- baseline は `theme.yaml` の `defaults` が持つ
-- `design.config.yaml` は project 固有 override に留める
-- 新しい theme を 0 から作るより、既存 theme を複製して調整する方が安全
+- Treat a theme as a design package, not just a color swap.
+- Keep the baseline design in `theme.yaml.defaults`.
+- Keep `design.config.yaml` limited to project-specific overrides.
+- It is safer to copy and adjust an existing theme than to build one from scratch.
 
-## 最小構成
+## Minimal Structure
 
 ```text
 themes/
@@ -41,22 +41,22 @@ themes/
       end.html.j2
 ```
 
-必須:
+Required:
 
 - `theme.yaml`
 - `styles/`
 - `templates/`
 
-## 新しい theme の作成手順
+## Create a New Theme
 
-まず既存 theme を複製します。
+First, copy an existing theme.
 
 ```bash
 cd /path/to/my-slides
 cp -R themes/classic themes/my-theme
 ```
 
-次に `themes/my-theme/theme.yaml` を更新します。
+Then update `themes/my-theme/theme.yaml`.
 
 ```yaml
 name: my-theme
@@ -120,7 +120,7 @@ defaults:
   slides: []
 ```
 
-その後、CSS と templates を theme 用に調整します。
+After that, adjust the CSS and templates for the new theme.
 
 ```bash
 python3 scripts/theme.py --project-root . show my-theme
@@ -128,35 +128,35 @@ python3 scripts/theme.py --project-root . apply my-theme
 ./scripts/run_pipeline.sh --project-root . --input input/raw/source.md
 ```
 
-## `theme.yaml` の書き方
+## Writing `theme.yaml`
 
-### 必須項目
+### Required Fields
 
 - `name`
 - `defaults`
 
-### 任意項目
+### Optional Fields
 
 - `label`
 - `description`
 - `fonts.google`
 
-### バリデーション
+### Validation
 
-loader は次をエラーにします。
+The loader treats the following as errors:
 
-- `theme.yaml` が存在しない
-- `theme.yaml` が空、または dict でない
-- `name` がない
-- `name` と directory 名が一致しない
-- `styles/` がない
-- `templates/` がない
+- `theme.yaml` does not exist
+- `theme.yaml` is empty or is not a dictionary
+- `name` is missing
+- `name` does not match the directory name
+- `styles/` is missing
+- `templates/` is missing
 
-`defaults` が dict でない場合は空として扱われます。
+If `defaults` is not a dictionary, it is treated as empty.
 
-## CSS レイヤーの責務
+## CSS Layer Responsibilities
 
-依存順は次です。
+The dependency order is:
 
 ```text
 tokens.primitives.css
@@ -168,37 +168,37 @@ tokens.primitives.css
 
 ### `tokens.primitives.css`
 
-- theme 実装の素の値
-- 色は `brand-*` / `neutral-*` を基本語彙にする
+- Raw values owned by the theme implementation
+- Use `brand-*` / `neutral-*` as the base color vocabulary
 
 ### `tokens.semantic.css`
 
-- renderer / component が参照する意味レイヤー
-- theme 間の差分をここで吸収する
+- Semantic layer referenced by the renderer and components
+- Absorb theme-to-theme differences here
 
 ### `tokens.component.css`
 
-- component 単位の token
-- color は semantic token から取る
+- Component-level tokens
+- Pull colors from semantic tokens
 
 ### `slide.css`
 
-- theme 固有の layout / decoration / typography override を置く
-- 共通化できるものは `shared/styles/slide.css` に寄せる
+- Put theme-specific layout, decoration, and typography overrides here
+- Move anything shareable into `shared/styles/slide.css`
 
-## Template の責務
+## Template Responsibilities
 
-- `base.html.j2` は head と共通骨格
-- slide 別 template は視覚差分の責任を持つ
-- `agenda.html.j2` は fallback しないので必須
+- `base.html.j2` defines the head and shared frame
+- Per-slide templates own visual differences
+- `agenda.html.j2` is required because there is no fallback
 
-## `design.config.yaml` と theme defaults の分担
+## `design.config.yaml` vs. Theme Defaults
 
-- baseline の見た目は theme defaults で決める
-- `design.config.yaml` は project 固有 override だけを置く
-- theme を追加するときに baseline 値を config に逃がさない
+- Define the baseline look in theme defaults
+- Keep only project-specific overrides in `design.config.yaml`
+- Do not move baseline values into config when adding a theme
 
-## 確認コマンド
+## Verification Commands
 
 ```bash
 python3 scripts/theme.py --project-root . list
@@ -207,26 +207,26 @@ python3 scripts/theme.py --project-root . apply my-theme
 ./scripts/run_pipeline.sh --project-root . --input input/raw/source.md
 ```
 
-見るポイント:
+Check the following:
 
-- `list` と `show` で新 theme が見えるか
-- `apply` 後に `design.config.yaml.theme.name` が切り替わるか
-- render が通るか
-- cover / agenda / section / body / end で配色、タイポ、余白が破綻しないか
+- Does the new theme appear in `list` and `show`?
+- Does `design.config.yaml.theme.name` change after `apply`?
+- Does rendering complete successfully?
+- Do cover / agenda / section / body / end slides keep sane color, type, and spacing?
 
-## visual QA の進め方
+## Visual QA
 
-theme を作ったら `visual-qa.md` の手順で built-in theme と並べて確認します。
+After creating a theme, compare it side by side with the built-in themes by following `visual-qa.md`.
 
-## よくある失敗
+## Common Mistakes
 
-- `theme.yaml.name` と directory 名が一致していない
-- `agenda.html.j2` や `styles/` が欠けている
-- baseline 値を `design.config.yaml` に持たせすぎて theme 切り替えが効かなくなる
-- 幅制限だけを追加して `.main` の中央配置を忘れ、見出しが左に寄って見える
-- component token が primitive color を直接参照して、theme 差し替えで責務が崩れる
+- `theme.yaml.name` does not match the directory name
+- `agenda.html.j2` or `styles/` is missing
+- Too many baseline values are pushed into `design.config.yaml`, so theme switching stops working cleanly
+- A width limit is added without keeping `.main` centered, making headings appear left-shifted
+- Component tokens reference primitive colors directly, which breaks responsibility boundaries during theme swaps
 
-## 関連文書
+## Related References
 
 - `theme-system.md`
 - `workflow.md`
