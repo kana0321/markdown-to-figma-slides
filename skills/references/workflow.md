@@ -45,21 +45,18 @@ branding:
     light_src: "images/logo-horizontal-light.svg"
     dark_src: "images/logo-horizontal-dark.svg"
     alt: "Company logo"
-  surface_defaults:
-    cover: light
-    end: light
-    agenda: light
-    body: light
-  template_surface:
-    body-hero: dark
 ```
 
 Practical rule of thumb:
 
-- `classic` / `minimal`: start with `cover: light`, `end: light`
-- `gradient-blue`: start with `cover: dark`, `end: dark`
-- `agenda` / normal `body`: usually `light`
-- `body-hero`: often `dark`
+- built-in theme defaults already choose the recommended surface policy
+- `classic` / `minimal`: cover / end default to `light`
+- `gradient-blue`: cover / end default to `dark`
+- `agenda` / normal `body`: default to `light`
+- `body-hero`: defaults to `dark`
+
+Add `branding.surface_defaults` or `branding.template_surface` only when your project
+needs to override the active theme's defaults.
 
 Confirm available themes if needed:
 
@@ -98,7 +95,7 @@ Outputs:
 | Active theme templates (`themes/<name>/templates/*.html.j2`) | Rerun `./scripts/run_pipeline.sh ...` |
 | `design.config.yaml` `theme.name` | Rerun `./scripts/run_pipeline.sh ...` |
 | Colors, fonts, or tokens in `design.config.yaml` | Run `python3 scripts/sync_tokens.py --project-root . --version vN` |
-| `design.config.yaml` `branding.*` logo paths or alt text | Rerun `./scripts/run_pipeline.sh ...` |
+| `design.config.yaml` `branding.*` (logo paths, alt text, or surface overrides) | Rerun `./scripts/run_pipeline.sh ...` |
 | `slides[]` template selection in `design.config.yaml` | Rerun `./scripts/run_pipeline.sh ...` |
 | Active theme CSS or `shared/styles/slide.css` | Run `python3 scripts/sync_tokens.py --project-root . --version vN` |
 

@@ -116,6 +116,15 @@ defaults:
     title: "Thank you"
     subtitle: ""
 
+  branding:
+    surface_defaults:
+      cover: light
+      end: light
+      agenda: light
+      body: light
+    template_surface:
+      body-hero: dark
+
   tokens: {}
   slides: []
 ```
@@ -140,6 +149,7 @@ python3 scripts/theme.py --project-root . apply my-theme
 - `label`
 - `description`
 - `fonts.google`
+- branding surface defaults inside `defaults`
 
 ### Validation
 
@@ -195,6 +205,7 @@ tokens.primitives.css
 ## `design.config.yaml` vs. Theme Defaults
 
 - Define the baseline look in theme defaults
+- Define the baseline branding surface policy in theme defaults
 - Keep only project-specific overrides in `design.config.yaml`
 - Do not move baseline values into config when adding a theme
 

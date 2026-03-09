@@ -146,6 +146,14 @@ class ConfigTest(unittest.TestCase):
               tokens:
                 surface-bg: "theme-surface"
                 accent: "theme-accent"
+              branding:
+                surface_defaults:
+                  cover: dark
+                  end: dark
+                  agenda: light
+                  body: light
+                template_surface:
+                  body-hero: dark
               slides:
                 - match: body
                   template: body-text

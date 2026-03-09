@@ -63,8 +63,9 @@ paths:
 - `branding.footer_logo.light_src`: 明るい背景向けの Body / Agenda フッターロゴ画像パス。
 - `branding.footer_logo.dark_src`: 暗い背景向けの Body / Agenda フッターロゴ画像パス。
 - `branding.footer_logo.alt`: Footer ロゴ画像の alt テキスト。
-- `branding.surface_defaults`: スライドタイプごとの既定面。`cover`, `end`, `agenda`, `body` に `light` または `dark` を指定する。
-- `branding.template_surface`: template 名ごとの面 override。例: `body-hero: dark`
+- built-in theme defaults may provide `branding.surface_defaults` and `branding.template_surface` as the baseline policy.
+- `branding.surface_defaults`: project ごとの override。`cover`, `end`, `agenda`, `body` に `light` または `dark` を指定する。
+- `branding.template_surface`: template 名ごとの project override。例: `body-hero: dark`
 - `branding.*` の変更は CSS sync ではなく HTML 再生成が必要。
 
 ## slides[] オーバーライド

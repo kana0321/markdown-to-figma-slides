@@ -55,5 +55,14 @@ defaults:
     title: "Thank you"
     subtitle: ""
 
+  branding:
+    surface_defaults:
+      cover: light
+      end: light
+      agenda: light
+      body: light
+    template_surface:
+      body-hero: dark
+
   tokens: {}
   slides: []

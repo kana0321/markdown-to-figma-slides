@@ -41,7 +41,7 @@ class RendererTest(unittest.TestCase):
         html, _ = _render_slide(env, slide, "cover", config, theme, 1, "../../styles")
 
         self.assertIn('class="cover-branding"', html)
-        self.assertIn('src="images/logo-dark.svg"', html)
+        self.assertIn('src="images/logo-light.svg"', html)
         self.assertIn('alt="Acme"', html)
 
     def test_render_slide_does_not_render_cover_logo_when_disabled(self) -> None:
@@ -98,6 +98,7 @@ class RendererTest(unittest.TestCase):
         env = self.make_env()
         config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
         config.branding.cover_logo_enabled = True
+        config.branding.cover_logo.light_src = "images/logo-light.svg"
         config.branding.cover_logo.dark_src = "images/logo-dark.svg"
         config.branding.cover_logo.alt = "End logo"
         theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
@@ -106,7 +107,7 @@ class RendererTest(unittest.TestCase):
         html, _ = _render_slide(env, slide, "end", config, theme, 99, "../../styles")
 
         self.assertIn('class="cover-branding"', html)
-        self.assertIn('src="images/logo-dark.svg"', html)
+        self.assertIn('src="images/logo-light.svg"', html)
         self.assertIn('alt="End logo"', html)
 
     def test_render_slide_does_not_render_footer_logo_when_disabled(self) -> None:

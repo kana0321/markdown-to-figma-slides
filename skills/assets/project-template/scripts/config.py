@@ -107,8 +107,8 @@ class BrandingLogoConfig:
 
 @dataclass
 class BrandingSurfaceDefaults:
-    cover: str = "dark"
-    end: str = "dark"
+    cover: str = "light"
+    end: str = "light"
     agenda: str = "light"
     body: str = "light"
 
@@ -122,9 +122,7 @@ class BrandingConfig:
     surface_defaults: BrandingSurfaceDefaults = field(
         default_factory=BrandingSurfaceDefaults
     )
-    template_surface: dict[str, str] = field(
-        default_factory=lambda: {"body-hero": "dark"}
-    )
+    template_surface: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
