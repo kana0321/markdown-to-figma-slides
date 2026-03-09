@@ -26,12 +26,13 @@ Optionally copy the bundled sample deck:
 cp /path/to/repo/skills/assets/sample-catalog.md /path/to/my-slides/input/raw/sample-catalog.md
 ```
 
-If you want a company logo on the cover / end or body / agenda footer, place the image files under
-`input/raw/images/` and reference them from `design.config.yaml.branding`.
+The bundled scaffold starts with sample branding logos configured for both the
+cover / end header and the body / agenda footer. The referenced assets live under
+`input/raw/images/`.
 Use separate `light_src` / `dark_src` assets for each placement, and let the renderer
 select between them based on slide type and template surface rules.
-Both placements default to enabled. Set `cover_logo_enabled: false` and/or
-`footer_logo_enabled: false` when you want to hide them.
+Set `cover_logo_enabled: false` and/or `footer_logo_enabled: false` when you want to hide them,
+or replace the `light_src` / `dark_src` paths when you want project-specific logos.
 
 Example:
 
@@ -66,8 +67,8 @@ python3 scripts/theme.py --project-root . list
 python3 scripts/theme.py --project-root . current
 ```
 
-The scaffold starts with a minimal `design.config.yaml`.
-Theme defaults provide the baseline look, and you should only add project-specific overrides.
+The scaffold starts with a small `design.config.yaml` plus sample branding-logo paths.
+Theme defaults still provide the baseline look, and you should only add project-specific overrides.
 
 ## 2. Run Pipeline
 

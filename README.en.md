@@ -32,6 +32,7 @@ Automatic end-to-end Figma capture is intended for Claude Code. In Codex, the Fi
 ### Try It First
 
 The easiest way to understand the output is to start with `skills/assets/sample-catalog.md` and generate a test project from it.
+The bundled project template now also starts with sample branding-logo settings enabled, so you can review logo placement on cover / end and body / agenda slides immediately.
 
 You can ask Claude Code, Codex, or another coding agent with a prompt like this:
 
@@ -87,6 +88,11 @@ This prompt is intended for Claude Code. With Codex, you can still generate the 
 - The active theme is selected by `design.config.yaml.theme.name`
 - The baseline look should come from theme defaults
 - `design.config.yaml` should only hold project-specific overrides
+
+The bundled project template references `input/raw/images/logo-horizontal-light.svg` and
+`logo-horizontal-dark.svg` as the default branding logos. If you want to hide them, set
+`cover_logo_enabled: false` and/or `footer_logo_enabled: false` in `design.config.yaml`.
+If you want to replace them, update `branding.cover_logo` and `branding.footer_logo`.
 
 If you want to switch themes, you can ask with a prompt like this:
 
