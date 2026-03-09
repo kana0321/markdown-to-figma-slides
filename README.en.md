@@ -26,7 +26,6 @@ The user-facing source of truth for theme-system operation is `skills/references
 
 - Python 3.9 or newer must be available
 - Figma MCP must be available if you want Figma capture
-- Your AI coding agent must be able to access this repository
 
 Automatic end-to-end Figma capture is intended for Claude Code. In Codex, the Figma capture step cannot currently be executed.
 
