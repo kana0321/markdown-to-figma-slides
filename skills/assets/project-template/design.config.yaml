@@ -2,6 +2,7 @@ theme:
   name: "classic"
 
 # Optional project branding:
+# Bundled sample logos are available in `input/raw/images/`.
 # branding:
 #   cover_logo_enabled: false
 #   footer_logo_enabled: false
