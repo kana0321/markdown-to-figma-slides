@@ -27,10 +27,39 @@ cp /path/to/repo/skills/assets/sample-catalog.md /path/to/my-slides/input/raw/sa
 ```
 
 If you want a company logo on the cover / end or body / agenda footer, place the image files under
-`input/raw/images/` and reference them from `design.config.yaml.branding` with
-project-relative paths such as `images/logo-horizontal.svg` and `images/logo-icon.svg`.
+`input/raw/images/` and reference them from `design.config.yaml.branding`.
+Use separate `light_src` / `dark_src` assets for each placement, and let the renderer
+select between them based on slide type and template surface rules.
 Both placements default to enabled. Set `cover_logo_enabled: false` and/or
 `footer_logo_enabled: false` when you want to hide them.
+
+Example:
+
+```yaml
+branding:
+  cover_logo:
+    light_src: "images/logo-horizontal-light.svg"
+    dark_src: "images/logo-horizontal-dark.svg"
+    alt: "Company logo"
+  footer_logo:
+    light_src: "images/logo-horizontal-light.svg"
+    dark_src: "images/logo-horizontal-dark.svg"
+    alt: "Company logo"
+  surface_defaults:
+    cover: light
+    end: light
+    agenda: light
+    body: light
+  template_surface:
+    body-hero: dark
+```
+
+Practical rule of thumb:
+
+- `classic` / `minimal`: start with `cover: light`, `end: light`
+- `gradient-blue`: start with `cover: dark`, `end: dark`
+- `agenda` / normal `body`: usually `light`
+- `body-hero`: often `dark`
 
 Confirm available themes if needed:
 

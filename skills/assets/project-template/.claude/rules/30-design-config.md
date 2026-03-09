@@ -56,11 +56,15 @@ paths:
 ## branding セクション
 
 - `branding.cover_logo_enabled`: Cover 上部ロゴの表示 ON/OFF。デフォルトは `true`。
-- `branding.cover_logo_src`: Cover / End 上部に表示するロゴ画像パス。`images/logo-horizontal.svg` のような project 内相対パスを使う。
-- `branding.cover_logo_alt`: Cover ロゴ画像の alt テキスト。
+- `branding.cover_logo.light_src`: 明るい背景向けの Cover / End ロゴ画像パス。
+- `branding.cover_logo.dark_src`: 暗い背景向けの Cover / End ロゴ画像パス。
+- `branding.cover_logo.alt`: Cover ロゴ画像の alt テキスト。
 - `branding.footer_logo_enabled`: Body フッターロゴの表示 ON/OFF。デフォルトは `true`。
-- `branding.footer_logo_src`: Body / Agenda スライドのフッター右側に表示するロゴ画像パス。`images/logo-icon.svg` のような project 内相対パスを使う。
-- `branding.footer_logo_alt`: Footer ロゴ画像の alt テキスト。
+- `branding.footer_logo.light_src`: 明るい背景向けの Body / Agenda フッターロゴ画像パス。
+- `branding.footer_logo.dark_src`: 暗い背景向けの Body / Agenda フッターロゴ画像パス。
+- `branding.footer_logo.alt`: Footer ロゴ画像の alt テキスト。
+- `branding.surface_defaults`: スライドタイプごとの既定面。`cover`, `end`, `agenda`, `body` に `light` または `dark` を指定する。
+- `branding.template_surface`: template 名ごとの面 override。例: `body-hero: dark`
 - `branding.*` の変更は CSS sync ではなく HTML 再生成が必要。
 
 ## slides[] オーバーライド

@@ -99,13 +99,32 @@ class AgendaConfig:
 
 
 @dataclass
+class BrandingLogoConfig:
+    light_src: str = ""
+    dark_src: str = ""
+    alt: str = "Company logo"
+
+
+@dataclass
+class BrandingSurfaceDefaults:
+    cover: str = "dark"
+    end: str = "dark"
+    agenda: str = "light"
+    body: str = "light"
+
+
+@dataclass
 class BrandingConfig:
     cover_logo_enabled: bool = True
-    cover_logo_src: str = ""
-    cover_logo_alt: str = "Company logo"
     footer_logo_enabled: bool = True
-    footer_logo_src: str = ""
-    footer_logo_alt: str = "Company logo"
+    cover_logo: BrandingLogoConfig = field(default_factory=BrandingLogoConfig)
+    footer_logo: BrandingLogoConfig = field(default_factory=BrandingLogoConfig)
+    surface_defaults: BrandingSurfaceDefaults = field(
+        default_factory=BrandingSurfaceDefaults
+    )
+    template_surface: dict[str, str] = field(
+        default_factory=lambda: {"body-hero": "dark"}
+    )
 
 
 @dataclass
@@ -303,6 +322,8 @@ def _merge_dataclass(target, source_dict: dict):
         current = getattr(target, attr_name)
         if isinstance(val, dict) and hasattr(current, "__dataclass_fields__"):
             _merge_dataclass(current, val)
+        elif isinstance(val, dict) and isinstance(current, dict):
+            current.update(val)
         else:
             setattr(target, attr_name, val)
 

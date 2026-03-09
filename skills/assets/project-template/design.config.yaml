@@ -4,11 +4,22 @@ theme:
 # Optional project branding:
 # branding:
 #   cover_logo_enabled: false
-#   cover_logo_src: "images/logo-horizontal.svg"
-#   cover_logo_alt: "Company logo"
 #   footer_logo_enabled: false
-#   footer_logo_src: "images/logo-icon.svg"
-#   footer_logo_alt: "Company logo"
+#   cover_logo:
+#     light_src: "images/logo-horizontal-light.svg"
+#     dark_src: "images/logo-horizontal-dark.svg"
+#     alt: "Company logo"
+#   footer_logo:
+#     light_src: "images/logo-horizontal-light.svg"
+#     dark_src: "images/logo-horizontal-dark.svg"
+#     alt: "Company logo"
+#   surface_defaults:
+#     cover: dark
+#     end: dark
+#     agenda: light
+#     body: light
+#   template_surface:
+#     body-hero: dark
 
 tokens: {}
 
