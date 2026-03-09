@@ -130,6 +130,28 @@ class ConfigTest(unittest.TestCase):
         self.assertNotIn("bad", links[2])
         self.assertNotIn("None", links[2])
 
+    def test_project_template_config_enables_default_branding_assets(self) -> None:
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+
+        self.assertTrue(config.branding.cover_logo_enabled)
+        self.assertTrue(config.branding.footer_logo_enabled)
+        self.assertEqual(
+            config.branding.cover_logo.light_src,
+            "images/logo-horizontal-light.svg",
+        )
+        self.assertEqual(
+            config.branding.cover_logo.dark_src,
+            "images/logo-horizontal-dark.svg",
+        )
+        self.assertEqual(
+            config.branding.footer_logo.light_src,
+            "images/logo-horizontal-light.svg",
+        )
+        self.assertEqual(
+            config.branding.footer_logo.dark_src,
+            "images/logo-horizontal-dark.svg",
+        )
+
     def test_load_config_merges_theme_defaults_then_project_overrides(self) -> None:
         self.create_theme(
             "custom",

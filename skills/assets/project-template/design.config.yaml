@@ -1,25 +1,24 @@
 theme:
   name: "classic"
 
-# Optional project branding:
-# Bundled sample logos are available in `input/raw/images/`.
-# branding:
-#   cover_logo_enabled: false
-#   footer_logo_enabled: false
-#   cover_logo:
-#     light_src: "images/logo-horizontal-light.svg"
-#     dark_src: "images/logo-horizontal-dark.svg"
-#     alt: "Company logo"
-#   footer_logo:
-#     light_src: "images/logo-horizontal-light.svg"
-#     dark_src: "images/logo-horizontal-dark.svg"
-#     alt: "Company logo"
-#   # Override only when your project needs a different policy from the active theme:
-#   # surface_defaults:
-#   #   cover: light
-#   #   end: light
-#   # template_surface:
-#   #   body-hero: dark
+branding:
+  cover_logo:
+    light_src: "images/logo-horizontal-light.svg"
+    dark_src: "images/logo-horizontal-dark.svg"
+    alt: "Company logo"
+  footer_logo:
+    light_src: "images/logo-horizontal-light.svg"
+    dark_src: "images/logo-horizontal-dark.svg"
+    alt: "Company logo"
+  # Disable one side only when you want to hide it:
+  # cover_logo_enabled: false
+  # footer_logo_enabled: false
+  # Override only when your project needs a different policy from the active theme:
+  # surface_defaults:
+  #   cover: light
+  #   end: light
+  # template_surface:
+  #   body-hero: dark
 
 tokens: {}
 

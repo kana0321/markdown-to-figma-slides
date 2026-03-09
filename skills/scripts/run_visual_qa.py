@@ -37,7 +37,7 @@ DEFAULT_PAGE_SPECS = [
     ("26-body", "Card"),
     ("32-body", "Arrow"),
     ("33-body", "Image"),
-    ("79-end", "End"),
+    ("83-end", "End"),
 ]
 
 VERSION_RE = re.compile(r"^v\d+$")
