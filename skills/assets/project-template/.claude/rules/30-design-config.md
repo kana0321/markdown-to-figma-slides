@@ -53,6 +53,16 @@ paths:
 - `end.title`: End スライドのタイトル（デフォルト: `Thank you`）。
 - `end.subtitle`: End スライドのサブタイトル（デフォルト: 空）。
 
+## branding セクション
+
+- `branding.cover_logo_enabled`: Cover 上部ロゴの表示 ON/OFF。デフォルトは `true`。
+- `branding.cover_logo_src`: Cover / End 上部に表示するロゴ画像パス。`images/logo-horizontal.svg` のような project 内相対パスを使う。
+- `branding.cover_logo_alt`: Cover ロゴ画像の alt テキスト。
+- `branding.footer_logo_enabled`: Body フッターロゴの表示 ON/OFF。デフォルトは `true`。
+- `branding.footer_logo_src`: Body / Agenda スライドのフッター右側に表示するロゴ画像パス。`images/logo-icon.svg` のような project 内相対パスを使う。
+- `branding.footer_logo_alt`: Footer ロゴ画像の alt テキスト。
+- `branding.*` の変更は CSS sync ではなく HTML 再生成が必要。
+
 ## slides[] オーバーライド
 
 - `slides[]` の `match` はタイプ名（`cover`, `section`, `body` 等）またはタイトル（`### タイトル`, `## タイトル`）で指定する。

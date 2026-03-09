@@ -517,6 +517,17 @@ def render_deck(
             sections=section_entries,
             show_pages=config.agenda.show_pages,
             compact=resolved.compact,
+            cover_logo_src=config.branding.cover_logo_src,
+            cover_logo_alt=config.branding.cover_logo_alt,
+            show_cover_logo=False,
+            footer_logo_src=config.branding.footer_logo_src,
+            footer_logo_alt=config.branding.footer_logo_alt,
+            show_footer_logo=(
+                config.branding.footer_logo_enabled
+                and bool(config.branding.footer_logo_src)
+            ),
+            source="",
+            show_source=False,
         )
         full_html = template.render(**agenda_vars)
         body_html = _render_slide_div(template, agenda_vars)
@@ -641,6 +652,20 @@ def _render_slide(
         source=slide.source,
         show_source=bool(slide.source) or resolved.show_source,
         compact=resolved.compact,
+        cover_logo_src=config.branding.cover_logo_src,
+        cover_logo_alt=config.branding.cover_logo_alt,
+        show_cover_logo=(
+            slide_type in ("cover", "end")
+            and config.branding.cover_logo_enabled
+            and bool(config.branding.cover_logo_src)
+        ),
+        footer_logo_src=config.branding.footer_logo_src,
+        footer_logo_alt=config.branding.footer_logo_alt,
+        show_footer_logo=(
+            slide_type in ("body", "agenda")
+            and config.branding.footer_logo_enabled
+            and bool(config.branding.footer_logo_src)
+        ),
     )
 
     # Template-specific content

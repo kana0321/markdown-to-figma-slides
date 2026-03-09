@@ -157,6 +157,11 @@ class ConfigTest(unittest.TestCase):
               name: "custom"
             global:
               lang: "fr"
+            branding:
+              cover_logo_enabled: true
+              cover_logo_src: "images/project-cover.svg"
+              footer_logo_enabled: true
+              footer_logo_src: "images/project-footer.svg"
             badge:
               text: "Project Badge"
             tokens:
@@ -172,6 +177,10 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.theme.name, "custom")
         self.assertEqual(config.global_.lang, "fr")
         self.assertEqual(config.global_.fonts.sans, "Theme Sans")
+        self.assertTrue(config.branding.cover_logo_enabled)
+        self.assertEqual(config.branding.cover_logo_src, "images/project-cover.svg")
+        self.assertTrue(config.branding.footer_logo_enabled)
+        self.assertEqual(config.branding.footer_logo_src, "images/project-footer.svg")
         self.assertTrue(config.badge.enabled)
         self.assertEqual(config.badge.text, "Project Badge")
         self.assertEqual(config.tokens["surface-bg"], "theme-surface")

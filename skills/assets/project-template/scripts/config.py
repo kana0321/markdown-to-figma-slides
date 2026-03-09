@@ -99,6 +99,16 @@ class AgendaConfig:
 
 
 @dataclass
+class BrandingConfig:
+    cover_logo_enabled: bool = True
+    cover_logo_src: str = ""
+    cover_logo_alt: str = "Company logo"
+    footer_logo_enabled: bool = True
+    footer_logo_src: str = ""
+    footer_logo_alt: str = "Company logo"
+
+
+@dataclass
 class SlideOverride:
     match: str = ""
     template: str = ""
@@ -121,6 +131,7 @@ class DesignConfig:
     accent_bar: AccentBarConfig = field(default_factory=AccentBarConfig)
     agenda: AgendaConfig = field(default_factory=AgendaConfig)
     end: EndConfig = field(default_factory=EndConfig)
+    branding: BrandingConfig = field(default_factory=BrandingConfig)
     tokens: dict[str, str] = field(default_factory=dict)
     slides: list[SlideOverride] = field(default_factory=list)
 
@@ -342,6 +353,8 @@ def _apply_config_dict(config: DesignConfig, raw: dict) -> None:
         _merge_dataclass(config.agenda, raw["agenda"])
     if "end" in raw:
         _merge_dataclass(config.end, raw["end"])
+    if "branding" in raw:
+        _merge_dataclass(config.branding, raw["branding"])
     if "tokens" in raw and isinstance(raw["tokens"], dict):
         config.tokens.update({str(k): str(v) for k, v in raw["tokens"].items()})
     if "slides" in raw and isinstance(raw["slides"], list):

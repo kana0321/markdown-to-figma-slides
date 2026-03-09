@@ -43,8 +43,15 @@
         {% if source %}
         <div class="footer__source type-note">{{ source }}</div>
         {% endif %}
-        {% if page_number_enabled %}
-        <div class="footer__page type-caption">{{ page }}</div>
+        {% if page_number_enabled or show_footer_logo %}
+        <div class="footer__right">
+          {% if show_footer_logo %}
+          <img class="footer__logo" src="{{ footer_logo_src | e }}" alt="{{ footer_logo_alt | e }}" />
+          {% endif %}
+          {% if page_number_enabled %}
+          <div class="footer__page type-caption">{{ page }}</div>
+          {% endif %}
+        </div>
         {% endif %}
       </div>
       {% endblock %}

@@ -1,6 +1,15 @@
 theme:
   name: "classic"
 
+# Optional project branding:
+# branding:
+#   cover_logo_enabled: false
+#   cover_logo_src: "images/logo-horizontal.svg"
+#   cover_logo_alt: "Company logo"
+#   footer_logo_enabled: false
+#   footer_logo_src: "images/logo-icon.svg"
+#   footer_logo_alt: "Company logo"
+
 tokens: {}
 
 slides: []
