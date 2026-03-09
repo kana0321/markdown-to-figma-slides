@@ -4,9 +4,11 @@
 
 English: this page / 日本語: [README.md](README.md)
 
-Markdown to Figma Slides is a skill for turning Markdown into HTML slides and handing them off to Figma.
-
-This repository does not contain generated slide deliverables themselves. It contains the skill, the bundled project template, and the maintainer docs that support a reproducible slide workflow with versioned snapshots such as `v1`, `v2`, and so on.
+Markdown to Figma Slides is a skill for turning Markdown into HTML slides and handing them off to Figma.  
+The generated projects have versioned snapshots (`v1`, `v2`, ...) and can be operated while switching themes.  
+The specifications and operational rules of this Skill are not contained solely in `SKILL.md`.  
+They are composed as a whole, including supplementary documents such as `skills/references/workflow.md`.  
+Therefore, when using it, please download the entire set of related files together rather than `SKILL.md` alone, and use them while maintaining the original folder structure.
 
 ## What This Repo Contains
 
