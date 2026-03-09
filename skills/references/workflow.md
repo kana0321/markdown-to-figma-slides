@@ -1,10 +1,10 @@
 # Workflow Reference
 
-この文書は、project 初期化、スライド生成、再実行判断、手動コマンドの正本です。
+This document is the source of truth for project initialization, slide generation, rerun decisions, and manual commands.
 
-- Markdown 記法は `markdown-mapping.md`
-- Figma 取り込みは `figma-capture.md`
-- theme system の運用ルールは `theme-system.md`
+- Markdown syntax: `markdown-mapping.md`
+- Figma import flow: `figma-capture.md`
+- Theme system rules: `theme-system.md`
 
 ## 1. Initialize
 
@@ -57,20 +57,20 @@ Outputs:
 
 ## 3. Rerun Decision
 
-| 変更した対象 | 必要なアクション |
+| Changed Item | Required Action |
 | --- | --- |
-| Markdown の内容 | `./scripts/run_pipeline.sh ...` で再生成 |
-| 有効 theme の template (`themes/<name>/templates/*.html.j2`) | `./scripts/run_pipeline.sh ...` で再生成 |
-| `design.config.yaml` の `theme.name` | `./scripts/run_pipeline.sh ...` で再生成 |
-| `design.config.yaml` の色・フォント・トークン | `python3 scripts/sync_tokens.py --project-root . --version vN` |
-| `design.config.yaml` の `slides[]` template 指定 | `./scripts/run_pipeline.sh ...` で再生成 |
-| 有効 theme の CSS / `shared/styles/slide.css` | `python3 scripts/sync_tokens.py --project-root . --version vN` |
+| Markdown content | Rerun `./scripts/run_pipeline.sh ...` |
+| Active theme templates (`themes/<name>/templates/*.html.j2`) | Rerun `./scripts/run_pipeline.sh ...` |
+| `design.config.yaml` `theme.name` | Rerun `./scripts/run_pipeline.sh ...` |
+| Colors, fonts, or tokens in `design.config.yaml` | Run `python3 scripts/sync_tokens.py --project-root . --version vN` |
+| `slides[]` template selection in `design.config.yaml` | Rerun `./scripts/run_pipeline.sh ...` |
+| Active theme CSS or `shared/styles/slide.css` | Run `python3 scripts/sync_tokens.py --project-root . --version vN` |
 
-補足:
+Notes:
 
-- `sync_tokens.py --project-root .` は active theme の token CSS を更新する
-- `sync_tokens.py --project-root . --version vN` は version 出力側の CSS も更新する
-- `theme.name` の変更や template 変更は HTML を再生成する
+- `sync_tokens.py --project-root .` updates the active theme token CSS
+- `sync_tokens.py --project-root . --version vN` also updates CSS in the versioned output
+- Changing `theme.name` or templates requires HTML regeneration
 
 ## 4. Manual Commands
 
