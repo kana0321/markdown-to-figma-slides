@@ -499,6 +499,12 @@ def render_deck(
     if config.agenda.enabled and deck.sections:
         agenda_page = page
         resolved = resolve_slide("agenda", "", {}, config)
+        branding_surface = _resolve_branding_surface("agenda", resolved.template, config)
+        footer_logo_src, footer_logo_alt, show_footer_logo = _resolve_branding_logo(
+            logo_config=config.branding.footer_logo,
+            enabled=config.branding.footer_logo_enabled,
+            surface=branding_surface,
+        )
 
         # Compute section pages for agenda
         section_entries = []
@@ -517,6 +523,14 @@ def render_deck(
             sections=section_entries,
             show_pages=config.agenda.show_pages,
             compact=resolved.compact,
+            cover_logo_src="",
+            cover_logo_alt="",
+            show_cover_logo=False,
+            footer_logo_src=footer_logo_src,
+            footer_logo_alt=footer_logo_alt,
+            show_footer_logo=show_footer_logo,
+            source="",
+            show_source=False,
         )
         full_html = template.render(**agenda_vars)
         body_html = _render_slide_div(template, agenda_vars)
@@ -601,6 +615,49 @@ def render_deck(
 # ---------------------------------------------------------------------------
 
 
+def _normalize_branding_surface(value: str, fallback: str = "light") -> str:
+    normalized = str(value).strip().lower()
+    if normalized in {"light", "dark"}:
+        return normalized
+    return fallback
+
+
+def _resolve_branding_surface(
+    slide_type: str,
+    template_name: str,
+    config: DesignConfig,
+) -> str:
+    template_surface = config.branding.template_surface.get(template_name, "")
+    if template_surface:
+        return _normalize_branding_surface(template_surface)
+
+    default_surface = getattr(config.branding.surface_defaults, slide_type, "light")
+    return _normalize_branding_surface(default_surface)
+
+
+def _resolve_branding_logo(
+    *,
+    logo_config,
+    enabled: bool,
+    surface: str,
+) -> tuple[str, str, bool]:
+    if not enabled:
+        return "", logo_config.alt, False
+
+    preferred = (
+        logo_config.dark_src
+        if surface == "dark"
+        else logo_config.light_src
+    )
+    fallback = (
+        logo_config.light_src
+        if surface == "dark"
+        else logo_config.dark_src
+    )
+    src = preferred or fallback
+    return src, logo_config.alt, bool(src)
+
+
 def _render_slide(
     env: Environment,
     slide: Slide,
@@ -630,6 +687,21 @@ def _render_slide(
     slide_class = slide_class_map.get(
         resolved.template, "slide--body"
     )
+    branding_surface = _resolve_branding_surface(
+        slide_type,
+        resolved.template,
+        config,
+    )
+    cover_logo_src, cover_logo_alt, show_cover_logo = _resolve_branding_logo(
+        logo_config=config.branding.cover_logo,
+        enabled=slide_type in ("cover", "end") and config.branding.cover_logo_enabled,
+        surface=branding_surface,
+    )
+    footer_logo_src, footer_logo_alt, show_footer_logo = _resolve_branding_logo(
+        logo_config=config.branding.footer_logo,
+        enabled=slide_type in ("body", "agenda") and config.branding.footer_logo_enabled,
+        surface=branding_surface,
+    )
 
     variables = _base_vars(resolved, config, theme, page, css_base)
     variables.update(
@@ -641,6 +713,12 @@ def _render_slide(
         source=slide.source,
         show_source=bool(slide.source) or resolved.show_source,
         compact=resolved.compact,
+        cover_logo_src=cover_logo_src,
+        cover_logo_alt=cover_logo_alt,
+        show_cover_logo=show_cover_logo,
+        footer_logo_src=footer_logo_src,
+        footer_logo_alt=footer_logo_alt,
+        show_footer_logo=show_footer_logo,
     )
 
     # Template-specific content

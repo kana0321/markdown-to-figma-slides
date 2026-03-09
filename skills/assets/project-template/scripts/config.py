@@ -99,6 +99,33 @@ class AgendaConfig:
 
 
 @dataclass
+class BrandingLogoConfig:
+    light_src: str = ""
+    dark_src: str = ""
+    alt: str = "Company logo"
+
+
+@dataclass
+class BrandingSurfaceDefaults:
+    cover: str = "light"
+    end: str = "light"
+    agenda: str = "light"
+    body: str = "light"
+
+
+@dataclass
+class BrandingConfig:
+    cover_logo_enabled: bool = True
+    footer_logo_enabled: bool = True
+    cover_logo: BrandingLogoConfig = field(default_factory=BrandingLogoConfig)
+    footer_logo: BrandingLogoConfig = field(default_factory=BrandingLogoConfig)
+    surface_defaults: BrandingSurfaceDefaults = field(
+        default_factory=BrandingSurfaceDefaults
+    )
+    template_surface: dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
 class SlideOverride:
     match: str = ""
     template: str = ""
@@ -121,6 +148,7 @@ class DesignConfig:
     accent_bar: AccentBarConfig = field(default_factory=AccentBarConfig)
     agenda: AgendaConfig = field(default_factory=AgendaConfig)
     end: EndConfig = field(default_factory=EndConfig)
+    branding: BrandingConfig = field(default_factory=BrandingConfig)
     tokens: dict[str, str] = field(default_factory=dict)
     slides: list[SlideOverride] = field(default_factory=list)
 
@@ -292,6 +320,8 @@ def _merge_dataclass(target, source_dict: dict):
         current = getattr(target, attr_name)
         if isinstance(val, dict) and hasattr(current, "__dataclass_fields__"):
             _merge_dataclass(current, val)
+        elif isinstance(val, dict) and isinstance(current, dict):
+            current.update(val)
         else:
             setattr(target, attr_name, val)
 
@@ -342,6 +372,8 @@ def _apply_config_dict(config: DesignConfig, raw: dict) -> None:
         _merge_dataclass(config.agenda, raw["agenda"])
     if "end" in raw:
         _merge_dataclass(config.end, raw["end"])
+    if "branding" in raw:
+        _merge_dataclass(config.branding, raw["branding"])
     if "tokens" in raw and isinstance(raw["tokens"], dict):
         config.tokens.update({str(k): str(v) for k, v in raw["tokens"].items()})
     if "slides" in raw and isinstance(raw["slides"], list):

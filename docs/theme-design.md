@@ -69,6 +69,12 @@ theme が持つもの:
 - theme を切り替えたときに baseline が自然に変わる
 - project 固有の override だけが config に残る
 
+branding についても同じ方針を採る。
+
+- logo asset path は project が持つ
+- light / dark の surface policy は theme defaults が持つ
+- project config では必要なときだけ `branding.surface_defaults` / `branding.template_surface` を override する
+
 ### 3. 解決順序を固定する
 
 ```text
@@ -123,6 +129,10 @@ primitives -> semantic -> component -> shared slide.css -> theme slide.css
 - theme は 1 つだけでは設計の妥当性を判断しづらい
 - `design.config.yaml` に baseline 値を多く持たせると theme 切り替えが効かなくなる
 - contrast が強く異なる複数 theme を持つと、semantic token と shared CSS の責務分離の粗が見えやすい
+
+branding でも同様で、cover / end の logo を light にするか dark にするかを
+project config に毎回書かせるより、theme defaults に持たせた方が theme 切り替え時の
+自然さと `design.config.yaml` の薄さを保ちやすい。
 
 ## エラー方針
 

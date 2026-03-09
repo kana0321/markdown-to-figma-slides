@@ -53,6 +53,21 @@ paths:
 - `end.title`: End スライドのタイトル（デフォルト: `Thank you`）。
 - `end.subtitle`: End スライドのサブタイトル（デフォルト: 空）。
 
+## branding セクション
+
+- `branding.cover_logo_enabled`: Cover 上部ロゴの表示 ON/OFF。デフォルトは `true`。
+- `branding.cover_logo.light_src`: 明るい背景向けの Cover / End ロゴ画像パス。
+- `branding.cover_logo.dark_src`: 暗い背景向けの Cover / End ロゴ画像パス。
+- `branding.cover_logo.alt`: Cover ロゴ画像の alt テキスト。
+- `branding.footer_logo_enabled`: Body フッターロゴの表示 ON/OFF。デフォルトは `true`。
+- `branding.footer_logo.light_src`: 明るい背景向けの Body / Agenda フッターロゴ画像パス。
+- `branding.footer_logo.dark_src`: 暗い背景向けの Body / Agenda フッターロゴ画像パス。
+- `branding.footer_logo.alt`: Footer ロゴ画像の alt テキスト。
+- built-in theme defaults may provide `branding.surface_defaults` and `branding.template_surface` as the baseline policy.
+- `branding.surface_defaults`: project ごとの override。`cover`, `end`, `agenda`, `body` に `light` または `dark` を指定する。
+- `branding.template_surface`: template 名ごとの project override。例: `body-hero: dark`
+- `branding.*` の変更は CSS sync ではなく HTML 再生成が必要。
+
 ## slides[] オーバーライド
 
 - `slides[]` の `match` はタイプ名（`cover`, `section`, `body` 等）またはタイトル（`### タイトル`, `## タイトル`）で指定する。

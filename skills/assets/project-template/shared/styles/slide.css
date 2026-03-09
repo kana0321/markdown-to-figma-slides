@@ -226,6 +226,32 @@ body{
   align-items:flex-end;
   color: var(--component-footer-color);
 }
+.footer__right{
+  margin-left:auto;
+  display:inline-flex;
+  align-items:center;
+  gap: var(--semantic-size-section-gap-lg);
+}
+.footer__logo{
+  display:block;
+  width:auto;
+  height: 52px;
+  max-width: 320px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+.cover-branding{
+  display:inline-flex;
+  align-items:center;
+  max-width: min(720px, 100%);
+}
+.cover-branding__logo{
+  display:block;
+  width:auto;
+  height: 72px;
+  max-width: 100%;
+  object-fit:contain;
+}
 
 /* --- Card --- */
 .card{
@@ -602,11 +628,11 @@ body{
 .slide--fullimage .type-hero{ color: var(--component-fullimage-title-color); }
 .slide--fullimage .footer{ color: var(--component-fullimage-footer-color); }
 
-/* --- Footer page --- */
-.footer__page{ margin-left:auto; }
-
 /* --- Header eyebrow --- */
 .header .type-eyebrow{ color: var(--component-header-eyebrow-color); }
+.header--cover-branding{
+  align-items:flex-start;
+}
 
 /* --- Compact mode (v2) --- */
 .main--compact{

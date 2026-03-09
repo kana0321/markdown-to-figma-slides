@@ -17,6 +17,143 @@ from renderer import _render_slide, blocks_to_html
 
 
 class RendererTest(unittest.TestCase):
+    def make_env(self) -> Environment:
+        return Environment(
+            loader=FileSystemLoader(
+                [
+                    str(PROJECT_TEMPLATE_ROOT / "themes" / "classic" / "templates"),
+                    str(PROJECT_TEMPLATE_ROOT / "themes" / "classic" / "templates" / "custom"),
+                ]
+            ),
+            autoescape=False,
+        )
+
+    def test_render_slide_renders_cover_logo_from_branding_config(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.cover_logo_enabled = True
+        config.branding.cover_logo.light_src = "images/logo-light.svg"
+        config.branding.cover_logo.dark_src = "images/logo-dark.svg"
+        config.branding.cover_logo.alt = "Acme"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(type="cover", title="Cover Title")
+
+        html, _ = _render_slide(env, slide, "cover", config, theme, 1, "../../styles")
+
+        self.assertIn('class="cover-branding"', html)
+        self.assertIn('src="images/logo-light.svg"', html)
+        self.assertIn('alt="Acme"', html)
+
+    def test_render_slide_does_not_render_cover_logo_when_disabled(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.cover_logo_enabled = False
+        config.branding.cover_logo.dark_src = "images/logo-dark.svg"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(type="cover", title="Cover Title")
+
+        html, _ = _render_slide(env, slide, "cover", config, theme, 1, "../../styles")
+
+        self.assertNotIn('class="cover-branding"', html)
+
+    def test_render_slide_renders_body_footer_logo_from_branding_config(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.footer_logo_enabled = True
+        config.branding.footer_logo.light_src = "images/logo-light.svg"
+        config.branding.footer_logo.dark_src = "images/logo-dark.svg"
+        config.branding.footer_logo.alt = "Acme icon"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(
+            type="body",
+            title="Body Title",
+            blocks=[Block(type="paragraph", children=[Inline(type="text", text="Hello")])],
+        )
+
+        html, _ = _render_slide(env, slide, "body", config, theme, 3, "../../styles")
+
+        self.assertIn('class="footer__right"', html)
+        self.assertIn('class="footer__logo"', html)
+        self.assertIn('src="images/logo-light.svg"', html)
+        self.assertIn('alt="Acme icon"', html)
+        self.assertIn('class="footer__page type-caption">3</div>', html)
+
+    def test_render_slide_renders_agenda_footer_logo_from_branding_config(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.footer_logo_enabled = True
+        config.branding.footer_logo.light_src = "images/logo-light.svg"
+        config.branding.footer_logo.alt = "Agenda logo"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(type="agenda", title="Agenda")
+
+        html, _ = _render_slide(env, slide, "agenda", config, theme, 2, "../../styles")
+
+        self.assertIn('class="footer__logo"', html)
+        self.assertIn('src="images/logo-light.svg"', html)
+        self.assertIn('alt="Agenda logo"', html)
+        self.assertIn('class="footer__page type-caption">2</div>', html)
+
+    def test_render_slide_renders_end_cover_logo_from_branding_config(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.cover_logo_enabled = True
+        config.branding.cover_logo.light_src = "images/logo-light.svg"
+        config.branding.cover_logo.dark_src = "images/logo-dark.svg"
+        config.branding.cover_logo.alt = "End logo"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(type="end", title="Thank you")
+
+        html, _ = _render_slide(env, slide, "end", config, theme, 99, "../../styles")
+
+        self.assertIn('class="cover-branding"', html)
+        self.assertIn('src="images/logo-light.svg"', html)
+        self.assertIn('alt="End logo"', html)
+
+    def test_render_slide_does_not_render_footer_logo_when_disabled(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.footer_logo_enabled = False
+        config.branding.footer_logo.light_src = "images/logo-light.svg"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(
+            type="body",
+            title="Body Title",
+            blocks=[Block(type="paragraph", children=[Inline(type="text", text="Hello")])],
+        )
+
+        html, _ = _render_slide(env, slide, "body", config, theme, 3, "../../styles")
+
+        self.assertNotIn('class="footer__logo"', html)
+
+    def test_render_slide_uses_template_surface_override_for_dark_footer_logo(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.footer_logo.light_src = "images/logo-light.svg"
+        config.branding.footer_logo.dark_src = "images/logo-dark.svg"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(
+            type="body",
+            title="Hero Body",
+            comment={"template": "body-hero"},
+            blocks=[Block(type="paragraph", children=[Inline(type="text", text="Hello")])],
+        )
+
+        html, _ = _render_slide(env, slide, "body", config, theme, 4, "../../styles")
+
+        self.assertIn('src="images/logo-dark.svg"', html)
+
+    def test_render_slide_falls_back_to_other_logo_variant_when_preferred_missing(self) -> None:
+        env = self.make_env()
+        config = load_config(PROJECT_TEMPLATE_ROOT / "design.config.yaml")
+        config.branding.cover_logo.light_src = "images/logo-light.svg"
+        theme = load_theme(PROJECT_TEMPLATE_ROOT, "classic")
+        slide = Slide(type="cover", title="Cover Title")
+
+        html, _ = _render_slide(env, slide, "cover", config, theme, 1, "../../styles")
+
+        self.assertIn('src="images/logo-light.svg"', html)
+
     def test_blocks_to_html_renders_grid_with_css_grid_styles(self) -> None:
         grid = Block(
             type="grid",

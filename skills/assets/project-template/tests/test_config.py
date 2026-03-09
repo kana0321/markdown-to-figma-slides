@@ -146,6 +146,14 @@ class ConfigTest(unittest.TestCase):
               tokens:
                 surface-bg: "theme-surface"
                 accent: "theme-accent"
+              branding:
+                surface_defaults:
+                  cover: dark
+                  end: dark
+                  agenda: light
+                  body: light
+                template_surface:
+                  body-hero: dark
               slides:
                 - match: body
                   template: body-text
@@ -157,6 +165,13 @@ class ConfigTest(unittest.TestCase):
               name: "custom"
             global:
               lang: "fr"
+            branding:
+              cover_logo:
+                light_src: "images/project-cover-light.svg"
+              footer_logo:
+                dark_src: "images/project-footer-dark.svg"
+              template_surface:
+                body-grid-full: dark
             badge:
               text: "Project Badge"
             tokens:
@@ -172,6 +187,19 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.theme.name, "custom")
         self.assertEqual(config.global_.lang, "fr")
         self.assertEqual(config.global_.fonts.sans, "Theme Sans")
+        self.assertTrue(config.branding.cover_logo_enabled)
+        self.assertEqual(
+            config.branding.cover_logo.light_src,
+            "images/project-cover-light.svg",
+        )
+        self.assertEqual(
+            config.branding.footer_logo.dark_src,
+            "images/project-footer-dark.svg",
+        )
+        self.assertEqual(config.branding.surface_defaults.cover, "dark")
+        self.assertEqual(config.branding.surface_defaults.body, "light")
+        self.assertEqual(config.branding.template_surface["body-hero"], "dark")
+        self.assertEqual(config.branding.template_surface["body-grid-full"], "dark")
         self.assertTrue(config.badge.enabled)
         self.assertEqual(config.badge.text, "Project Badge")
         self.assertEqual(config.tokens["surface-bg"], "theme-surface")

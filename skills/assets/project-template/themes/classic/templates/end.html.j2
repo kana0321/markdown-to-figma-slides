@@ -1,5 +1,15 @@
 {% extends "base.html.j2" %}
 
+{% block header %}
+{% if show_cover_logo %}
+<div class="header header--cover-branding">
+  <div class="cover-branding">
+    <img class="cover-branding__logo" src="{{ cover_logo_src | e }}" alt="{{ cover_logo_alt | e }}" />
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block main %}
 <div class="main main--center al-col gap-md">
   <div class="type-display w-hero">{{ title }}</div>

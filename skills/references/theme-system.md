@@ -20,6 +20,7 @@ Treat the theme system as switching design packages, not just swapping colors.
 - The active theme is defined by `design.config.yaml.theme.name`
 - The source of truth for render assets is `themes/<name>/`
 - The baseline look is defined by theme defaults
+- The baseline branding surface policy is also defined by theme defaults
 - `design.config.yaml` should contain only project-specific overrides
 
 ## Directory Layout
@@ -72,6 +73,7 @@ slides: []
 Principles:
 
 - Keep the baseline in theme defaults
+- Keep baseline branding surface selection in theme defaults
 - Prefer a setup where the baseline changes naturally when the theme changes
 - Add only project-specific adjustments to `design.config.yaml`
 
@@ -136,8 +138,15 @@ Rules:
 - `accent_bar`
 - `agenda`
 - `end`
+- `branding`
 - `tokens`
 - `slides`
+
+For branding, the recommended split is:
+
+- Theme defaults define `branding.surface_defaults` and `branding.template_surface`
+- Project config defines `branding.cover_logo` and `branding.footer_logo`
+- Project config overrides the surface policy only when the project needs a different policy from the active theme
 
 ## Theme CLI
 

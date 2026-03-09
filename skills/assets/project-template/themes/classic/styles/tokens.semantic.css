@@ -39,7 +39,7 @@
   --semantic-size-slide-height:         var(--primitives-size-slide-height);
   --semantic-size-slide-padding-x:      var(--primitives-space-96);
   --semantic-size-slide-padding-top:    var(--primitives-space-96);
-  --semantic-size-slide-padding-bottom: var(--primitives-space-80);
+  --semantic-size-slide-padding-bottom: var(--primitives-space-48);
   --semantic-size-content-max-width:    var(--primitives-size-content-max-width);
   --semantic-size-hero-max-width:       var(--primitives-size-hero-max-width);
 

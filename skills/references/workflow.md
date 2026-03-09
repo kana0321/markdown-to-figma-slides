@@ -26,6 +26,38 @@ Optionally copy the bundled sample deck:
 cp /path/to/repo/skills/assets/sample-catalog.md /path/to/my-slides/input/raw/sample-catalog.md
 ```
 
+If you want a company logo on the cover / end or body / agenda footer, place the image files under
+`input/raw/images/` and reference them from `design.config.yaml.branding`.
+Use separate `light_src` / `dark_src` assets for each placement, and let the renderer
+select between them based on slide type and template surface rules.
+Both placements default to enabled. Set `cover_logo_enabled: false` and/or
+`footer_logo_enabled: false` when you want to hide them.
+
+Example:
+
+```yaml
+branding:
+  cover_logo:
+    light_src: "images/logo-horizontal-light.svg"
+    dark_src: "images/logo-horizontal-dark.svg"
+    alt: "Company logo"
+  footer_logo:
+    light_src: "images/logo-horizontal-light.svg"
+    dark_src: "images/logo-horizontal-dark.svg"
+    alt: "Company logo"
+```
+
+Practical rule of thumb:
+
+- built-in theme defaults already choose the recommended surface policy
+- `classic` / `minimal`: cover / end default to `light`
+- `gradient-blue`: cover / end default to `dark`
+- `agenda` / normal `body`: default to `light`
+- `body-hero`: defaults to `dark`
+
+Add `branding.surface_defaults` or `branding.template_surface` only when your project
+needs to override the active theme's defaults.
+
 Confirm available themes if needed:
 
 ```bash
@@ -63,6 +95,7 @@ Outputs:
 | Active theme templates (`themes/<name>/templates/*.html.j2`) | Rerun `./scripts/run_pipeline.sh ...` |
 | `design.config.yaml` `theme.name` | Rerun `./scripts/run_pipeline.sh ...` |
 | Colors, fonts, or tokens in `design.config.yaml` | Run `python3 scripts/sync_tokens.py --project-root . --version vN` |
+| `design.config.yaml` `branding.*` (logo paths, alt text, or surface overrides) | Rerun `./scripts/run_pipeline.sh ...` |
 | `slides[]` template selection in `design.config.yaml` | Rerun `./scripts/run_pipeline.sh ...` |
 | Active theme CSS or `shared/styles/slide.css` | Run `python3 scripts/sync_tokens.py --project-root . --version vN` |
 
