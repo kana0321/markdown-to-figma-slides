@@ -505,6 +505,18 @@ async function fetchSlides(deckId) {
 
 出典: 総務省「情報通信白書」令和7年版
 
+### Branding ロゴ
+
+branding ロゴは Markdown 記法ではなく、`design.config.yaml` 側の設定で制御します。
+project template の初期状態では、同梱の sample ロゴが有効になっています。
+
+- cover / end 上部は `branding.cover_logo`
+- body / agenda footer は `branding.footer_logo`
+- 非表示にしたい側だけ `cover_logo_enabled: false` または `footer_logo_enabled: false`
+- 差し替えたい場合は `light_src` / `dark_src` を更新
+
+このカタログを project template で生成すると、cover / agenda / body / end の各スライドでロゴ配置を確認できます。
+
 
 ## Templates
 
@@ -1007,3 +1019,15 @@ Subtitles are supported on `##` section slides and `#` cover slides. See the "Me
 This slide demonstrates the automatic source extraction feature. When the last paragraph of a slide starts with a recognized prefix, it is moved to the footer.
 
 Source: Gartner, "Market Guide for Slide Automation," 2025
+
+### Branding Logos
+
+Branding logos are controlled from `design.config.yaml`, not from Markdown syntax.
+In the bundled project template, the sample logos are enabled by default.
+
+- `branding.cover_logo` controls the cover / end header logo
+- `branding.footer_logo` controls the body / agenda footer logo
+- Hide one side only with `cover_logo_enabled: false` or `footer_logo_enabled: false`
+- Replace the logo pair by updating `light_src` / `dark_src`
+
+When you generate this catalog from the bundled project template, you can review the default logo placement on cover, agenda, body, and end slides.

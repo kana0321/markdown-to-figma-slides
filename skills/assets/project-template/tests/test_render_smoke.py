@@ -75,7 +75,7 @@ class RenderSmokeTest(unittest.TestCase):
             result = self.run_generate(theme_name, version)
 
             self.assertIn("generated:", result.stdout)
-            self.assertIn("(81 slides)", result.stdout)
+            self.assertIn("(83 slides)", result.stdout)
             self.assert_render_output(version)
 
         self.assertTrue((self.project_root / "output" / "slides.html").exists())
