@@ -135,7 +135,7 @@ Switch the active theme:
 ```bash
 python3 scripts/theme.py --project-root . list
 python3 scripts/theme.py --project-root . current
-python3 scripts/theme.py --project-root . apply classic
+python3 scripts/theme.py --project-root . apply gradient-blue
 ```
 
 Keep `design.config.yaml` thin. The baseline design should come from theme defaults, not from project-level baseline overrides.

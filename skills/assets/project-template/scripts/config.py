@@ -7,7 +7,7 @@ from pathlib import Path
 
 import yaml
 
-DEFAULT_THEME_NAME = "classic"
+DEFAULT_THEME_NAME = "gradient-blue"
 
 
 # ---------------------------------------------------------------------------

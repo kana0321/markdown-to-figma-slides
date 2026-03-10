@@ -63,7 +63,7 @@ Minimal example:
 
 ```yaml
 theme:
-  name: "classic"
+  name: "gradient-blue"
 
 tokens: {}
 
