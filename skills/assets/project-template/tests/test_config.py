@@ -137,19 +137,19 @@ class ConfigTest(unittest.TestCase):
         self.assertTrue(config.branding.footer_logo_enabled)
         self.assertEqual(
             config.branding.cover_logo.light_src,
-            "images/logo-horizontal-light.svg",
+            "images/logo-horizontal-light.png",
         )
         self.assertEqual(
             config.branding.cover_logo.dark_src,
-            "images/logo-horizontal-dark.svg",
+            "images/logo-horizontal-dark.png",
         )
         self.assertEqual(
             config.branding.footer_logo.light_src,
-            "images/logo-horizontal-light.svg",
+            "images/logo-horizontal-light.png",
         )
         self.assertEqual(
             config.branding.footer_logo.dark_src,
-            "images/logo-horizontal-dark.svg",
+            "images/logo-horizontal-dark.png",
         )
 
     def test_load_config_merges_theme_defaults_then_project_overrides(self) -> None:

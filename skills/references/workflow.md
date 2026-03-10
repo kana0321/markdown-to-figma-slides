@@ -39,12 +39,12 @@ Example:
 ```yaml
 branding:
   cover_logo:
-    light_src: "images/logo-horizontal-light.svg"
-    dark_src: "images/logo-horizontal-dark.svg"
+    light_src: "images/logo-horizontal-light.png"
+    dark_src: "images/logo-horizontal-dark.png"
     alt: "Company logo"
   footer_logo:
-    light_src: "images/logo-horizontal-light.svg"
-    dark_src: "images/logo-horizontal-dark.svg"
+    light_src: "images/logo-horizontal-light.png"
+    dark_src: "images/logo-horizontal-dark.png"
     alt: "Company logo"
 ```
 
